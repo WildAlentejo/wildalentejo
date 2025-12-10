@@ -4,14 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja Online - Wild Alentejo</title>
-    <meta http-equiv="refresh" content="0; url=https://www.shopify.com/br">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos específicos para o layout da Loja */
+        .produto-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e0e0d7;
+        }
+        .produto-img {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .produto-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .produto-info {
+            flex-grow: 1;
+        }
+        .produto-info h3 {
+            margin-top: 0;
+            border-bottom: none;
+            color: #2D4C2F;
+        }
+        .preco {
+            font-size: 1.8em;
+            color: #8DAF57;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container" style="text-align: center; padding-top: 100px;">
-        <h2 style="font-weight: 700;">A Redirecionar para a Loja Online...</h2>
-        <p>Se não for redirecionado automaticamente, clique no link abaixo.</p>
-        <p><a href="loja.html" class="btn-principal">Ir para a Loja Wild Alentejo</a></p>
-    </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Wild Alentejo Logo">
+            </div>
+            <nav>
+                <a href="index.html">Início</a> | 
+                <a href="sistemas.html">Sistemas Off-Grid</a> | 
+                <a href="agrofloresta.html">Agrofloresta</a> | 
+                <a href="blog.html">Blog</a> | 
+                <a href="loja.html">Loja</a> | 
+                <a href="sobre.html">Sobre & Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2 style="font-weight: 700;">Loja Online: Produtos e Guias Técnicos</h2>
+            <p>Apoie o projeto Wild Alentejo através da aquisição dos nossos guias práticos e produtos artesanais/sementes excedentes.</p>
+
+            <div class="produto-item">
+                <div class="produto-img">
+                    <img src="img/guia-sanitario.jpg" alt="Capa Guia Sanitário">
+                </div>
+                <div class="produto-info">
+                    <h3>Guia Prático: Sanita Seca e Ciclo de Nutrientes (PDF)</h3>
+                    <p>O protocolo completo, baseado em evidências, para a gestão da sanita seca e a diluição/aplicação de urina como fertilizante NPK. Essencial para o solo semi-árido.</p>
+                    <div class="preco">15.00 €</div>
+                    <a href="[LINK DO PAYPAL AQUI - PRODUTO 1]" class="btn-principal" target="_blank">Comprar Agora (PayPal)</a>
+                </div>
+            </div>
+
+            <div class="produto-item">
+                <div class="produto-img">
+                    <img src="img/sementes-sintropicas.jpg" alt="Sementes Agrofloresta">
+                </div>
+                <div class="produto-info">
+                    <h3>Sementes de Sucessão Rápida (Excedentes Agrofloresta)</h3>
+                    <p>Mix de sementes perenes e anuais de ciclo curto adaptadas às condições de Mértola, ideal para iniciar a criação de biomassa e *mulch* no seu sistema.</p>
+                    <div class="preco">8.50 €</div>
+                    <a href="[LINK DO PAYPAL AQUI - PRODUTO 2]" class="btn-principal" target="_blank">Comprar Agora (PayPal)</a>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 40px; font-size: 0.9em;">**Nota sobre Envio:** Para produtos físicos, os custos de envio serão adicionados no *checkout* do PayPal.</p>
+
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>
+                &copy; 2025 Wild Alentejo. | 
+                <a href="privacidade.html" style="color: inherit;">Política de Privacidade</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
