@@ -50,6 +50,13 @@
             display: inline-block;
             margin-top: 15px;
         }
+        
+        /* 🛑 CORREÇÃO CRÍTICA PARA O TEXTO NA VERTICAL 🛑 */
+        .paypal-btn span {
+            white-space: nowrap !important; /* Impede a quebra de linha do texto do PayPal */
+            display: inline-block !important; /* Garante que o span é tratado inline */
+        }
+        
     </style>
 </head>
 <body>
@@ -103,7 +110,11 @@
                     <h3>Guia Prático: Sanita Seca e Ciclo de Nutrientes (PDF)</h3>
                     <p>O protocolo completo, baseado em evidências, para a gestão da sanita seca e a diluição/aplicação de urina como fertilizante NPK. Essencial para o solo semi-árido.</p>
                     <div class="preco">15.00 €</div>
-                    <a href="#" class="btn-principal" target="_blank">Comprar Agora (Sem Carinho - Link Direto)</a>
+                    
+                    <div class="paypal-btn">
+                        <paypal-add-to-cart-button data-id="ID-GUIA-SANITARIO"></paypal-add-to-cart-button>
+                        <script> cartPaypal.AddToCart({ id: "ID-GUIA-SANITARIO" })</script>
+                    </div>
                 </div>
             </div>
 
@@ -115,7 +126,11 @@
                     <h3>Sementes de Sucessão Rápida (Excedentes Agrofloresta)</h3>
                     <p>Mix de sementes perenes e anuais de ciclo curto adaptadas às condições de Mértola, ideal para iniciar a criação de biomassa e *mulch* no seu sistema.</p>
                     <div class="preco">8.50 €</div>
-                    <a href="#" class="btn-principal" target="_blank">Comprar Agora (Sem Carinho - Link Direto)</a>
+                    
+                    <div class="paypal-btn">
+                        <paypal-add-to-cart-button data-id="ID-SEMENTES-SUCESSAO"></paypal-add-to-cart-button>
+                        <script> cartPaypal.AddToCart({ id: "ID-SEMENTES-SUCESSAO" })</script>
+                    </div>
                 </div>
             </div>
 
