@@ -1,1 +1,256 @@
+/*
+=============================
+1. REGRAS DE BASE E TIPOGRAFIA
+=============================
+*/
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; /* Fonte moderna e limpa */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F4EC; /* Fundo creme claro (cor do logo) */
+    color: #333; /* Cor do texto principal */
+}
 
+.container {
+    width: 90%;
+    max-width: 1000px; /* Largura máxima para desktops */
+    margin: 0 auto; /* Centrar o conteúdo */
+    padding: 20px 0;
+}
+
+/*
+=============================
+2. HEADER E NAVEGAÇÃO
+=============================
+*/
+header {
+    background-color: #2D4C2F; /* Verde escuro do logo */
+    color: white;
+    padding: 15px 0;
+    text-align: center; /* Centralizar logo e nav */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.logo {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.logo img {
+    height: 60px; /* Tamanho do logo no header */
+    width: auto;
+}
+
+header h1 { /* Esconder o H1 de texto se o logo for a imagem */
+    display: none; 
+}
+
+header nav {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+header nav a {
+    color: #E8E5DF; /* Cor mais clara para links no nav */
+    text-decoration: none;
+    padding: 10px 18px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #8DAF57; /* Verde claro/oliva do logo */
+    background-color: rgba(255,255,255,0.1); /* Fundo suave no hover */
+    border-radius: 4px;
+}
+
+/*
+=============================
+3. ESTILO DE TÍTULOS E SECÇÕES
+=============================
+*/
+h2, h3, h4 {
+    color: #2D4C2F; /* Verde escuro para títulos */
+    border-bottom: 1px solid #A1A783; /* Linha de divisão em tom verde oliva */
+    padding-bottom: 8px;
+    margin-top: 35px;
+}
+
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.4em; }
+
+p {
+    margin-bottom: 1em;
+}
+
+/*
+=============================
+4. ESTILO DAS TABELAS (Dados Técnicos)
+=============================
+*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: white; /* Fundo branco para tabelas */
+}
+
+th, td {
+    border: 1px solid #E0E0D7; /* Borda da tabela em creme suave */
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #8DAF57; /* Verde oliva do logo para cabeçalho */
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) { /* Zebrado para leitura fácil */
+    background-color: #FBFBF9;
+}
+
+/*
+=============================
+5. BOTÕES E LINKS PRINCIPAIS
+=============================
+*/
+.btn-principal {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #8DAF57; /* Verde oliva para botões */
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-principal:hover {
+    background-color: #2D4C2F; /* Verde escuro no hover */
+    transform: translateY(-2px);
+}
+
+a {
+    color: #4A6E4D; /* Links normais num tom de verde */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #8DAF57;
+}
+
+/*
+=============================
+6. Grelha de Métricas na Home
+=============================
+*/
+.metricas-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.metrica {
+    flex: 1;
+    min-width: 280px;
+    max-width: 320px; /* Limitar largura para desktop */
+    padding: 25px;
+    border: 1px solid #D6D2C4; /* Borda mais suave */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.metrica h4 {
+    color: #2D4C2F;
+    border-bottom: none;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.metrica p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.metrica a {
+    font-weight: 600;
+    color: #8DAF57;
+}
+
+/*
+=============================
+7. FOOTER
+=============================
+*/
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    background-color: #2D4C2F; /* Fundo do footer em verde escuro */
+    color: #E8E5DF; /* Texto em creme claro */
+    font-size: 0.85em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+footer a {
+    color: #8DAF57;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/*
+=============================
+8. RESPONSIVIDADE BÁSICA
+=============================
+*/
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    header nav a {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+
+    .metricas-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .metrica {
+        min-width: unset;
+        width: 90%;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    header nav a {
+        display: block;
+        margin: 5px 0;
+    }
+    .logo {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+}
