@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja Online - Wild Alentejo</title>
     <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="PYSU2BNBVLMZS"></script>
+    
     <style>
         /* Estilos específicos para o layout da Loja */
         .produto-item {
@@ -42,11 +45,21 @@
             font-weight: 700;
             margin: 10px 0;
         }
+        /* Estilo para alinhar o botão do PayPal com o estilo principal */
+        .paypal-btn {
+            display: inline-block;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
+            <div style="float: right; margin-top: 20px;">
+                <paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
+                <script> cartPaypal.Cart({ id: "pp-view-cart" })</script>
+            </div>
+            
             <div class="logo">
                 <img src="img/logo.png" alt="Wild Alentejo Logo">
             </div>
@@ -68,13 +81,29 @@
 
             <div class="produto-item">
                 <div class="produto-img">
+                    <img src="img/luffa.jpg" alt="Sementes de Luffa">
+                </div>
+                <div class="produto-info">
+                    <h3>🌞 Sementes de Luffa - Esponja Vegetal (30 Sementes)</h3>
+                    <div class="preco">5.00 €</div>
+                    <p>Cultive a sua alternativa 100% natural, biodegradável e sustentável às esponjas sintéticas de plástico. Estas sementes provêm de plantas adaptadas a condições de stress hídrico e clima semi-árido no Sul de Portugal (Mértola), garantindo maior robustez e eficácia na sua horta.</p>
+                    
+                    <div class="paypal-btn">
+                        <paypal-add-to-cart-button data-id="47WFXYG99GJCJ"></paypal-add-to-cart-button>
+                        <script> cartPaypal.AddToCart({ id: "47WFXYG99GJCJ" })</script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="produto-item">
+                <div class="produto-img">
                     <img src="img/guia-sanitario.jpg" alt="Capa Guia Sanitário">
                 </div>
                 <div class="produto-info">
                     <h3>Guia Prático: Sanita Seca e Ciclo de Nutrientes (PDF)</h3>
                     <p>O protocolo completo, baseado em evidências, para a gestão da sanita seca e a diluição/aplicação de urina como fertilizante NPK. Essencial para o solo semi-árido.</p>
                     <div class="preco">15.00 €</div>
-                    <a href="[LINK DO PAYPAL AQUI - PRODUTO 1]" class="btn-principal" target="_blank">Comprar Agora (PayPal)</a>
+                    <a href="#" class="btn-principal" target="_blank">Comprar Agora (Sem Carinho - Link Direto)</a>
                 </div>
             </div>
 
@@ -86,7 +115,7 @@
                     <h3>Sementes de Sucessão Rápida (Excedentes Agrofloresta)</h3>
                     <p>Mix de sementes perenes e anuais de ciclo curto adaptadas às condições de Mértola, ideal para iniciar a criação de biomassa e *mulch* no seu sistema.</p>
                     <div class="preco">8.50 €</div>
-                    <a href="[LINK DO PAYPAL AQUI - PRODUTO 2]" class="btn-principal" target="_blank">Comprar Agora (PayPal)</a>
+                    <a href="#" class="btn-principal" target="_blank">Comprar Agora (Sem Carinho - Link Direto)</a>
                 </div>
             </div>
 
