@@ -5,6 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistemas Off-Grid - Wild Alentejo</title>
     <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* CSS adicional para garantir que os dados apareçam bem */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f7f7f0;
+            border-radius: 8px;
+        }
+        .data-item h3 {
+            margin-top: 0;
+            color: #2D4C2F;
+            font-size: 1.2em;
+        }
+        .data-value {
+            font-size: 2.2em;
+            color: #8DAF57;
+            font-weight: 700;
+            display: block;
+            margin-top: 5px;
+        }
+        /* Estilo para tornar o iframe do YouTube responsivo */
+        .video-container {
+            position: relative; 
+            padding-bottom: 56.25%; /* Relação de aspeto 16:9 */
+            height: 0; 
+            overflow: hidden; 
+            max-width: 100%;
+            margin-top: 20px;
+        }
+        .video-container iframe {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -28,6 +70,50 @@
             <h2 style="font-weight: 700;">Sistemas Essenciais Off-Grid</h2>
             <p>Documentação detalhada e separada das infraestruturas críticas de suporte à vida e ao projeto no contexto de Mértola. Foco em medições e resultados.</p>
 
+            <section id="monitorizacao-video" style="margin-top: 50px;">
+                <h2>🎥 Visualização em Direto</h2>
+                <p>Acompanhe o estado das instalações solares e o clima no Alentejo através do nosso feed em direto.</p>
+
+                <div class="video-container">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="https://www.youtube.com/embed/SEU_ID_DO_STREAM_AQUI?autoplay=1&mute=1&loop=1&playlist=SEU_ID_DO_STREAM_AQUI" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                    ></iframe>
+                </div>
+            </section>
+
+
+            <section id="dados-sensores" style="margin-top: 50px;">
+                <h2>📊 Dados de Monitorização em Tempo Real</h2>
+                <p>Métricas vitais recolhidas do Home Assistant. Última atualização: <strong id="last_updated">A carregar...</strong></p>
+                
+                <div class="data-grid">
+                    <div class="data-item">
+                        <h3>Tensão da Bateria</h3>
+                        <span id="display_voltage" class="data-value">--</span><small> V</small>
+                    </div>
+                    <div class="data-item">
+                        <h3>Nível de Carga (SOC)</h3>
+                        <span id="display_soc" class="data-value">--</span><small> %</small>
+                    </div>
+                    <div class="data-item">
+                        <h3>Nível da Água do Poço</h3>
+                        <span id="display_water" class="data-value">--</span><small> %</small>
+                    </div>
+                    <div class="data-item">
+                        <h3>Temperatura Estufa</h3>
+                        <span id="display_temp" class="data-value">--</span><small> °C</small>
+                    </div>
+                </div>
+            </section>
+            
+            <hr style="margin-top: 40px; margin-bottom: 40px;">
+            
             <section class="sistema-card" style="margin-top: 30px; border: 1px solid #ddd; padding: 20px; background-color: white;">
                 <h3>⚡ Energia e Autonomia</h3>
                 <p>Componentes instalados (1000W Solar, 360Ah Baterias) e análise da performance.</p>
@@ -68,5 +154,48 @@
             </p>
         </div>
     </footer>
+
+    <script>
+        // ⚠️ ATENÇÃO: SUBSTITUA COM OS SEUS DADOS REAIS ⚠️
+        const GIST_ID = '9b75822726a8c2ae2b8d372503a8c38a'; 
+        const GITHUB_USERNAME = 'WildAlentejo'; // O SEU NOME DE UTILIZADOR NO GITHUB
+        const GIST_URL_RAW = `https://gist.githubusercontent.com/${GITHUB_USERNAME}/${GIST_ID}/raw/wild-alentejo-sensors.json`;
+
+        function fetchSensorData() {
+            fetch(GIST_URL_RAW)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // O HA envia o JSON como uma string dentro do campo 'content'. Temos de a analisar:
+                    const sensorData = JSON.parse(data.content); 
+                    
+                    // ⚠️ Mapeamento dos campos JSON para os elementos HTML ⚠️
+                    
+                    // Dados de Energia
+                    document.getElementById('display_voltage').textContent = sensorData.battery_voltage ? sensorData.battery_voltage.toFixed(2) : '--';
+                    document.getElementById('display_soc').textContent = sensorData.battery_soc ? sensorData.battery_soc.toFixed(0) : '--';
+
+                    // Dados de Água/Estufa
+                    document.getElementById('display_water').textContent = sensorData.well_water_level ? sensorData.well_water_level.toFixed(0) : '--';
+                    document.getElementById('display_temp').textContent = sensorData.greenhouse_temp_c ? sensorData.greenhouse_temp_c.toFixed(1) : '--';
+                    
+                    // Última Atualização
+                    document.getElementById('last_updated').textContent = sensorData.last_updated;
+                })
+                .catch(error => {
+                    console.error('Falha ao carregar dados dos sensores (Gist):', error);
+                    document.getElementById('last_updated').textContent = 'Erro ao carregar dados.';
+                });
+        }
+
+        // Carregar dados imediatamente
+        fetchSensorData();
+        // Opcional: Atualizar a cada 5 minutos (300000 ms)
+        setInterval(fetchSensorData, 300000); 
+    </script>
 </body>
 </html>
