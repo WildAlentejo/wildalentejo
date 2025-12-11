@@ -3,15 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Wild Alentejo</title>
-    <meta http-equiv="refresh" content="0; url=https://accounts.google.com/ServiceLogin?service=blogger&hl=pt_BR&passive">
+    <title>Blog - Wild Alentejo</title>
     <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .post-listing {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-left: 5px solid #8DAF57; /* Destaque verde */
+            border-radius: 4px;
+        }
+        .post-listing h3 {
+            margin-top: 0;
+            color: #2D4C2F;
+        }
+        .post-listing .date {
+            font-size: 0.9em;
+            color: #777;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container" style="text-align: center; padding-top: 100px;">
-        <h2 style="font-weight: 700;">A Redirecionar para o Blog...</h2>
-        <p>Se não for redirecionado automaticamente, clique no link abaixo.</p>
-        <p><a href="blog.html" class="btn-principal">Ir para o Blog de Dados Técnicos</a></p>
-    </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Wild Alentejo Logo">
+            </div>
+            <nav>
+                <a href="index.html">Início</a> | 
+                <a href="sistemas.html">Sistemas Off-Grid</a> | 
+                <a href="agrofloresta.html">Agrofloresta</a> | 
+                <a href="blog.html">Blog</a> | 
+                <a href="loja.html">Loja</a> | 
+                <a href="sobre.html">Sobre & Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2 style="font-weight: 700;">🌱 Blog & Diário de Campo</h2>
+            <p>Reflexões, artigos técnicos e atualizações sobre a vida off-grid, agrofloresta e desafios do semi-árido em Mértola.</p>
+
+            <section id="post-list" style="margin-top: 40px;">
+                
+                <div class="post-listing">
+                    <span class="date">10 Dezembro 2025</span>
+                    <h3>Otimização do Carregamento Solar no Inverno: Estratégias MPPT</h3>
+                    <p>Análise da eficiência dos controladores MPPT com base na nebulosidade típica do Alentejo no período de baixa insolação. Resultados com os controladores 60A.</p>
+                    <a href="post_solar_otimizado.html" class="btn-principal" style="background-color: #8DAF57; display: inline-block;">Ler Mais</a>
+                </div>
+
+                <div class="post-listing">
+                    <span class="date">28 Novembro 2025</span>
+                    <h3>Urina Humana como Fertilizante: Protocolo de Diluição e Aplicação na Estufa</h3>
+                    <p>Detalhes sobre a recolha, taxa de diluição (1:10) e impacto no desenvolvimento das culturas na estufa 3x6m. Análise de nutrientes (N-P-K).</p>
+                    <a href="post_fertilizacao_h2o.html" class="btn-principal" style="background-color: #8DAF57; display: inline-block;">Ler Mais</a>
+                </div>
+
+                <div class="post-listing">
+                    <span class="date">15 Novembro 2025</span>
+                    <h3>A Batalha Anual: Níveis Críticos do Poço e a Resiliência da Agrofloresta</h3>
+                    <p>Relatório de monitorização hídrica do Verão, lições aprendidas e o desempenho das espécies adaptadas à seca no sistema sintrópico.</p>
+                    <a href="post_seca_agro.html" class="btn-principal" style="background-color: #8DAF57; display: inline-block;">Ler Mais</a>
+                </div>
+
+                </section>
+            
+            <section id="comments-section" style="padding: 40px 0; border-top: 1px solid #ddd; margin-top: 40px;">
+                <h3>💬 Discussão Geral do Blog</h3>
+                <p>Deixe o seu comentário ou feedback sobre o projeto. (Requer login no GitHub)</p>
+                
+                <div id="utterances-comments">
+                    <script src="https://utteranc.es/client.js"
+                        repo="WildAlentejo/wildalentejo.github.io" 
+                        issue-term="pathname" 
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                &copy; 2025 Wild Alentejo. | 
+                <a href="privacidade.html" style="color: inherit;">Política de Privacidade</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
