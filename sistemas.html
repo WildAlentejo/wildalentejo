@@ -18,19 +18,18 @@
         nav a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
         nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); padding-bottom: 3px; }
 
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0 40px; }
-        .data-item { background: var(--card-bg); padding: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05); text-align: center; border-bottom: 3px solid var(--secondary); }
-        .data-item h3 { font-size: 0.65rem; text-transform: uppercase; color: #888; margin: 0 0 10px; }
-        .data-value { font-size: 1.6rem; font-weight: 800; color: var(--primary); display: block; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0 40px; }
+        .data-item { background: var(--card-bg); padding: 15px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05); text-align: center; border-bottom: 3px solid var(--secondary); }
+        .data-item h3 { font-size: 0.6rem; text-transform: uppercase; color: #888; margin: 0 0 5px; }
+        .data-value { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
 
-        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 25px; }
-        .chart-card { background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .chart-card h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); padding: 10px; margin: 0; border-bottom: 1px solid #eee; }
-        .plot-div { width: 100%; height: 300px; }
+        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+        .chart-card { background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .chart-card h3 { font-size: 0.75rem; text-transform: uppercase; color: var(--primary); padding: 5px 10px; margin: 0; border-bottom: 1px solid #eee; }
+        .plot-div { width: 100%; height: 280px; }
 
-        #loader { text-align: center; padding: 100px; font-weight: bold; color: var(--primary); }
-        footer { background: url('img/pattern-alentejo.png'), var(--primary); background-blend-mode: overlay; color: white; padding: 40px 0; text-align: center; margin-top: 60px; border-top: 3px solid var(--secondary); }
-        @media (max-width: 768px) { header .container { gap: 20px; flex-direction: column; } }
+        footer { background: url('img/pattern-alentejo.png'), var(--primary); background-blend-mode: overlay; color: white; padding: 30px 0; text-align: center; margin-top: 60px; }
+        @media (max-width: 768px) { .charts-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -42,91 +41,109 @@
                 <a href="index.html">Início</a>
                 <a href="sistema.html" class="active">O Sistema</a>
                 <a href="logbook.html">Logbook</a>
-                <a href="adote.html">Adote-me</a>
-                <a href="galeria.html">Galeria</a>
-                <a href="loja.html">Loja</a>
                 <a href="sobre.html">Contacto</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <div id="loader">🚜 Sincronizando com Mértola...</div>
-
-        <div id="main-content" style="display:none; padding: 40px 0;">
+        <section style="padding: 30px 0;">
             <h2>📊 Estado Atual</h2>
+            <p style="font-size: 0.7rem;">Última atualização: <strong id="last_updated">--</strong></p>
+            
             <div class="data-grid">
-                <div class="data-item"><h3>⚡ Bateria</h3><span id="v_batt">--</span> V</div>
-                <div class="data-item"><h3>💧 Poço</h3><span id="v_well">--</span> %</div>
-                <div class="data-item"><h3>🏠 Casa</h3><span id="v_casa">--</span> °C</div>
-                <div class="data-item"><h3>🌱 Estufa Solo</h3><span id="v_solo">--</span> °C</div>
+                <div class="data-item"><h3>⚡ Bateria</h3><span id="v_batt" class="data-value">--</span>V</div>
+                <div class="data-item"><h3>💧 Poço</h3><span id="v_well" class="data-value">--</span>%</div>
+                <div class="data-item"><h3>🏠 Casa</h3><span id="v_casa" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>🛌 Quarto</h3><span id="v_quarto" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>🌬️ Estufa Ar</h3><span id="v_estufa_ar" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>🌱 Estufa Solo</h3><span id="v_estufa_solo" class="data-value">--</span>°C</div>
             </div>
 
-            <h2>📈 Histórico 24h</h2>
+            <div id="hist-msg" style="font-size: 0.8rem; color: var(--primary); margin-bottom: 10px;">🚜 A carregar histórico...</div>
+
             <div class="charts-container">
-                <div class="chart-card"><h3>⚡ Tensão Bateria (V)</h3><div id="graphBatt" class="plot-div"></div></div>
-                <div class="chart-card"><h3>💧 Nível do Poço (%)</h3><div id="graphWell" class="plot-div"></div></div>
-                <div class="chart-card"><h3>🏠 Casa (T+H)</h3><div id="graphCasa" class="plot-div"></div></div>
-                <div class="chart-card"><h3>🛌 Quarto (T+H)</h3><div id="graphQuarto" class="plot-div"></div></div>
-                <div class="chart-card"><h3>🌬️ Estufa Ar (T+H)</h3><div id="graphEstufa" class="plot-div"></div></div>
-                <div class="chart-card"><h3>🌱 Estufa Solo (T+H)</h3><div id="graphSolo" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Bateria e Poço</h3><div id="graph_infra" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Casa (T + H)</h3><div id="graph_casa" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Quarto (T + H)</h3><div id="graph_quarto" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Estufa Ar (T + H)</h3><div id="graph_estufa_ar" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Estufa Solo (T + H)</h3><div id="graph_estufa_solo" class="plot-div"></div></div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <footer><div class="container"><p>Wild Alentejo &copy; 2026</p></div></footer>
+    <footer><p>Wild Alentejo &copy; 2026</p></footer>
 
     <script>
         const GIST_ID = "8e8d20f8c8534c53c8827a59e563884e";
-        
-        async function loadData() {
+        const RAW_BASE = "https://gist.githubusercontent.com/WildAlentejo/" + GIST_ID + "/raw/wild-alentejo-sensors.json";
+
+        async function init() {
+            // 1. CARREGAR DADOS LIVE PRIMEIRO
+            try {
+                const res = await fetch(RAW_BASE + "?t=" + Date.now());
+                const live = await res.json();
+                updateUI(live);
+            } catch(e) { console.error("Erro Live:", e); }
+
+            // 2. CARREGAR HISTÓRICO
             try {
                 const resCommits = await fetch(`https://api.github.com/gists/${GIST_ID}/commits`);
                 const commits = await resCommits.json();
-                const lastCommits = commits.slice(0, 20).reverse();
+                const lastCommits = commits.slice(0, 15).reverse(); // Reduzi para 15 pontos para não dar erro
                 
                 let history = [];
                 for (const c of lastCommits) {
-                    const r = await fetch(`https://gist.githubusercontent.com/WildAlentejo/${GIST_ID}/raw/${c.version}/wild-alentejo-sensors.json`);
-                    if (r.ok) history.push(await r.json());
+                    try {
+                        const r = await fetch(`https://gist.githubusercontent.com/WildAlentejo/${GIST_ID}/raw/${c.version}/wild-alentejo-sensors.json`);
+                        if (r.ok) history.push(await r.json());
+                    } catch(e) { continue; }
                 }
 
-                const times = history.map(d => d.last_updated);
-                
-                const layout = (y1Name, y2Name = null) => ({
-                    margin: { l: 50, r: 50, t: 30, b: 50 },
-                    showlegend: true, legend: { orientation: 'h', x: 0, y: -0.2 },
-                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
-                    yaxis: { title: y1Name, titlefont: {color: '#cc4400'}, tickfont: {color: '#cc4400'}, gridcolor: '#eee' },
-                    yaxis2: y2Name ? { title: y2Name, titlefont: {color: '#3498db'}, tickfont: {color: '#3498db'}, overlaying: 'y', side: 'right', showgrid: false } : null
-                });
-
-                const line = (y, name, color, yaxis = 'y') => ({ x: times, y: y, name: name, type: 'scatter', mode: 'lines+markers', line: {color: color, width: 2, shape: 'spline'}, yaxis: yaxis });
-
-                // BATERIA E POÇO (Simples)
-                Plotly.newPlot('graphBatt', [line(history.map(d=>d.battery_voltage), 'Voltagem', '#2D4C2F')], layout('Volts'));
-                Plotly.newPlot('graphWell', [line(history.map(d=>d.well_water_level), 'Nível', '#3498db')], layout('% Nível'));
-
-                // SENSORES DUPLOS (T + H)
-                const renderDouble = (id, tArr, hArr) => Plotly.newPlot(id, [line(tArr, 'Temp °C', '#cc4400'), line(hArr, 'Hum %', '#3498db', 'y2')], layout('°C', '%'));
-
-                renderDouble('graphCasa', history.map(d=>d.casa_temp), history.map(d=>d.casa_hum));
-                renderDouble('graphQuarto', history.map(d=>d.quarto_temp), history.map(d=>d.quarto_hum));
-                renderDouble('graphEstufa', history.map(d=>d.estufa_dht_temp), history.map(d=>d.estufa_dht_hum));
-                renderDouble('graphSolo', history.map(d=>d.greenhouse_temp_c), history.map(d=>d.greenhouse_hum));
-
-                // Texto atual
-                const cur = history[history.length-1];
-                document.getElementById('v_batt').innerText = cur.battery_voltage.toFixed(1);
-                document.getElementById('v_well').innerText = cur.well_water_level.toFixed(0);
-                document.getElementById('v_casa').innerText = cur.casa_temp.toFixed(1);
-                document.getElementById('v_solo').innerText = cur.greenhouse_temp_c.toFixed(1);
-
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-            } catch (e) { document.getElementById('loader').innerText = "Erro na ligação."; }
+                if (history.length > 0) {
+                    renderCharts(history);
+                    document.getElementById('hist-msg').innerText = "✅ Histórico sincronizado.";
+                }
+            } catch(e) { 
+                document.getElementById('hist-msg').innerText = "⚠️ Histórico temporariamente indisponível (limite API).";
+            }
         }
-        loadData();
+
+        function updateUI(d) {
+            document.getElementById('v_batt').innerText = d.battery_voltage.toFixed(1);
+            document.getElementById('v_well').innerText = d.well_water_level.toFixed(0);
+            document.getElementById('v_casa').innerText = d.casa_temp.toFixed(1);
+            document.getElementById('v_quarto').innerText = d.quarto_temp.toFixed(1);
+            document.getElementById('v_estufa_ar').innerText = d.estufa_dht_temp.toFixed(1);
+            document.getElementById('v_estufa_solo').innerText = d.greenhouse_temp_c.toFixed(1);
+            document.getElementById('last_updated').innerText = d.last_updated;
+        }
+
+        function renderCharts(h) {
+            const times = h.map(d => d.last_updated);
+            const layout = (y1, y2) => ({
+                margin: { l: 40, r: 40, t: 20, b: 40 },
+                showlegend: true, legend: { orientation: 'h', y: -0.2 },
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: y1, titlefont: {size: 10} },
+                yaxis2: y2 ? { title: y2, overlaying: 'y', side: 'right', titlefont: {size: 10} } : null
+            });
+
+            const trace = (y, name, color, yaxis='y') => ({ x: times, y: y, name: name, type: 'scatter', mode: 'lines', line: {color: color, width: 2}, yaxis: yaxis });
+
+            // Infraestrutura
+            Plotly.newPlot('graph_infra', [trace(h.map(d=>d.battery_voltage), 'Bateria (V)', '#2D4C2F'), trace(h.map(d=>d.well_water_level), 'Poço (%)', '#3498db', 'y2')], layout('V', '%'));
+            
+            // Sensores T+H
+            const double = (id, tArr, hArr) => Plotly.newPlot(id, [trace(tArr, 'Temp °C', '#cc4400'), trace(hArr, 'Hum %', '#3498db', 'y2')], layout('°C', '%'));
+            
+            double('graph_casa', h.map(d=>d.casa_temp), h.map(d=>d.casa_hum));
+            double('graph_quarto', h.map(d=>d.quarto_temp), h.map(d=>d.quarto_hum));
+            double('graph_estufa_ar', h.map(d=>d.estufa_dht_temp), h.map(d=>d.estufa_dht_hum));
+            double('graph_estufa_solo', h.map(d=>d.greenhouse_temp_c), h.map(d=>d.greenhouse_hum));
+        }
+
+        init();
     </script>
 </body>
 </html>
