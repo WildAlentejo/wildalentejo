@@ -3,122 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Sistema | Wild Alentejo</title>
+    <title>Dashboard do Sistema | Wild Alentejo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    
     <style>
-        :root { --primary: #2D4C2F; --secondary: #8DAF57; --bg: #f4f1ea; --card-bg: #fdfdfa; }
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; background-color: var(--bg); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--primary); padding: 15px 0; border-bottom: 2px solid var(--secondary); color: white; }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        nav a { text-decoration: none; color: rgba(255,255,255,0.7); font-weight: 700; font-size: 0.8rem; margin-left: 15px; text-transform: uppercase; }
-        nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); }
-        
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 25px 0; }
-        .data-item { background: var(--card-bg); padding: 20px; border-radius: 8px; border-bottom: 4px solid var(--secondary); text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .data-item h3 { font-size: 0.7rem; text-transform: uppercase; color: #666; margin: 0 0 10px 0; letter-spacing: 1px; }
-        .data-value { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: block; }
-        .hum-value { font-size: 0.9rem; color: #3498db; font-weight: 600; }
+        :root {
+            --primary: #2D4C2F;     /* Verde Mértola */
+            --secondary: #8DAF57;   /* Verde Agroforestry */
+            --accent: #CC4400;      /* Terra / Calor */
+            --water: #3498db;
+            --bg: #f4f1ea;
+            --card-bg: #ffffff;
+            --text: #1a1a1a;
+        }
 
-        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; }
-        .chart-card { background: var(--card-bg); padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .chart-card h3 { font-size: 0.8rem; color: var(--primary); margin: 0 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .plot-div { width: 100%; height: 280px; }
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #888; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Layout */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .status-bar {
+            background: #fff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Grid de Sensores */
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .sensor-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--secondary);
+            transition: transform 0.2s;
+        }
+
+        .sensor-card:hover { transform: translateY(-5px); }
+
+        .sensor-card h3 {
+            margin: 0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .temp-display {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .hum-display {
+            font-size: 1rem;
+            color: var(--water);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Gráficos */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .chart-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .chart-header {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .charts-section { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <strong>WILD ALENTEJO | MÉRTOLA</strong>
-            <nav>
-                <a href="index.html">Início</a>
-                <a href="sistema.html" class="active">O Sistema</a>
-                <a href="sobre.html">Contacto</a>
-            </nav>
+
+    <div class="header">
+        <div class="container header-content">
+            <div class="logo">Wild Alentejo <span style="color: var(--secondary);">Off-Grid</span></div>
+            <div style="font-size: 0.7rem; opacity: 0.8;">Mértola, Portugal</div>
         </div>
-    </header>
+    </div>
+
+    <div class="status-bar container">
+        <span>● SISTEMA LIVE</span>
+        <span>Sincronização: <span id="last_sync">--:--</span></span>
+    </div>
 
     <main class="container">
-        <h2 style="margin-top:30px;">📊 Monitorização dos 5 Sensores</h2>
-        <p style="font-size: 0.75rem; color: #666;">Sincronização: <strong id="last_updated">--</strong></p>
+        <h1 style="margin-top: 40px; font-weight: 800;">Monitorização Agroflorestal</h1>
+        
+        <div class="sensor-grid" id="realtime-sensors">
+            </div>
 
-        <div class="data-grid">
-            <div class="data-item"><h3>1. Casa</h3><span id="v_s1" class="data-value">--</span><span id="h_s1" class="hum-value">--</span></div>
-            <div class="data-item"><h3>2. Quarto</h3><span id="v_s2" class="data-value">--</span><span id="h_s2" class="hum-value">--</span></div>
-            <div class="data-item"><h3>3. Estufa</h3><span id="v_s3" class="data-value">--</span><span id="h_s3" class="hum-value">--</span></div>
-            <div class="data-item"><h3>4. Solo 1</h3><span id="v_s4" class="data-value">--</span><span id="h_s4" class="hum-value">--</span></div>
-            <div class="data-item"><h3>5. Solo 2</h3><span id="v_s5" class="data-value">--</span><span id="h_s5" class="hum-value">--</span></div>
-        </div>
-
-        <div class="charts-container">
-            <div class="chart-card"><h3>📈 Sensor 1: Casa</h3><div id="g1" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Sensor 2: Quarto</h3><div id="g2" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Sensor 3: Estufa Ar</h3><div id="g3" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Sensor 4: Solo 1</h3><div id="g4" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Sensor 5: Solo 2</h3><div id="g5" class="plot-div"></div></div>
-        </div>
+        <h2 style="margin: 40px 0 20px; font-weight: 800;">Análise de Histórico (24h)</h2>
+        
+        <div class="charts-section" id="charts-area">
+            </div>
     </main>
 
-    <footer>Wild Alentejo &copy; 2026</footer>
+    <footer>
+        <p><strong>Wild Alentejo v2.0</strong></p>
+        <p>Dados processados via Home Assistant & GitHub API</p>
+        <p>© 2026 - Mértola</p>
+    </footer>
 
     <script>
-        const GIST_URL = "https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json";
+        // Configuração
+        const GIST_JSON = "https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json";
+        const SENSOR_NAMES = ["Casa Principal", "Quarto", "Estufa 3x6m", "Solo Syntropy A", "Solo Syntropy B"];
 
-        async function loadData() {
+        async function updateDashboard() {
             try {
-                const res = await fetch(`${GIST_URL}?nocache=${new Date().getTime()}`);
-                const history = await res.json();
-                if (!Array.isArray(history) || history.length === 0) return;
+                const response = await fetch(`${GIST_JSON}?cache_burst=${Date.now()}`);
+                const history = await response.json();
+                
+                if (!history || history.length === 0) throw new Error("Gist Vazio");
 
-                const last = history[history.length - 1];
-                document.getElementById('last_updated').innerText = last.last_updated;
+                const lastRead = history[history.length - 1];
+                document.getElementById('last_sync').innerText = lastRead.last_updated;
 
-                // Atualizar Cartões
-                for(let i=1; i<=5; i++) {
-                    const temp = last[`s${i}_t`];
-                    const hum = last[`s${i}_h`];
+                // Renderizar Cartões
+                let cardsHtml = "";
+                let chartsHtml = "";
+
+                for (let i = 1; i <= 5; i++) {
+                    const t = lastRead[`s${i}_t`];
+                    const h = lastRead[`s${i}_h`];
                     
-                    document.getElementById(`v_s${i}`).innerText = (temp !== undefined) ? temp.toFixed(1) + "°C" : "--";
-                    document.getElementById(`h_s${i}`).innerText = (hum !== undefined) ? hum.toFixed(0) + "% Hum" : "--";
+                    cardsHtml += `
+                        <div class="sensor-card">
+                            <h3>${SENSOR_NAMES[i-1]}</h3>
+                            <div class="temp-display">${t !== undefined ? t.toFixed(1) : "--"}°C</div>
+                            <div class="hum-display">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12,21.5C8.28,21.5 5.5,18.72 5.5,15C5.5,12.53 8.16,8.14 12,2.5C15.84,8.14 18.5,12.53 18.5,15C18.5,18.72 15.72,21.5 12,21.5Z"/></svg>
+                                ${h !== undefined ? h.toFixed(0) : "--"}% Humidade
+                            </div>
+                        </div>`;
+
+                    chartsHtml += `
+                        <div class="chart-container">
+                            <div class="chart-header">📈 HISTÓRICO: ${SENSOR_NAMES[i-1]}</div>
+                            <div id="chart_s${i}" style="width:100%; height:300px;"></div>
+                        </div>`;
                 }
 
-                renderCharts(history);
-            } catch (e) {
-                console.error("Erro na leitura:", e);
+                document.getElementById('realtime-sensors').innerHTML = cardsHtml;
+                document.getElementById('charts-area').innerHTML = chartsHtml;
+
+                // Renderizar Gráficos Plotly
+                renderPlots(history);
+
+            } catch (err) {
+                console.error("Erro no Dashboard:", err);
+                document.getElementById('last_sync').innerText = "ERRO DE LIGAÇÃO";
             }
         }
 
-        function renderCharts(h) {
-            const times = h.map(d => d.last_updated);
+        function renderPlots(history) {
+            const timestamps = history.map(d => d.last_updated);
             
-            const layout = (y1, y2) => ({
-                margin: { l: 40, r: 40, t: 10, b: 30 },
-                showlegend: true,
-                legend: { orientation: 'h', y: -0.2, font: {size: 10} },
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                yaxis: { title: y1, gridcolor: '#eee' },
-                yaxis2: { title: y2, overlaying: 'y', side: 'right', showgrid: false }
-            });
+            for (let i = 1; i <= 5; i++) {
+                const traceTemp = {
+                    x: timestamps,
+                    y: history.map(d => d[`s${i}_t`]),
+                    name: 'Temperatura',
+                    type: 'scatter',
+                    mode: 'lines',
+                    line: { color: '#CC4400', width: 3, shape: 'spline' }
+                };
 
-            const trace = (y, name, color, yaxis='y') => ({
-                x: times, y: y, name: name, type: 'scatter', mode: 'lines',
-                line: {color: color, width: 2.5, shape: 'spline'}, yaxis: yaxis
-            });
+                const traceHum = {
+                    x: timestamps,
+                    y: history.map(d => d[`s${i}_h`]),
+                    name: 'Humidade',
+                    yaxis: 'y2',
+                    type: 'scatter',
+                    mode: 'lines',
+                    line: { color: '#3498db', width: 2, dash: 'dot' }
+                };
 
-            for(let i=1; i<=5; i++) {
-                const divId = `g${i}`;
-                if(document.getElementById(divId)) {
-                    Plotly.newPlot(divId, [
-                        trace(h.map(d => d[`s${i}_t`]), 'Temp °C', '#cc4400'),
-                        trace(h.map(d => d[`s${i}_h`]), 'Hum %', '#3498db', 'y2')
-                    ], layout('°C', '%'));
-                }
+                const layout = {
+                    showlegend: true,
+                    legend: { orientation: 'h', y: -0.2 },
+                    margin: { l: 40, r: 40, t: 10, b: 40 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: { showgrid: false, tickfont: {size: 9} },
+                    yaxis: { title: 'Temp °C', titlefont: {color: '#CC4400'}, gridcolor: '#eee' },
+                    yaxis2: { 
+                        title: 'Hum %', 
+                        titlefont: {color: '#3498db'}, 
+                        overlaying: 'y', 
+                        side: 'right', 
+                        range: [0, 100],
+                        showgrid: false 
+                    }
+                };
+
+                Plotly.newPlot(`chart_s${i}`, [traceTemp, traceHum], layout, {responsive: true, displayModeBar: false});
             }
         }
 
-        loadData();
+        // Iniciar
+        updateDashboard();
+        // Atualizar automaticamente a cada 5 minutos (client-side)
+        setInterval(updateDashboard, 300000);
     </script>
 </body>
 </html>
