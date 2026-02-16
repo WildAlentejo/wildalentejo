@@ -59,7 +59,7 @@
                 <div class="chart-card"><h3>📈 Bateria e Poço</h3><div id="graph_infra" class="plot-div"></div></div>
                 <div class="chart-card"><h3>📈 Casa (T + H)</h3><div id="graph_casa" class="plot-div"></div></div>
                 <div class="chart-card"><h3>📈 Estufa Solo (T + H)</h3><div id="graph_estufa_solo" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Quarto (T + H)</h3><div id="graph_quarto" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Estufa Ar (T + H)</h3><div id="graph_estufa_ar" class="plot-div"></div></div>
             </div>
         </section>
     </main>
@@ -71,16 +71,15 @@
 
         async function loadData() {
             try {
-                // 1. Pedido único ao Gist (Cache busting com timestamp)
                 const res = await fetch(`${GIST_URL}?t=${Date.now()}`);
                 const history = await res.json();
                 
                 if (!Array.isArray(history) || history.length === 0) {
-                    document.getElementById('status-msg').innerText = "⚠️ Histórico a ser gerado pelo Home Assistant...";
+                    document.getElementById('status-msg').innerText = "⚠️ Aguardando dados do Home Assistant...";
                     return;
                 }
 
-                // 2. Atualizar UI com o último ponto
+                // Último ponto para os cartões
                 const last = history[history.length - 1];
                 document.getElementById('v_batt').innerText = last.battery_voltage?.toFixed(1) || "--";
                 document.getElementById('v_well').innerText = last.well_water_level?.toFixed(0) || "--";
@@ -88,9 +87,8 @@
                 document.getElementById('v_solo').innerText = last.solo1_temp?.toFixed(1) || "--";
                 document.getElementById('last_updated').innerText = last.last_updated;
 
-                // 3. Renderizar Gráficos
                 renderCharts(history);
-                document.getElementById('status-msg').innerText = "✅ Dados sincronizados (24h).";
+                document.getElementById('status-msg').innerText = "✅ Dados sincronizados com sucesso.";
 
             } catch (e) {
                 console.error(e);
@@ -108,33 +106,33 @@
                 yaxis2: y2 ? { title: y2, overlaying: 'y', side: 'right', titlefont: {size: 10}, showgrid: false } : null
             });
 
-            const trace = (y, name, color, yaxis='y', dash='solid') => ({ 
+            const trace = (y, name, color, yaxis='y') => ({ 
                 x: times, y: y, name: name, type: 'scatter', mode: 'lines', 
-                line: {color: color, width: 2, shape: 'spline', dash: dash}, yaxis: yaxis 
+                line: {color: color, width: 2, shape: 'spline'}, yaxis: yaxis 
             });
 
-            // Gráfico Infraestrutura
+            // 1. Infraestrutura
             Plotly.newPlot('graph_infra', [
                 trace(h.map(d=>d.battery_voltage), 'Bateria (V)', '#2D4C2F'),
                 trace(h.map(d=>d.well_water_level), 'Poço (%)', '#3498db', 'y2')
             ], layout('V', '%'));
 
-            // Gráfico Casa
+            // 2. Casa
             Plotly.newPlot('graph_casa', [
-                trace(h.map(d=>d.casa_temp), 'Casa °C', '#cc4400'),
-                trace(h.map(d=>d.casa_hum), 'Casa %', '#3498db', 'y2', 'dot')
+                trace(h.map(d=>d.casa_temp), 'Temp °C', '#cc4400'),
+                trace(h.map(d=>d.casa_hum), 'Hum %', '#3498db', 'y2')
             ], layout('°C', '%'));
 
-            // Gráfico Estufa Solo
+            // 3. Estufa Solo
             Plotly.newPlot('graph_estufa_solo', [
                 trace(h.map(d=>d.solo1_temp), 'Solo °C', '#27ae60'),
-                trace(h.map(d=>d.solo1_hum), 'Hum Solo %', '#3498db', 'y2')
+                trace(h.map(d=>d.solo1_hum), 'Hum %', '#3498db', 'y2')
             ], layout('°C', '%'));
 
-            // Gráfico Quarto
+            // 4. Estufa Ar (Substituí o Quarto pela Estufa Ar conforme os teus dados)
             Plotly.newPlot('graph_quarto', [
-                trace(h.map(d=>d.quarto_temp), 'Quarto °C', '#f39c12'),
-                trace(h.map(d=>d.quarto_hum), 'Quarto %', '#3498db', 'y2', 'dot')
+                trace(h.map(d=>d.estufa_temp), 'Ar Estufa °C', '#f39c12'),
+                trace(h.map(d=>d.estufa_hum), 'Hum %', '#3498db', 'y2')
             ], layout('°C', '%'));
         }
 
