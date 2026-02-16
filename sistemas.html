@@ -80,7 +80,7 @@
 
         async function loadData() {
             try {
-                const res = await fetch(`${GIST_URL}?t=${Date.now()}`);
+                const res = await fetch(GIST_URL + "?nocache=" + new Date().getTime());
                 const history = await res.json();
                 if (!Array.isArray(history) || history.length === 0) return;
 
