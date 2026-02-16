@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O Sistema | Wild Alentejo</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #2D4C2F;     /* Verde Mértola */
             --secondary: #8DAF57;   /* Verde Agroforestry */
-            --accent: #CC4400;      /* Terra */
+            --accent: #CC4400;      /* Terra / Calor */
             --water: #3498db;
             --bg: #f4f1ea;
             --card-bg: #ffffff;
@@ -24,13 +24,15 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
+            padding: 0;
             line-height: 1.5;
         }
 
+        /* Cabeçalho */
         .header {
             background: var(--primary);
             color: white;
-            padding: 1.2rem 0;
+            padding: 1.5rem 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
@@ -50,23 +52,27 @@
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            text-transform: uppercase;
             letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
 
+        /* Barra de Estado */
         .status-bar {
             background: #fff;
-            padding: 8px 20px;
+            padding: 10px 20px;
             border-bottom: 1px solid #ddd;
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: #555;
         }
 
+        .status-online { color: #27ae60; }
+        .status-error { color: var(--accent); }
+
+        /* Grelha de Sensores (Cartões) */
         .sensor-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -74,184 +80,209 @@
             margin: 30px 0;
         }
 
-        .sensor-card {
+        .card {
             background: var(--card-bg);
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--secondary);
+            border-top: 5px solid var(--secondary);
             text-align: center;
+            transition: transform 0.2s;
         }
 
-        .sensor-card h3 {
+        .card:hover { transform: translateY(-3px); }
+
+        .card h3 {
             margin: 0;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            color: #777;
+            color: #666;
             letter-spacing: 1px;
         }
 
-        .temp-display {
-            font-size: 2rem;
+        .temp-val {
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--primary);
-            margin: 8px 0;
+            margin: 10px 0;
         }
 
-        .hum-display {
-            font-size: 0.9rem;
+        .hum-val {
+            font-size: 1rem;
             color: var(--water);
             font-weight: 700;
         }
 
+        /* Secção de Gráficos */
         .charts-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
             margin-bottom: 50px;
         }
 
         .chart-card {
             background: #fff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .chart-title {
+        .chart-header {
             font-weight: 800;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--primary);
             margin-bottom: 15px;
             text-transform: uppercase;
             border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+            padding-bottom: 8px;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            color: #999;
-            font-size: 0.75rem;
+            padding: 60px 20px;
+            color: #888;
+            font-size: 0.8rem;
+            background: #fff;
+            margin-top: 40px;
         }
 
-        .error-msg {
-            color: var(--accent);
-            font-weight: bold;
+        @media (max-width: 600px) {
+            .charts-section { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
+    <header class="header">
         <div class="container header-content">
             <div class="logo">Wild Alentejo <span style="color: var(--secondary);">System</span></div>
-            <nav style="font-size: 0.8rem; font-weight: bold;">
-                MÉRTOLA OFF-GRID
-            </nav>
+            <div style="font-size: 0.7rem; opacity: 0.8; font-weight: bold;">MÉRTOLA OFF-GRID</div>
         </div>
-    </div>
+    </header>
 
     <div class="status-bar container">
-        <span id="status-dot">● A LER DADOS...</span>
-        <span>Última Sincronização: <span id="last_sync">--:--</span></span>
+        <span id="status-text">● A CARREGAR DADOS...</span>
+        <span>Sincronização: <span id="last-sync">--:--</span></span>
     </div>
 
     <main class="container">
-        <h1 style="margin-top: 30px; font-weight: 800; font-size: 1.8rem;">Monitorização</h1>
+        <h1 style="margin-top: 40px; font-weight: 800; font-size: 1.8rem;">Monitorização Agroflorestal</h1>
         
-        <div class="sensor-grid" id="cards-area">
+        <div class="sensor-grid" id="sensor-cards">
             </div>
 
-        <div class="charts-section" id="charts-area">
+        <h2 style="margin: 40px 0 20px; font-weight: 800;">Histórico de 24 Horas</h2>
+        <div class="charts-section" id="sensor-charts">
             </div>
     </main>
 
     <footer>
-        <p><strong>Wild Alentejo Dashboard v2.1</strong></p>
+        <p><strong>Wild Alentejo Dashboard v2.2</strong></p>
         <p>Baseado nos dados do sensor.sistemas_history_2</p>
+        <p>© 2026 - Mértola, Portugal</p>
     </footer>
 
     <script>
-        // API DO GITHUB (Mais rápida que o RAW)
-        const GIST_API = "https://api.github.com/gists/8e8d20f8c8534c53c8827a59e563884e";
-        const NOMES = ["Casa", "Quarto", "Estufa", "Solo 1", "Solo 2"];
+        // Configuração: Link RAW do teu Gist para evitar erros de CORS da API
+        const DATA_URL = "https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json";
+        const NOMES = ["Casa Principal", "Quarto", "Estufa", "Solo 1", "Solo 2"];
 
-        async function update() {
+        async function fetchData() {
             try {
-                const res = await fetch(`${GIST_API}?t=${Date.now()}`);
-                const gist = await res.json();
+                // Adicionamos um timestamp para forçar o browser a ignorar a cache
+                const response = await fetch(`${DATA_URL}?nocache=${Date.now()}`);
+                if (!response.ok) throw new Error();
                 
-                // Extrair o conteúdo do ficheiro
-                const rawContent = gist.files["wild-alentejo-sensors.json"].content;
-                const history = JSON.parse(rawContent);
-                
-                if (!history || history.length === 0) throw new Error("Sem dados");
-
+                const history = await response.json();
                 const last = history[history.length - 1];
-                
-                // Atualizar Status
-                document.getElementById('last_sync').innerText = last.last_updated;
-                document.getElementById('status-dot').innerHTML = '<span style="color: #27ae60">● SISTEMA ONLINE</span>';
 
-                let cards = "";
-                let charts = "";
+                // Atualizar Status e Relógio
+                document.getElementById('last-sync').innerText = last.last_updated;
+                document.getElementById('status-text').innerHTML = '<span class="status-online">● SISTEMA ONLINE</span>';
+
+                let cardsHtml = "";
+                let chartsHtml = "";
 
                 for (let i = 1; i <= 5; i++) {
                     const t = last[`s${i}_t`];
                     const h = last[`s${i}_h`];
 
-                    cards += `
-                        <div class="sensor-card">
+                    cardsHtml += `
+                        <div class="card">
                             <h3>${NOMES[i-1]}</h3>
-                            <div class="temp-display">${t ? t.toFixed(1) : "0.0"}°C</div>
-                            <div class="hum-display">${h ? h.toFixed(0) : "0"}% Humidade</div>
+                            <div class="temp-val">${t ? t.toFixed(1) : "0.0"}°C</div>
+                            <div class="hum-val">${h ? h.toFixed(0) : "0"}% Humidade</div>
                         </div>`;
 
-                    charts += `
+                    chartsHtml += `
                         <div class="chart-card">
-                            <div class="chart-title">📈 Histórico: ${NOMES[i-1]}</div>
-                            <div id="plot_${i}" style="height:280px;"></div>
+                            <div class="chart-header">📈 ANÁLISE: ${NOMES[i-1]}</div>
+                            <div id="plot_${i}" style="height:300px;"></div>
                         </div>`;
                 }
 
-                document.getElementById('cards-area').innerHTML = cards;
-                document.getElementById('charts-area').innerHTML = charts;
+                document.getElementById('sensor-cards').innerHTML = cardsHtml;
+                document.getElementById('sensor-charts').innerHTML = chartsHtml;
 
-                // Renderizar Gráficos Plotly
-                const times = history.map(d => d.last_updated);
-                
-                for (let i = 1; i <= 5; i++) {
-                    const traceT = {
-                        x: times, y: history.map(d => d[`s${i}_t`]),
-                        name: 'Temp °C', type: 'scatter', mode: 'lines',
-                        line: { color: '#CC4400', width: 3, shape: 'spline' }
-                    };
-                    const traceH = {
-                        x: times, y: history.map(d => d[`s${i}_h`]),
-                        name: 'Hum %', yaxis: 'y2', type: 'scatter', mode: 'lines',
-                        line: { color: '#3498db', width: 2, dash: 'dot' }
-                    };
-
-                    Plotly.newPlot(`plot_${i}`, [traceT, traceH], {
-                        margin: { l: 40, r: 40, t: 10, b: 40 },
-                        showlegend: true,
-                        legend: { orientation: 'h', y: -0.2 },
-                        paper_bgcolor: 'rgba(0,0,0,0)',
-                        plot_bgcolor: 'rgba(0,0,0,0)',
-                        yaxis: { title: '°C', titlefont: {color: '#CC4400'} },
-                        yaxis2: { title: '%', titlefont: {color: '#3498db'}, overlaying: 'y', side: 'right', range: [0, 100] }
-                    }, {responsive: true, displayModeBar: false});
-                }
+                // Gerar Gráficos
+                renderPlots(history);
 
             } catch (err) {
-                console.error(err);
-                document.getElementById('status-dot').innerHTML = '<span class="error-msg">● ERRO DE LIGAÇÃO</span>';
+                console.error("Erro ao ler o Gist:", err);
+                document.getElementById('status-text').innerHTML = '<span class="status-error">● ERRO DE LIGAÇÃO (GIST VAZIO?)</span>';
             }
         }
 
-        update();
-        setInterval(update, 300000); // Atualiza a cada 5 min
+        function renderPlots(data) {
+            const times = data.map(d => d.last_updated);
+            
+            for (let i = 1; i <= 5; i++) {
+                const traceT = {
+                    x: times, 
+                    y: data.map(d => d[`s${i}_t`]),
+                    name: 'Temp °C', 
+                    type: 'scatter', 
+                    mode: 'lines',
+                    line: { color: '#CC4400', width: 3, shape: 'spline' }
+                };
+
+                const traceH = {
+                    x: times, 
+                    y: data.map(d => d[`s${i}_h`]),
+                    name: 'Hum %', 
+                    yaxis: 'y2', 
+                    type: 'scatter', 
+                    mode: 'lines',
+                    line: { color: '#3498db', width: 2, dash: 'dot' }
+                };
+
+                const layout = {
+                    margin: { l: 45, r: 45, t: 10, b: 40 },
+                    showlegend: true,
+                    legend: { orientation: 'h', y: -0.2 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    yaxis: { title: '°C', gridcolor: '#eee', titlefont: {size: 10} },
+                    yaxis2: { 
+                        title: '% Hum', 
+                        overlaying: 'y', 
+                        side: 'right', 
+                        showgrid: false, 
+                        range: [0, 100],
+                        titlefont: {size: 10} 
+                    },
+                    xaxis: { tickfont: {size: 9}, gridcolor: '#eee' }
+                };
+
+                Plotly.newPlot(`plot_${i}`, [traceT, traceH], layout, {responsive: true, displayModeBar: false});
+            }
+        }
+
+        // Executar ao abrir
+        fetchData();
+        // Atualizar a cada 5 minutos
+        setInterval(fetchData, 300000);
     </script>
 </body>
 </html>
