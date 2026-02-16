@@ -15,10 +15,14 @@
         nav { display: flex; gap: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
         nav a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
         nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); padding-bottom: 3px; }
+        
+        /* Grid de Dados Ajustada */
         .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 20px 0; }
         .data-item { background: var(--card-bg); padding: 12px; border-radius: 4px; border-bottom: 3px solid var(--secondary); text-align: center; }
-        .data-item h3 { font-size: 0.55rem; text-transform: uppercase; color: #888; margin: 0; }
-        .data-value { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+        .data-item h3 { font-size: 0.55rem; text-transform: uppercase; color: #888; margin: 0 0 5px 0; }
+        .data-value { font-size: 1.1rem; font-weight: 800; color: var(--primary); display: block; }
+        .hum-value { font-size: 0.75rem; color: #3498db; font-weight: 600; }
+
         .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 15px; }
         .chart-card { background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .chart-card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--primary); margin: 0 0 10px 0; border-bottom: 1px solid #eee; }
@@ -48,11 +52,12 @@
             <div class="data-grid">
                 <div class="data-item"><h3>Bateria</h3><span id="v_batt" class="data-value">--</span>V</div>
                 <div class="data-item"><h3>Poço</h3><span id="v_well" class="data-value">--</span>%</div>
-                <div class="data-item"><h3>Casa</h3><span id="v_s1" class="data-value">--</span>°C</div>
-                <div class="data-item"><h3>Quarto</h3><span id="v_s2" class="data-value">--</span>°C</div>
-                <div class="data-item"><h3>Estufa</h3><span id="v_s3" class="data-value">--</span>°C</div>
-                <div class="data-item"><h3>Solo 1</h3><span id="v_s4" class="data-value">--</span>°C</div>
-                <div class="data-item"><h3>Solo 2</h3><span id="v_s5" class="data-value">--</span>°C</div>
+                
+                <div class="data-item"><h3>Casa</h3><span id="v_s1" class="data-value">--</span><span id="h_s1" class="hum-value">--</span></div>
+                <div class="data-item"><h3>Quarto</h3><span id="v_s2" class="data-value">--</span><span id="h_s2" class="hum-value">--</span></div>
+                <div class="data-item"><h3>Estufa</h3><span id="v_s3" class="data-value">--</span><span id="h_s3" class="hum-value">--</span></div>
+                <div class="data-item"><h3>Solo 1</h3><span id="v_s4" class="data-value">--</span><span id="h_s4" class="hum-value">--</span></div>
+                <div class="data-item"><h3>Solo 2</h3><span id="v_s5" class="data-value">--</span><span id="h_s5" class="hum-value">--</span></div>
             </div>
 
             <div id="status-msg" style="font-size: 0.75rem; margin-bottom: 15px;">🚜 A ler Gist...</div>
@@ -80,20 +85,38 @@
                 if (!Array.isArray(history) || history.length === 0) return;
 
                 const last = history[history.length - 1];
-                // Atualizar Cartões
+
+                // Atualizar Bateria e Poço
                 document.getElementById('v_batt').innerText = last.batt?.toFixed(1) || "--";
                 document.getElementById('v_well').innerText = last.well?.toFixed(0) || "--";
-                document.getElementById('v_s1').innerText = last.s1_t?.toFixed(1) || "--";
-                document.getElementById('v_s2').innerText = last.s2_t?.toFixed(1) || "--";
-                document.getElementById('v_s3').innerText = last.s3_t?.toFixed(1) || "--";
-                document.getElementById('v_s4').innerText = last.s4_t?.toFixed(1) || "--";
-                document.getElementById('v_s5').innerText = last.s5_t?.toFixed(1) || "--";
+
+                // Atualizar Sensores T+H (Títulos e Valores)
+                const updateField = (id, val, unit) => {
+                    document.getElementById(id).innerText = (val !== undefined && val !== null) ? val.toFixed(1) + unit : "--";
+                };
+
+                // Sensor 1
+                updateField('v_s1', last.s1_t, '°C');
+                updateField('h_s1', last.s1_h, '% Hum');
+                // Sensor 2
+                updateField('v_s2', last.s2_t, '°C');
+                updateField('h_s2', last.s2_h, '% Hum');
+                // Sensor 3
+                updateField('v_s3', last.s3_t, '°C');
+                updateField('h_s3', last.s3_h, '% Hum');
+                // Sensor 4
+                updateField('v_s4', last.s4_t, '°C');
+                updateField('h_s4', last.s4_h, '% Hum');
+                // Sensor 5
+                updateField('v_s5', last.s5_t, '°C');
+                updateField('h_s5', last.s5_h, '% Hum');
+
                 document.getElementById('last_updated').innerText = last.last_updated;
 
                 renderCharts(history);
-                document.getElementById('status-msg').innerText = "✅ Todos os 5 sensores ativos.";
+                document.getElementById('status-msg').innerText = "✅ Dados completos (T+H) sincronizados.";
             } catch (e) {
-                document.getElementById('status-msg').innerText = "❌ Erro na leitura dos 5 sensores.";
+                document.getElementById('status-msg').innerText = "❌ Erro na leitura dos dados.";
             }
         }
 
@@ -112,7 +135,6 @@
                 line: {color: color, width: 2, shape: 'spline', dash: dash}, yaxis: yaxis 
             });
 
-            // Loop para os 5 Sensores de T+H
             const conf = [
                 {id:'g1', t:'s1_t', h:'s1_h', n:'Casa'},
                 {id:'g2', t:'s2_t', h:'s2_h', n:'Quarto'},
@@ -128,7 +150,6 @@
                 ], layout('°C', '%'));
             });
 
-            // Infra
             Plotly.newPlot('g_infra', [
                 trace(h.map(d=>d.batt), 'Bateria (V)', '#2D4C2F'),
                 trace(h.map(d=>d.well), 'Poço (%)', '#3498db', 'y2')
