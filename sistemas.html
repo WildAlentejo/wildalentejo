@@ -42,7 +42,7 @@
         nav a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
         nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); padding-bottom: 3px; }
 
-        /* CONTEÚDO ESPECÍFICO DO SISTEMA */
+        /* CONTEÚDO ESPECÍFICO */
         .content-section { padding: 40px 0; }
         h2 { text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 20px; }
 
@@ -125,7 +125,7 @@
     <main class="container">
         <section class="content-section">
             <h2>Sistemas Off-Grid & Monitorização</h2>
-            <p>Infraestrutura crítica de suporte à vida no semiárido. Foco em medição rigorosa e autonomia total.</p>
+            <p>Infraestrutura crítica de suporte à vida no semiárido. Dados reais enviados do Home Assistant em Mértola.</p>
 
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/xDiV4vPwbU?autoplay=1&mute=1&loop=1&playlist=xDiV4vPwbU" allowfullscreen></iframe>
@@ -140,8 +140,8 @@
                     <span id="display_voltage" class="data-value">--</span><span class="data-unit">V</span>
                 </div>
                 <div class="data-item">
-                    <h3>Carga (SOC)</h3>
-                    <span id="display_soc" class="data-value">--</span><span class="data-unit">%</span>
+                    <h3>Humidade Solo/Estufa</h3>
+                    <span id="display_hum" class="data-value">--</span><span class="data-unit">%</span>
                 </div>
                 <div class="data-item">
                     <h3>Nível do Poço</h3>
@@ -157,19 +157,19 @@
 
             <div class="sistema-card">
                 <h3>⚡ Energia e Autonomia</h3>
-                <p>Sistema fotovoltaico isolado com 1000W de painéis e 360Ah de baterias AGM. Monitorização via Victron/Home Assistant.</p>
+                <p>Sistema fotovoltaico isolado: 1000W Solar | 360Ah Baterias AGM. Projetado para resiliência total.</p>
                 <a href="energia.html" class="btn-principal">Ficha Técnica →</a>
             </div>
 
             <div class="sistema-card">
                 <h3>💧 Gestão Hídrica</h3>
-                <p>Estratégias passivas de conservação e monitorização ultra-sónica do nível do poço para prevenção de rutura no estio.</p>
+                <p>Monitorização em tempo real do poço. Estratégias de conservação para enfrentar o estio alentejano.</p>
                 <a href="agua.html" class="btn-principal">Estratégias →</a>
             </div>
 
             <div class="sistema-card">
                 <h3>💩 Ciclo de Nutrientes</h3>
-                <p>Sanitário seco e protocolo de fertilização via urina diluída. Transformação de resíduos em recursos.</p>
+                <p>Sanitário seco e fertilização por urina. Fechar o ciclo biológico sem desperdício de água.</p>
                 <a href="sanitario.html" class="btn-principal">Ver Protocolo →</a>
             </div>
         </section>
@@ -183,29 +183,32 @@
     </footer>
 
     <script>
-        const GIST_URL_RAW = `https://gist.githubusercontent.com/WildAlentejo/9b75822726a8c2ae2b8d372503a8c38a/raw/wild-alentejo-sensors.json`;
+        // ID do Gist atualizado conforme solicitado
+        const GIST_URL_RAW = `https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json`;
 
         function fetchSensorData() {
             fetch(GIST_URL_RAW)
                 .then(response => response.json())
                 .then(data => {
-                    // O seu Gist armazena o JSON real dentro do campo 'content'
+                    // O Gist contém o JSON dentro de 'content'
                     const sensorData = JSON.parse(data.content); 
                     
+                    // Mapeamento dos campos do seu configuration.yaml
                     document.getElementById('display_voltage').textContent = sensorData.battery_voltage ? sensorData.battery_voltage.toFixed(2) : '--';
-                    document.getElementById('display_soc').textContent = sensorData.battery_soc ? sensorData.battery_soc.toFixed(0) : '--';
                     document.getElementById('display_water').textContent = sensorData.well_water_level ? sensorData.well_water_level.toFixed(0) : '--';
-                    document.getElementById('display_temp').textContent = sensorData.greenhouse_temp_c ? sensorData.greenhouse_temp_c.toFixed(1) : '--';
+                    document.getElementById('display_hum').textContent = sensorData.greenhouse_hum ? sensor.soil_moisure_humidity.toFixed(0) : '--';
+                    document.getElementById('display_temp').textContent = sensorData.greenhouse_temp_c ? sensor.soil_moisure_temperature_c.toFixed(1) : '--';
                     document.getElementById('last_updated').textContent = sensorData.last_updated;
                 })
                 .catch(error => {
-                    console.error('Erro Gist:', error);
+                    console.error('Erro ao ler dados do Gist:', error);
                     document.getElementById('last_updated').textContent = 'Erro na ligação.';
                 });
         }
 
+        // Inicia e atualiza a cada 5 minutos
         fetchSensorData();
-        setInterval(fetchSensorData, 300000); // 5 min
+        setInterval(fetchSensorData, 300000); 
     </script>
 </body>
 </html>
