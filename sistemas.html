@@ -7,153 +7,115 @@
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     <style>
         :root { --primary: #2D4C2F; --secondary: #8DAF57; --bg: #f4f1ea; --card-bg: #fdfdfa; }
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; background-color: var(--bg); background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
+        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; background-color: var(--bg); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: url('img/pattern-alentejo.png'), rgba(45, 76, 47, 0.98); background-repeat: repeat; background-size: 320px; background-blend-mode: overlay; padding: 8px 0; border-bottom: 2px solid var(--secondary); position: sticky; top: 0; z-index: 1000; }
-        header .container { display: flex; justify-content: flex-start; align-items: center; gap: 80px; }
-        .logo img { height: 70px; border-radius: 8px; }
-        nav { display: flex; gap: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
-        nav a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
-        nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); padding-bottom: 3px; }
+        header { background: var(--primary); padding: 15px 0; border-bottom: 2px solid var(--secondary); color: white; }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { text-decoration: none; color: rgba(255,255,255,0.7); font-weight: 700; font-size: 0.8rem; margin-left: 15px; text-transform: uppercase; }
+        nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); }
         
-        /* Grid de Dados Ajustada */
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 20px 0; }
-        .data-item { background: var(--card-bg); padding: 12px; border-radius: 4px; border-bottom: 3px solid var(--secondary); text-align: center; }
-        .data-item h3 { font-size: 0.55rem; text-transform: uppercase; color: #888; margin: 0 0 5px 0; }
-        .data-value { font-size: 1.1rem; font-weight: 800; color: var(--primary); display: block; }
-        .hum-value { font-size: 0.75rem; color: #3498db; font-weight: 600; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 25px 0; }
+        .data-item { background: var(--card-bg); padding: 20px; border-radius: 8px; border-bottom: 4px solid var(--secondary); text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .data-item h3 { font-size: 0.7rem; text-transform: uppercase; color: #666; margin: 0 0 10px 0; letter-spacing: 1px; }
+        .data-value { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: block; }
+        .hum-value { font-size: 0.9rem; color: #3498db; font-weight: 600; }
 
-        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 15px; }
-        .chart-card { background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .chart-card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--primary); margin: 0 0 10px 0; border-bottom: 1px solid #eee; }
-        .plot-div { width: 100%; height: 240px; }
-        footer { background: var(--primary); color: white; padding: 20px 0; text-align: center; margin-top: 40px; font-size: 0.8rem; }
+        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; }
+        .chart-card { background: var(--card-bg); padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .chart-card h3 { font-size: 0.8rem; color: var(--primary); margin: 0 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .plot-div { width: 100%; height: 280px; }
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #888; }
     </style>
 </head>
 <body>
-
     <header>
         <div class="container">
-            <div class="logo"><a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a></div>
+            <strong>WILD ALENTEJO | MÉRTOLA</strong>
             <nav>
                 <a href="index.html">Início</a>
                 <a href="sistema.html" class="active">O Sistema</a>
-                <a href="logbook.html">Logbook</a>
                 <a href="sobre.html">Contacto</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <section style="padding: 20px 0;">
-            <h2>📊 Monitorização Total</h2>
-            <p style="font-size: 0.65rem;">Sincronizado: <strong id="last_updated">--</strong></p>
-            
-            <div class="data-grid">
-                <div class="data-item"><h3>Bateria</h3><span id="v_batt" class="data-value">--</span>V</div>
-                <div class="data-item"><h3>Poço</h3><span id="v_well" class="data-value">--</span>%</div>
-                
-                <div class="data-item"><h3>Casa</h3><span id="v_s1" class="data-value">--</span><span id="h_s1" class="hum-value">--</span></div>
-                <div class="data-item"><h3>Quarto</h3><span id="v_s2" class="data-value">--</span><span id="h_s2" class="hum-value">--</span></div>
-                <div class="data-item"><h3>Estufa</h3><span id="v_s3" class="data-value">--</span><span id="h_s3" class="hum-value">--</span></div>
-                <div class="data-item"><h3>Solo 1</h3><span id="v_s4" class="data-value">--</span><span id="h_s4" class="hum-value">--</span></div>
-                <div class="data-item"><h3>Solo 2</h3><span id="v_s5" class="data-value">--</span><span id="h_s5" class="hum-value">--</span></div>
-            </div>
+        <h2 style="margin-top:30px;">📊 Monitorização dos 5 Sensores</h2>
+        <p style="font-size: 0.75rem; color: #666;">Sincronização: <strong id="last_updated">--</strong></p>
 
-            <div id="status-msg" style="font-size: 0.75rem; margin-bottom: 15px;">🚜 A ler Gist...</div>
+        <div class="data-grid">
+            <div class="data-item"><h3>1. Casa</h3><span id="v_s1" class="data-value">--</span><span id="h_s1" class="hum-value">--</span></div>
+            <div class="data-item"><h3>2. Quarto</h3><span id="v_s2" class="data-value">--</span><span id="h_s2" class="hum-value">--</span></div>
+            <div class="data-item"><h3>3. Estufa</h3><span id="v_s3" class="data-value">--</span><span id="h_s3" class="hum-value">--</span></div>
+            <div class="data-item"><h3>4. Solo 1</h3><span id="v_s4" class="data-value">--</span><span id="h_s4" class="hum-value">--</span></div>
+            <div class="data-item"><h3>5. Solo 2</h3><span id="v_s5" class="data-value">--</span><span id="h_s5" class="hum-value">--</span></div>
+        </div>
 
-            <div class="charts-container">
-                <div class="chart-card"><h3>📈 Bateria e Poço</h3><div id="g_infra" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Sensor 1: Casa</h3><div id="g1" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Sensor 2: Quarto</h3><div id="g2" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Sensor 3: Estufa Ar</h3><div id="g3" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Sensor 4: Solo 1</h3><div id="g4" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Sensor 5: Solo 2</h3><div id="g5" class="plot-div"></div></div>
-            </div>
-        </section>
+        <div class="charts-container">
+            <div class="chart-card"><h3>📈 Sensor 1: Casa</h3><div id="g1" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Sensor 2: Quarto</h3><div id="g2" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Sensor 3: Estufa Ar</h3><div id="g3" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Sensor 4: Solo 1</h3><div id="g4" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Sensor 5: Solo 2</h3><div id="g5" class="plot-div"></div></div>
+        </div>
     </main>
 
-    <footer>Wild Alentejo &copy; 2026 | Mértola Off-grid</footer>
+    <footer>Wild Alentejo &copy; 2026</footer>
 
     <script>
         const GIST_URL = "https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json";
 
         async function loadData() {
             try {
-                const res = await fetch(GIST_URL + "?nocache=" + new Date().getTime());
+                const res = await fetch(`${GIST_URL}?nocache=${new Date().getTime()}`);
                 const history = await res.json();
                 if (!Array.isArray(history) || history.length === 0) return;
 
                 const last = history[history.length - 1];
-
-                // Atualizar Bateria e Poço
-                document.getElementById('v_batt').innerText = last.batt?.toFixed(1) || "--";
-                document.getElementById('v_well').innerText = last.well?.toFixed(0) || "--";
-
-                // Atualizar Sensores T+H (Títulos e Valores)
-                const updateField = (id, val, unit) => {
-                    document.getElementById(id).innerText = (val !== undefined && val !== null) ? val.toFixed(1) + unit : "--";
-                };
-
-                // Sensor 1
-                updateField('v_s1', last.s1_t, '°C');
-                updateField('h_s1', last.s1_h, '% Hum');
-                // Sensor 2
-                updateField('v_s2', last.s2_t, '°C');
-                updateField('h_s2', last.s2_h, '% Hum');
-                // Sensor 3
-                updateField('v_s3', last.s3_t, '°C');
-                updateField('h_s3', last.s3_h, '% Hum');
-                // Sensor 4
-                updateField('v_s4', last.s4_t, '°C');
-                updateField('h_s4', last.s4_h, '% Hum');
-                // Sensor 5
-                updateField('v_s5', last.s5_t, '°C');
-                updateField('h_s5', last.s5_h, '% Hum');
-
                 document.getElementById('last_updated').innerText = last.last_updated;
 
+                // Atualizar Cartões
+                for(let i=1; i<=5; i++) {
+                    const temp = last[`s${i}_t`];
+                    const hum = last[`s${i}_h`];
+                    
+                    document.getElementById(`v_s${i}`).innerText = (temp !== undefined) ? temp.toFixed(1) + "°C" : "--";
+                    document.getElementById(`h_s${i}`).innerText = (hum !== undefined) ? hum.toFixed(0) + "% Hum" : "--";
+                }
+
                 renderCharts(history);
-                document.getElementById('status-msg').innerText = "✅ Dados completos (T+H) sincronizados.";
             } catch (e) {
-                document.getElementById('status-msg').innerText = "❌ Erro na leitura dos dados.";
+                console.error("Erro na leitura:", e);
             }
         }
 
         function renderCharts(h) {
             const times = h.map(d => d.last_updated);
+            
             const layout = (y1, y2) => ({
-                margin: { l: 35, r: 35, t: 10, b: 30 }, showlegend: true,
-                legend: { orientation: 'h', y: -0.2, font: {size: 9} },
-                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
-                yaxis: { title: y1, titlefont: {size: 10}, gridcolor: '#eee' },
-                yaxis2: { title: y2, overlaying: 'y', side: 'right', showgrid: false, titlefont: {size: 10} }
+                margin: { l: 40, r: 40, t: 10, b: 30 },
+                showlegend: true,
+                legend: { orientation: 'h', y: -0.2, font: {size: 10} },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                yaxis: { title: y1, gridcolor: '#eee' },
+                yaxis2: { title: y2, overlaying: 'y', side: 'right', showgrid: false }
             });
 
-            const trace = (y, name, color, yaxis='y', dash='solid') => ({ 
-                x: times, y: y, name: name, type: 'scatter', mode: 'lines', 
-                line: {color: color, width: 2, shape: 'spline', dash: dash}, yaxis: yaxis 
+            const trace = (y, name, color, yaxis='y') => ({
+                x: times, y: y, name: name, type: 'scatter', mode: 'lines',
+                line: {color: color, width: 2.5, shape: 'spline'}, yaxis: yaxis
             });
 
-            const conf = [
-                {id:'g1', t:'s1_t', h:'s1_h', n:'Casa'},
-                {id:'g2', t:'s2_t', h:'s2_h', n:'Quarto'},
-                {id:'g3', t:'s3_t', h:'s3_h', n:'Estufa'},
-                {id:'g4', t:'s4_t', h:'s4_h', n:'Solo 1'},
-                {id:'g5', t:'s5_t', h:'s5_h', n:'Solo 2'}
-            ];
-
-            conf.forEach(s => {
-                Plotly.newPlot(s.id, [
-                    trace(h.map(d=>d[s.t]), 'Temp °C', '#cc4400'),
-                    trace(h.map(d=>d[s.h]), 'Hum %', '#3498db', 'y2', 'dot')
-                ], layout('°C', '%'));
-            });
-
-            Plotly.newPlot('g_infra', [
-                trace(h.map(d=>d.batt), 'Bateria (V)', '#2D4C2F'),
-                trace(h.map(d=>d.well), 'Poço (%)', '#3498db', 'y2')
-            ], layout('V', '%'));
+            for(let i=1; i<=5; i++) {
+                const divId = `g${i}`;
+                if(document.getElementById(divId)) {
+                    Plotly.newPlot(divId, [
+                        trace(h.map(d => d[`s${i}_t`]), 'Temp °C', '#cc4400'),
+                        trace(h.map(d => d[`s${i}_h`]), 'Hum %', '#3498db', 'y2')
+                    ], layout('°C', '%'));
+                }
+            }
         }
 
         loadData();
