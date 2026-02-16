@@ -15,16 +15,15 @@
         nav { display: flex; gap: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
         nav a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
         nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); padding-bottom: 3px; }
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0 40px; }
-        .data-item { background: var(--card-bg); padding: 15px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05); text-align: center; border-bottom: 3px solid var(--secondary); }
-        .data-item h3 { font-size: 0.6rem; text-transform: uppercase; color: #888; margin: 0 0 5px; }
-        .data-value { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
-        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-        .chart-card { background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .chart-card h3 { font-size: 0.75rem; text-transform: uppercase; color: var(--primary); padding: 5px 10px; margin: 0; border-bottom: 1px solid #eee; }
-        .plot-div { width: 100%; height: 280px; }
-        footer { background: url('img/pattern-alentejo.png'), var(--primary); background-blend-mode: overlay; color: white; padding: 30px 0; text-align: center; margin-top: 60px; }
-        @media (max-width: 768px) { .charts-container { grid-template-columns: 1fr; } .plot-div { height: 220px; } }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 20px 0; }
+        .data-item { background: var(--card-bg); padding: 12px; border-radius: 4px; border-bottom: 3px solid var(--secondary); text-align: center; }
+        .data-item h3 { font-size: 0.55rem; text-transform: uppercase; color: #888; margin: 0; }
+        .data-value { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 15px; }
+        .chart-card { background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .chart-card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--primary); margin: 0 0 10px 0; border-bottom: 1px solid #eee; }
+        .plot-div { width: 100%; height: 240px; }
+        footer { background: var(--primary); color: white; padding: 20px 0; text-align: center; margin-top: 40px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -42,29 +41,34 @@
     </header>
 
     <main class="container">
-        <section style="padding: 30px 0;">
-            <h2>📊 Estado em Tempo Real</h2>
-            <p style="font-size: 0.7rem;">Última leitura: <strong id="last_updated">--</strong></p>
+        <section style="padding: 20px 0;">
+            <h2>📊 Monitorização Total</h2>
+            <p style="font-size: 0.65rem;">Sincronizado: <strong id="last_updated">--</strong></p>
             
             <div class="data-grid">
-                <div class="data-item"><h3>⚡ Bateria</h3><span id="v_batt" class="data-value">--</span>V</div>
-                <div class="data-item"><h3>💧 Poço</h3><span id="v_well" class="data-value">--</span>%</div>
-                <div class="data-item"><h3>🏠 Casa</h3><span id="v_casa" class="data-value">--</span>°C</div>
-                <div class="data-item"><h3>🌱 Estufa Solo</h3><span id="v_solo" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>Bateria</h3><span id="v_batt" class="data-value">--</span>V</div>
+                <div class="data-item"><h3>Poço</h3><span id="v_well" class="data-value">--</span>%</div>
+                <div class="data-item"><h3>Casa</h3><span id="v_s1" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>Quarto</h3><span id="v_s2" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>Estufa</h3><span id="v_s3" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>Solo 1</h3><span id="v_s4" class="data-value">--</span>°C</div>
+                <div class="data-item"><h3>Solo 2</h3><span id="v_s5" class="data-value">--</span>°C</div>
             </div>
 
-            <div id="status-msg" style="font-size: 0.8rem; color: var(--primary); margin-bottom: 10px;">🚜 A sincronizar com Mértola...</div>
+            <div id="status-msg" style="font-size: 0.75rem; margin-bottom: 15px;">🚜 A ler Gist...</div>
 
             <div class="charts-container">
-                <div class="chart-card"><h3>📈 Bateria e Poço</h3><div id="graph_infra" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Casa (T + H)</h3><div id="graph_casa" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Estufa Solo (T + H)</h3><div id="graph_estufa_solo" class="plot-div"></div></div>
-                <div class="chart-card"><h3>📈 Estufa Ar (T + H)</h3><div id="graph_estufa_ar" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Bateria e Poço</h3><div id="g_infra" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Sensor 1: Casa</h3><div id="g1" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Sensor 2: Quarto</h3><div id="g2" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Sensor 3: Estufa Ar</h3><div id="g3" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Sensor 4: Solo 1</h3><div id="g4" class="plot-div"></div></div>
+                <div class="chart-card"><h3>📈 Sensor 5: Solo 2</h3><div id="g5" class="plot-div"></div></div>
             </div>
         </section>
     </main>
 
-    <footer><p>Wild Alentejo &copy; 2026</p></footer>
+    <footer>Wild Alentejo &copy; 2026 | Mértola Off-grid</footer>
 
     <script>
         const GIST_URL = "https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json";
@@ -73,67 +77,62 @@
             try {
                 const res = await fetch(`${GIST_URL}?t=${Date.now()}`);
                 const history = await res.json();
-                
-                if (!Array.isArray(history) || history.length === 0) {
-                    document.getElementById('status-msg').innerText = "⚠️ Aguardando dados do Home Assistant...";
-                    return;
-                }
+                if (!Array.isArray(history) || history.length === 0) return;
 
-                // Último ponto para os cartões
                 const last = history[history.length - 1];
-                document.getElementById('v_batt').innerText = last.battery_voltage?.toFixed(1) || "--";
-                document.getElementById('v_well').innerText = last.well_water_level?.toFixed(0) || "--";
-                document.getElementById('v_casa').innerText = last.casa_temp?.toFixed(1) || "--";
-                document.getElementById('v_solo').innerText = last.solo1_temp?.toFixed(1) || "--";
+                // Atualizar Cartões
+                document.getElementById('v_batt').innerText = last.batt?.toFixed(1) || "--";
+                document.getElementById('v_well').innerText = last.well?.toFixed(0) || "--";
+                document.getElementById('v_s1').innerText = last.s1_t?.toFixed(1) || "--";
+                document.getElementById('v_s2').innerText = last.s2_t?.toFixed(1) || "--";
+                document.getElementById('v_s3').innerText = last.s3_t?.toFixed(1) || "--";
+                document.getElementById('v_s4').innerText = last.s4_t?.toFixed(1) || "--";
+                document.getElementById('v_s5').innerText = last.s5_t?.toFixed(1) || "--";
                 document.getElementById('last_updated').innerText = last.last_updated;
 
                 renderCharts(history);
-                document.getElementById('status-msg').innerText = "✅ Dados sincronizados com sucesso.";
-
+                document.getElementById('status-msg').innerText = "✅ Todos os 5 sensores ativos.";
             } catch (e) {
-                console.error(e);
-                document.getElementById('status-msg').innerText = "❌ Erro ao ler dados do Gist.";
+                document.getElementById('status-msg').innerText = "❌ Erro na leitura dos 5 sensores.";
             }
         }
 
         function renderCharts(h) {
             const times = h.map(d => d.last_updated);
             const layout = (y1, y2) => ({
-                margin: { l: 40, r: 40, t: 20, b: 40 },
-                showlegend: true, legend: { orientation: 'h', y: -0.2, font: {size: 10} },
+                margin: { l: 35, r: 35, t: 10, b: 30 }, showlegend: true,
+                legend: { orientation: 'h', y: -0.2, font: {size: 9} },
                 paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
                 yaxis: { title: y1, titlefont: {size: 10}, gridcolor: '#eee' },
-                yaxis2: y2 ? { title: y2, overlaying: 'y', side: 'right', titlefont: {size: 10}, showgrid: false } : null
+                yaxis2: { title: y2, overlaying: 'y', side: 'right', showgrid: false, titlefont: {size: 10} }
             });
 
-            const trace = (y, name, color, yaxis='y') => ({ 
+            const trace = (y, name, color, yaxis='y', dash='solid') => ({ 
                 x: times, y: y, name: name, type: 'scatter', mode: 'lines', 
-                line: {color: color, width: 2, shape: 'spline'}, yaxis: yaxis 
+                line: {color: color, width: 2, shape: 'spline', dash: dash}, yaxis: yaxis 
             });
 
-            // 1. Infraestrutura
-            Plotly.newPlot('graph_infra', [
-                trace(h.map(d=>d.battery_voltage), 'Bateria (V)', '#2D4C2F'),
-                trace(h.map(d=>d.well_water_level), 'Poço (%)', '#3498db', 'y2')
+            // Loop para os 5 Sensores de T+H
+            const conf = [
+                {id:'g1', t:'s1_t', h:'s1_h', n:'Casa'},
+                {id:'g2', t:'s2_t', h:'s2_h', n:'Quarto'},
+                {id:'g3', t:'s3_t', h:'s3_h', n:'Estufa'},
+                {id:'g4', t:'s4_t', h:'s4_h', n:'Solo 1'},
+                {id:'g5', t:'s5_t', h:'s5_h', n:'Solo 2'}
+            ];
+
+            conf.forEach(s => {
+                Plotly.newPlot(s.id, [
+                    trace(h.map(d=>d[s.t]), 'Temp °C', '#cc4400'),
+                    trace(h.map(d=>d[s.h]), 'Hum %', '#3498db', 'y2', 'dot')
+                ], layout('°C', '%'));
+            });
+
+            // Infra
+            Plotly.newPlot('g_infra', [
+                trace(h.map(d=>d.batt), 'Bateria (V)', '#2D4C2F'),
+                trace(h.map(d=>d.well), 'Poço (%)', '#3498db', 'y2')
             ], layout('V', '%'));
-
-            // 2. Casa
-            Plotly.newPlot('graph_casa', [
-                trace(h.map(d=>d.casa_temp), 'Temp °C', '#cc4400'),
-                trace(h.map(d=>d.casa_hum), 'Hum %', '#3498db', 'y2')
-            ], layout('°C', '%'));
-
-            // 3. Estufa Solo
-            Plotly.newPlot('graph_estufa_solo', [
-                trace(h.map(d=>d.solo1_temp), 'Solo °C', '#27ae60'),
-                trace(h.map(d=>d.solo1_hum), 'Hum %', '#3498db', 'y2')
-            ], layout('°C', '%'));
-
-            // 4. Estufa Ar (Substituí o Quarto pela Estufa Ar conforme os teus dados)
-            Plotly.newPlot('graph_quarto', [
-                trace(h.map(d=>d.estufa_temp), 'Ar Estufa °C', '#f39c12'),
-                trace(h.map(d=>d.estufa_hum), 'Hum %', '#3498db', 'y2')
-            ], layout('°C', '%'));
         }
 
         loadData();
