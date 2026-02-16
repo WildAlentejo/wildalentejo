@@ -4,116 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistemas & Gráficos | Wild Alentejo</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     
     <style>
         :root { --primary: #2D4C2F; --secondary: #8DAF57; --bg: #f4f1ea; --card-bg: #fdfdfa; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #333; margin: 0; }
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
         
+        header { background: var(--primary); color: white; padding: 10px 0; text-align: center; margin-bottom: 20px; border-bottom: 3px solid var(--secondary); }
+
         /* Grid de Dados */
         .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 30px; }
-        .data-item { background: var(--card-bg); padding: 15px; border-radius: 4px; text-align: center; border-bottom: 3px solid var(--secondary); }
+        .data-item { background: var(--card-bg); padding: 15px; border-radius: 4px; text-align: center; border-bottom: 3px solid var(--secondary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .data-item h3 { font-size: 0.75rem; text-transform: uppercase; margin-top: 0; color: #666; }
         .data-value { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
-        .data-unit { font-size: 0.8rem; color: #666; }
 
         /* Secção de Gráficos */
         .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; }
-        .chart-card { background: var(--card-bg); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .chart-card h3 { font-size: 0.9rem; text-transform: uppercase; color: var(--primary); margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .chart-card { background: var(--card-bg); padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .chart-card h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         
-        canvas { width: 100% !important; height: 250px !important; }
+        .plot-div { width: 100%; height: 300px; }
+
+        #loader { text-align: center; padding: 40px; font-weight: bold; color: var(--primary); }
 
         @media (max-width: 600px) { .charts-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
+<header>
+    <strong>WILD ALENTEJO - MONITORIZAÇÃO OFF-GRID</strong>
+</header>
+
 <div class="container">
-    <h2>📊 Monitorização em Tempo Real</h2>
-    <p style="font-size: 0.8rem;">Última atualização: <strong id="last_updated">--</strong></p>
+    <div id="loader">🚜 A carregar histórico de Mértola...</div>
 
-    <div class="data-grid">
-        <div class="data-item"><h3>Casa</h3><span id="v_casa_t">--</span>°C / <span id="v_casa_h">--</span>%</div>
-        <div class="data-item"><h3>Quarto</h3><span id="v_quarto_t">--</span>°C / <span id="v_quarto_h">--</span>%</div>
-        <div class="data-item"><h3>Estufa (Ar)</h3><span id="v_estufa_t">--</span>°C / <span id="v_estufa_h">--</span>%</div>
-        <div class="data-item"><h3>Estufa (Solo)</h3><span id="v_solo_t">--</span>°C / <span id="v_solo_h">--</span>%</div>
-    </div>
+    <div id="main-content" style="display:none;">
+        <p style="font-size: 0.8rem;">Última sincronização: <strong id="last_updated">--</strong></p>
 
-    <div class="charts-container">
-        <div class="chart-card"><h3>📈 Histórico Casa</h3><canvas id="chartCasa"></canvas></div>
-        <div class="chart-card"><h3>📈 Histórico Quarto</h3><canvas id="chartQuarto"></canvas></div>
-        <div class="chart-card"><h3>📈 Histórico Estufa (Ar)</h3><canvas id="chartEstufa"></canvas></div>
-        <div class="chart-card"><h3>📈 Histórico Estufa (Solo)</h3><canvas id="chartSolo"></canvas></div>
+        <div class="data-grid">
+            <div class="data-item"><h3>Casa</h3><span id="v_casa" class="data-value">--</span></div>
+            <div class="data-item"><h3>Quarto</h3><span id="v_quarto" class="data-value">--</span></div>
+            <div class="data-item"><h3>Estufa (Ar)</h3><span id="v_estufa" class="data-value">--</span></div>
+            <div class="data-item"><h3>Estufa (Solo)</h3><span id="v_solo" class="data-value">--</span></div>
+            <div class="data-item"><h3>Bateria</h3><span id="v_batt" class="data-value">--</span></div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card"><h3>📈 Histórico Casa</h3><div id="graphCasa" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Histórico Quarto</h3><div id="graphQuarto" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Histórico Estufa (Ar)</h3><div id="graphEstufa" class="plot-div"></div></div>
+            <div class="chart-card"><h3>📈 Histórico Estufa (Solo)</h3><div id="graphSolo" class="plot-div"></div></div>
+        </div>
     </div>
 </div>
 
 <script>
-    const GIST_URL = "https://gist.githubusercontent.com/WildAlentejo/8e8d20f8c8534c53c8827a59e563884e/raw/wild-alentejo-sensors.json";
-    const MAX_POINTS = 20; // Número de pontos a mostrar no gráfico
+    const GIST_ID = "8e8d20f8c8534c53c8827a59e563884e";
+    const COMMITS_URL = `https://api.github.com/gists/${GIST_ID}/commits`;
 
-    // Configuração Base dos Gráficos
-    function createChartConfig(labelT, labelH) {
-        return {
-            type: 'line',
-            data: { labels: [], datasets: [
-                { label: 'Temp °C', data: [], borderColor: '#cc4400', backgroundColor: '#cc4400', yAxisID: 'yT', tension: 0.3 },
-                { label: 'Hum %', data: [], borderColor: '#3498db', backgroundColor: '#3498db', yAxisID: 'yH', tension: 0.3 }
-            ]},
-            options: {
-                responsive: true,
-                scales: {
-                    yT: { type: 'linear', position: 'left', title: { display: true, text: 'Temp (°C)' } },
-                    yH: { type: 'linear', position: 'right', title: { display: true, text: 'Hum (%)' }, grid: { drawOnChartArea: false } }
+    async function initDashboard() {
+        try {
+            // 1. Pega a lista de commits (histórico de atualizações)
+            const resCommits = await fetch(COMMITS_URL);
+            const commits = await resCommits.json();
+            
+            // Limitamos aos últimos 24 pontos para não estourar a API
+            const lastCommits = commits.slice(0, 24).reverse();
+            
+            let history = [];
+
+            // 2. Busca o conteúdo de cada ponto no tempo
+            for (const commit of lastCommits) {
+                const rawUrl = `https://gist.githubusercontent.com/WildAlentejo/${GIST_ID}/raw/${commit.version}/wild-alentejo-sensors.json`;
+                const resData = await fetch(rawUrl);
+                if (resData.ok) {
+                    history.push(await resData.json());
                 }
             }
-        };
-    }
 
-    // Inicializar Gráficos
-    const charts = {
-        casa: new Chart(document.getElementById('chartCasa'), createChartConfig()),
-        quarto: new Chart(document.getElementById('chartQuarto'), createChartConfig()),
-        estufa: new Chart(document.getElementById('chartEstufa'), createChartConfig()),
-        solo: new Chart(document.getElementById('chartSolo'), createChartConfig())
-    };
+            // 3. Processa dados para os gráficos
+            const times = history.map(d => d.last_updated);
+            
+            const plotData = (t, h, name) => [
+                { x: times, y: t, name: 'Temp °C', type: 'scatter', mode: 'lines', line: {color: '#cc4400', width: 3} },
+                { x: times, y: h, name: 'Hum %', type: 'scatter', mode: 'lines', yaxis: 'y2', line: {color: '#3498db', dash: 'dot'} }
+            ];
 
-    function updateChart(chart, label, temp, hum) {
-        if (chart.data.labels.length >= MAX_POINTS) {
-            chart.data.labels.shift();
-            chart.data.datasets[0].data.shift();
-            chart.data.datasets[1].data.shift();
+            const layout = (title) => ({
+                showlegend: false,
+                margin: { t: 5, b: 30, l: 40, r: 40 },
+                yaxis: { title: '°C', titlefont: {color: '#cc4400'}, tickfont: {color: '#cc4400'} },
+                yaxis2: { title: '%', titlefont: {color: '#3498db'}, tickfont: {color: '#3498db'}, overlaying: 'y', side: 'right' },
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)'
+            });
+
+            // Renderiza Gráficos
+            Plotly.newPlot('graphCasa', plotData(history.map(d=>d.casa_temp), history.map(d=>d.casa_hum)), layout());
+            Plotly.newPlot('graphQuarto', plotData(history.map(d=>d.quarto_temp), history.map(d=>d.quarto_hum)), layout());
+            Plotly.newPlot('graphEstufa', plotData(history.map(d=>d.estufa_dht_temp), history.map(d=>d.estufa_dht_hum)), layout());
+            Plotly.newPlot('graphSolo', plotData(history.map(d=>d.greenhouse_temp_c), history.map(d=>d.greenhouse_hum)), layout());
+
+            // 4. Atualiza Valores Atuais
+            const latest = history[history.length - 1];
+            document.getElementById('v_casa').innerText = `${latest.casa_temp}°C / ${latest.casa_hum}%`;
+            document.getElementById('v_quarto').innerText = `${latest.quarto_temp}°C / ${latest.quarto_hum}%`;
+            document.getElementById('v_estufa').innerText = `${latest.estufa_dht_temp}°C / ${latest.estufa_dht_hum}%`;
+            document.getElementById('v_solo').innerText = `${latest.greenhouse_temp_c}°C / ${latest.greenhouse_hum}%`;
+            document.getElementById('v_batt').innerText = `${latest.battery_voltage}V`;
+            document.getElementById('last_updated').innerText = latest.last_updated;
+
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+
+        } catch (error) {
+            console.error("Erro:", error);
+            document.getElementById('loader').innerText = "❌ Erro ao ligar ao servidor de Mértola.";
         }
-        chart.data.labels.push(label);
-        chart.data.datasets[0].data.push(temp);
-        chart.data.datasets[1].data.push(hum);
-        chart.update();
     }
 
-    async function fetchData() {
-        try {
-            const res = await fetch(`${GIST_URL}?t=${Date.now()}`, { cache: "no-store" });
-            const data = await res.json();
-            const time = new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
-
-            // Atualizar Valores Texto
-            document.getElementById('v_casa_t').innerText = data.casa_temp; document.getElementById('v_casa_h').innerText = data.casa_hum;
-            document.getElementById('v_quarto_t').innerText = data.quarto_temp; document.getElementById('v_quarto_h').innerText = data.quarto_hum;
-            document.getElementById('v_estufa_t').innerText = data.estufa_dht_temp; document.getElementById('v_estufa_h').innerText = data.estufa_dht_hum;
-            document.getElementById('v_solo_t').innerText = data.greenhouse_temp_c; document.getElementById('v_solo_h').innerText = data.greenhouse_hum;
-            document.getElementById('last_updated').innerText = data.last_updated;
-
-            // Atualizar Gráficos
-            updateChart(charts.casa, time, data.casa_temp, data.casa_hum);
-            updateChart(charts.quarto, time, data.quarto_temp, data.quarto_hum);
-            updateChart(charts.estufa, time, data.estufa_dht_temp, data.estufa_dht_hum);
-            updateChart(charts.solo, time, data.greenhouse_temp_c, data.greenhouse_hum);
-
-        } catch (e) { console.error("Erro nos sensores:", e); }
-    }
-
-    fetchData();
-    setInterval(fetchData, 300000); // 5 em 5 minutos
+    initDashboard();
 </script>
 
 </body>
