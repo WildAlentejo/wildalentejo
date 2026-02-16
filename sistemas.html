@@ -3,129 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistemas & Gráficos | Wild Alentejo</title>
+    <title>O Sistema | Wild Alentejo</title>
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     
     <style>
-        :root { --primary: #2D4C2F; --secondary: #8DAF57; --bg: #f4f1ea; --card-bg: #fdfdfa; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #333; margin: 0; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        :root { 
+            --primary: #2D4C2F; 
+            --secondary: #8DAF57; 
+            --bg: #f4f1ea; 
+            --card-bg: #fdfdfa;
+        }
         
-        header { background: var(--primary); color: white; padding: 10px 0; text-align: center; margin-bottom: 20px; border-bottom: 3px solid var(--secondary); }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            color: #333; 
+            margin: 0; 
+            background-color: var(--bg);
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
 
-        /* Grid de Dados */
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 30px; }
-        .data-item { background: var(--card-bg); padding: 15px; border-radius: 4px; text-align: center; border-bottom: 3px solid var(--secondary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .data-item h3 { font-size: 0.75rem; text-transform: uppercase; margin-top: 0; color: #666; }
-        .data-value { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        /* HEADER ORIGINAL */
+        header { 
+            background: url('img/pattern-alentejo.png'), rgba(45, 76, 47, 0.98);
+            background-repeat: repeat; background-size: 320px; background-blend-mode: overlay;
+            padding: 8px 0; border-bottom: 2px solid var(--secondary); 
+            position: sticky; top: 0; z-index: 1000; 
+        }
+        header .container { display: flex; justify-content: flex-start; align-items: center; gap: 80px; }
+        .logo img { height: 70px; border-radius: 8px; }
 
-        /* Secção de Gráficos */
-        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; }
-        .chart-card { background: var(--card-bg); padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        nav { display: flex; gap: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
+        nav a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
+        nav a:hover, nav a.active { color: #fff; border-bottom: 2px solid var(--secondary); padding-bottom: 3px; }
+
+        .content-section { padding: 40px 0; }
+        h2 { text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 20px; border-left: 4px solid var(--secondary); padding-left: 15px; }
+
+        /* GRID DE DADOS ATUAIS */
+        .data-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; margin: 20px 0 40px;
+        }
+        .data-item {
+            background: var(--card-bg); padding: 20px; border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.05); text-align: center; border-bottom: 3px solid var(--secondary);
+        }
+        .data-item h3 { font-size: 0.65rem; text-transform: uppercase; color: #888; margin: 0 0 10px; }
+        .data-value { font-size: 1.6rem; font-weight: 800; color: var(--primary); display: block; }
+
+        /* GRÁFICOS */
+        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(48%, 1fr)); gap: 20px; }
+        .chart-card { background: var(--card-bg); padding: 15px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .chart-card h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        
-        .plot-div { width: 100%; height: 300px; }
+        .plot-div { width: 100%; height: 350px; }
 
-        #loader { text-align: center; padding: 40px; font-weight: bold; color: var(--primary); }
+        #loader { text-align: center; padding: 100px; font-size: 1.2rem; color: var(--primary); font-weight: bold; }
 
-        @media (max-width: 600px) { .charts-container { grid-template-columns: 1fr; } }
+        /* FOOTER ORIGINAL */
+        footer { 
+            background: url('img/pattern-alentejo.png'), var(--primary); background-blend-mode: overlay; 
+            color: white; padding: 40px 0; text-align: center; margin-top: 60px; border-top: 3px solid var(--secondary);
+        }
+
+        @media (max-width: 768px) { 
+            header .container { gap: 20px; flex-direction: column; }
+            .charts-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <strong>WILD ALENTEJO - MONITORIZAÇÃO OFF-GRID</strong>
-</header>
-
-<div class="container">
-    <div id="loader">🚜 A carregar histórico de Mértola...</div>
-
-    <div id="main-content" style="display:none;">
-        <p style="font-size: 0.8rem;">Última sincronização: <strong id="last_updated">--</strong></p>
-
-        <div class="data-grid">
-            <div class="data-item"><h3>Casa</h3><span id="v_casa" class="data-value">--</span></div>
-            <div class="data-item"><h3>Quarto</h3><span id="v_quarto" class="data-value">--</span></div>
-            <div class="data-item"><h3>Estufa (Ar)</h3><span id="v_estufa" class="data-value">--</span></div>
-            <div class="data-item"><h3>Estufa (Solo)</h3><span id="v_solo" class="data-value">--</span></div>
-            <div class="data-item"><h3>Bateria</h3><span id="v_batt" class="data-value">--</span></div>
+    <header>
+        <div class="container">
+            <div class="logo"><a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a></div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sistema.html" class="active">O Sistema</a>
+                <a href="logbook.html">Logbook</a>
+                <a href="adote.html">Adote-me</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="loja.html">Loja</a>
+                <a href="sobre.html">Contacto</a>
+            </nav>
         </div>
+    </header>
 
-        <div class="charts-container">
-            <div class="chart-card"><h3>📈 Histórico Casa</h3><div id="graphCasa" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Histórico Quarto</h3><div id="graphQuarto" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Histórico Estufa (Ar)</h3><div id="graphEstufa" class="plot-div"></div></div>
-            <div class="chart-card"><h3>📈 Histórico Estufa (Solo)</h3><div id="graphSolo" class="plot-div"></div></div>
+    <main class="container">
+        <section class="content-section">
+            <div id="loader">🚜 A ler histórico de Mértola...</div>
+
+            <div id="main-content" style="display:none;">
+                <h2>📊 Estado Atual</h2>
+                <p style="font-size: 0.8rem; color: #666;">Última leitura: <strong id="last_updated">--</strong></p>
+                
+                <div class="data-grid">
+                    <div class="data-item"><h3>⚡ Bateria</h3><span id="v_batt" class="data-value">--</span><small>V</small></div>
+                    <div class="data-item"><h3>💧 Poço</h3><span id="v_well" class="data-value">--</span><small>%</small></div>
+                    <div class="data-item"><h3>🏠 Casa</h3><span id="v_casa" class="data-value">--</span><small>°C</small></div>
+                    <div class="data-item"><h3>🌱 Estufa Solo</h3><span id="v_solo" class="data-value">--</span><small>°C</small></div>
+                </div>
+
+                <h2>📈 Histórico 24h</h2>
+                <div class="charts-container">
+                    <div class="chart-card"><h3>Histórico Casa</h3><div id="graphCasa" class="plot-div"></div></div>
+                    <div class="chart-card"><h3>Histórico Quarto</h3><div id="graphQuarto" class="plot-div"></div></div>
+                    <div class="chart-card"><h3>Histórico Estufa (Ar)</h3><div id="graphEstufa" class="plot-div"></div></div>
+                    <div class="chart-card"><h3>Histórico Estufa (Solo)</h3><div id="graphSolo" class="plot-div"></div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Wild Alentejo &copy; 2026 | Engenharia de Regeneração</p>
         </div>
-    </div>
-</div>
+    </footer>
 
-<script>
-    const GIST_ID = "8e8d20f8c8534c53c8827a59e563884e";
-    const COMMITS_URL = `https://api.github.com/gists/${GIST_ID}/commits`;
+    <script>
+        const GIST_ID = "8e8d20f8c8534c53c8827a59e563884e";
+        const COMMITS_URL = `https://api.github.com/gists/${GIST_ID}/commits`;
 
-    async function initDashboard() {
-        try {
-            // 1. Pega a lista de commits (histórico de atualizações)
-            const resCommits = await fetch(COMMITS_URL);
-            const commits = await resCommits.json();
-            
-            // Limitamos aos últimos 24 pontos para não estourar a API
-            const lastCommits = commits.slice(0, 24).reverse();
-            
-            let history = [];
-
-            // 2. Busca o conteúdo de cada ponto no tempo
-            for (const commit of lastCommits) {
-                const rawUrl = `https://gist.githubusercontent.com/WildAlentejo/${GIST_ID}/raw/${commit.version}/wild-alentejo-sensors.json`;
-                const resData = await fetch(rawUrl);
-                if (resData.ok) {
-                    history.push(await resData.json());
+        async function initDashboard() {
+            try {
+                const resCommits = await fetch(COMMITS_URL);
+                const commits = await resCommits.json();
+                const lastCommits = commits.slice(0, 24).reverse();
+                
+                let history = [];
+                for (const commit of lastCommits) {
+                    const rawUrl = `https://gist.githubusercontent.com/WildAlentejo/${GIST_ID}/raw/${commit.version}/wild-alentejo-sensors.json`;
+                    const resData = await fetch(rawUrl);
+                    if (resData.ok) history.push(await resData.json());
                 }
+
+                const times = history.map(d => d.last_updated);
+                
+                function makeTrace(x, y, name, color, yaxis = 'y') {
+                    return { x: x, y: y, name: name, type: 'scatter', mode: 'lines', 
+                             line: {color: color, width: 2, shape: 'spline'}, yaxis: yaxis };
+                }
+
+                const layoutBase = {
+                    showlegend: true,
+                    legend: { orientation: 'h', x: 0, y: 1.1, font: {size: 10} },
+                    margin: { t: 40, b: 40, l: 40, r: 40 },
+                    yaxis: { title: '°C', titlefont: {color: '#cc4400', size: 10}, tickfont: {color: '#cc4400'} },
+                    yaxis2: { title: '%', titlefont: {color: '#3498db', size: 10}, tickfont: {color: '#3498db'}, overlaying: 'y', side: 'right' },
+                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)'
+                };
+
+                // Renderização individual para evitar sobreposição
+                Plotly.newPlot('graphCasa', [
+                    makeTrace(times, history.map(d=>d.casa_temp), 'Temp', '#cc4400'),
+                    makeTrace(times, history.map(d=>d.casa_hum), 'Hum %', '#3498db', 'y2')
+                ], layoutBase);
+
+                Plotly.newPlot('graphQuarto', [
+                    makeTrace(times, history.map(d=>d.quarto_temp), 'Temp', '#cc4400'),
+                    makeTrace(times, history.map(d=>d.quarto_hum), 'Hum %', '#3498db', 'y2')
+                ], layoutBase);
+
+                Plotly.newPlot('graphEstufa', [
+                    makeTrace(times, history.map(d=>d.estufa_dht_temp), 'Temp', '#cc4400'),
+                    makeTrace(times, history.map(d=>d.estufa_dht_hum), 'Hum %', '#3498db', 'y2')
+                ], layoutBase);
+
+                Plotly.newPlot('graphSolo', [
+                    makeTrace(times, history.map(d=>d.greenhouse_temp_c), 'Solo Temp', '#cc4400'),
+                    makeTrace(times, history.map(d=>d.greenhouse_hum), 'Solo Hum %', '#3498db', 'y2')
+                ], layoutBase);
+
+                // Atualizar texto
+                const latest = history[history.length - 1];
+                document.getElementById('v_batt').innerText = latest.battery_voltage.toFixed(1);
+                document.getElementById('v_well').innerText = latest.well_water_level.toFixed(0);
+                document.getElementById('v_casa').innerText = latest.casa_temp.toFixed(1);
+                document.getElementById('v_solo').innerText = latest.greenhouse_temp_c.toFixed(1);
+                document.getElementById('last_updated').innerText = latest.last_updated;
+
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+
+            } catch (error) {
+                document.getElementById('loader').innerText = "❌ Erro ao carregar dados de Mértola.";
             }
-
-            // 3. Processa dados para os gráficos
-            const times = history.map(d => d.last_updated);
-            
-            const plotData = (t, h, name) => [
-                { x: times, y: t, name: 'Temp °C', type: 'scatter', mode: 'lines', line: {color: '#cc4400', width: 3} },
-                { x: times, y: h, name: 'Hum %', type: 'scatter', mode: 'lines', yaxis: 'y2', line: {color: '#3498db', dash: 'dot'} }
-            ];
-
-            const layout = (title) => ({
-                showlegend: false,
-                margin: { t: 5, b: 30, l: 40, r: 40 },
-                yaxis: { title: '°C', titlefont: {color: '#cc4400'}, tickfont: {color: '#cc4400'} },
-                yaxis2: { title: '%', titlefont: {color: '#3498db'}, tickfont: {color: '#3498db'}, overlaying: 'y', side: 'right' },
-                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)'
-            });
-
-            // Renderiza Gráficos
-            Plotly.newPlot('graphCasa', plotData(history.map(d=>d.casa_temp), history.map(d=>d.casa_hum)), layout());
-            Plotly.newPlot('graphQuarto', plotData(history.map(d=>d.quarto_temp), history.map(d=>d.quarto_hum)), layout());
-            Plotly.newPlot('graphEstufa', plotData(history.map(d=>d.estufa_dht_temp), history.map(d=>d.estufa_dht_hum)), layout());
-            Plotly.newPlot('graphSolo', plotData(history.map(d=>d.greenhouse_temp_c), history.map(d=>d.greenhouse_hum)), layout());
-
-            // 4. Atualiza Valores Atuais
-            const latest = history[history.length - 1];
-            document.getElementById('v_casa').innerText = `${latest.casa_temp}°C / ${latest.casa_hum}%`;
-            document.getElementById('v_quarto').innerText = `${latest.quarto_temp}°C / ${latest.quarto_hum}%`;
-            document.getElementById('v_estufa').innerText = `${latest.estufa_dht_temp}°C / ${latest.estufa_dht_hum}%`;
-            document.getElementById('v_solo').innerText = `${latest.greenhouse_temp_c}°C / ${latest.greenhouse_hum}%`;
-            document.getElementById('v_batt').innerText = `${latest.battery_voltage}V`;
-            document.getElementById('last_updated').innerText = latest.last_updated;
-
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-
-        } catch (error) {
-            console.error("Erro:", error);
-            document.getElementById('loader').innerText = "❌ Erro ao ligar ao servidor de Mértola.";
         }
-    }
-
-    initDashboard();
-</script>
-
+        initDashboard();
+    </script>
 </body>
 </html>
