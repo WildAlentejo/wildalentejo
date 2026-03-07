@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logbook | Wild Alentejo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .log-entry {
+            border-left: 3px solid var(--primary);
+            margin: 40px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 17px;
+            height: 17px;
+            background: var(--secondary);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+        }
+
+        .log-date {
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .log-content h2 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            letter-spacing: -1px;
+        }
+
+        .log-tags { display: flex; gap: 10px; margin-bottom: 15px; }
+
+        .tag {
+            font-size: 0.6rem;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid #ddd;
+        }
+
+        .log-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .log-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .log-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sistemas2.html">O Sistema</a>
+                <a href="logbook.html" class="active">Logbook</a>
+                <a href="adote.html">Adote-me</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="loja.html">Loja</a>
+                <a href="sobre.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="log-entry">
+            <span class="log-date">13 Agosto 2025</span>
+            <div class="log-content">
+                <h2>Otimização do Sistema Fotovoltaico</h2>
+                <div class="log-tags">
+                    <span class="tag">Energia</span>
+                    <span class="tag">Off-Grid</span>
+                </div>
+                <div class="log-grid">
+                    <div>
+                        <p>Ajuste do azimute dos painéis para 140º ES para maximizar a colheita solar matinal. As baterias LiFePO4 atingem 100% SOC antes das 11:30h, permitindo bombagem hídrica prolongada durante o pico de radiação.</p>
+                        <ul style="font-size: 0.85rem; color: #666; padding-left: 20px;">
+                            <li>Tensão média: 13.4V</li>
+                            <li>Pico de produção: 1180W</li>
+                        </ul>
+                    </div>
+                    <img src="img/solar_log.jpg" alt="Painéis Solares" class="log-img">
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <span class="log-date">02 Julho 2025</span>
+            <div class="log-content">
+                <h2>Gestão de Stress Hídrico (Estio)</h2>
+                <div class="log-tags">
+                    <span class="tag">Água</span>
+                    <span class="tag">Mértola</span>
+                </div>
+                <div class="log-grid">
+                    <div>
+                        <p>Nível do poço atingiu a marca crítica de 0.6m. Implementado protocolo de rega restritiva via IoT. Prioridade absoluta para as alfarrobeiras e estrato produtivo da agrofloresta sintrópica.</p>
+                        <p style="font-size: 0.85rem; font-style: italic;">Nota: O mulch de eucalipto está a manter o solo 8ºC abaixo da temperatura ambiente.</p>
+                    </div>
+                    <img src="img/poco_log.jpg" alt="Poço Mértola" class="log-img">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Wild Alentejo | Mértola, Portugal.<br>
+                Monitorização via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
