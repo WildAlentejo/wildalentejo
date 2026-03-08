@@ -66,29 +66,6 @@
         .btn-voltar:hover { background: var(--secondary); color: white; }
     </style>
 </head>
-<!-- BANNER COOKIES -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
-    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
-    <div style="display:flex; gap:10px; flex-shrink:0;">
-        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
-        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
-    </div>
-</div>
-
-<script>
-    // Mostrar banner se ainda não decidiu
-    if (!localStorage.getItem('cookies')) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function aceitarCookies() {
-        localStorage.setItem('cookies', 'aceite');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function recusarCookies() {
-        localStorage.setItem('cookies', 'recusado');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-</script>
 <body>
 
     <header>
@@ -133,6 +110,28 @@
             </div>
         </div>
     </footer>
+<!-- BANNER COOKIES -->
+<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+    <div style="display:flex; gap:10px; flex-shrink:0;">
+        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
+        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+    </div>
+</div>
 
+<script>
+    // Mostrar banner se ainda não decidiu
+    if (!localStorage.getItem('cookies')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+    }
+    function aceitarCookies() {
+        localStorage.setItem('cookies', 'aceite');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+    function recusarCookies() {
+        localStorage.setItem('cookies', 'recusado');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+</script>
 </body>
 </html>
