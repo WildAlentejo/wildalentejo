@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria | Wild Alentejo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* LIVE STREAM */
+        .live-monitor {
+            background: #1a1a1a;
+            margin: 40px 0;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .stream-container { position: relative; padding-top: 56.25%; }
+
+        .stream-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        .live-tag {
+            position: absolute;
+            top: 20px; left: 20px;
+            background: #ff0000;
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-radius: 3px;
+            animation: blink 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.5; }
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 800;
+            margin: 60px 0 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::after {
+            content: "";
+            height: 1px;
+            background: var(--border);
+            flex-grow: 1;
+        }
+
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 6px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: zoom-in;
+            background: #e8e4dc;
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.3s;
+            filter: saturate(0.8);
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.07);
+            filter: saturate(1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 18px;
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        .gallery-overlay h4 {
+            color: #fff;
+            margin: 0 0 3px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .gallery-overlay p {
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .gallery-overlay .zoom-hint {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ══════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════ */
+        #lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.93);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.2s ease;
+        }
+
+        #lightbox-overlay.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        #lightbox-img {
+            max-width: 82vw;
+            max-height: 78vh;
+            object-fit: contain;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+            animation: zoomIn 0.22s ease;
+            cursor: default;
+            transition: opacity 0.15s ease;
+            display: block;
+            border-radius: 2px;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.93); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        #lightbox-close {
+            position: absolute;
+            top: 18px; right: 22px;
+            color: white;
+            font-size: 2rem;
+            font-weight: 300;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            z-index: 10;
+            line-height: 1;
+        }
+        #lightbox-close:hover { opacity: 1; }
+
+        #lightbox-prev, #lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.25);
+            color: white;
+            font-size: 1.3rem;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            z-index: 10;
+        }
+        #lightbox-prev { left: 20px; }
+        #lightbox-next { right: 20px; }
+        #lightbox-prev:hover, #lightbox-next:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        #lightbox-footer {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px 80px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #lightbox-titulo {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        #lightbox-caption {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        #lightbox-counter {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.65rem;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            #lightbox-img { max-width: 95vw; max-height: 70vh; }
+            #lightbox-prev { left: 8px; }
+            #lightbox-next { right: 8px; }
+            #lightbox-footer { padding: 15px 60px; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sistemas2.html">O Sistema</a>
+                <a href="logbook.html">Logbook</a>
+                <a href="adote.html">Adote-me</a>
+                <a href="agrofloresta.html">Agrofloresta</a>
+                <a href="galeria.html" class="active">Galeria</a>
+                <a href="loja.html">Loja</a>
+                <a href="sobre.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- LIVE STREAM -->
+        <div class="section-title">Monitorização 24h | Direto de Mértola</div>
+
+        <div class="live-monitor">
+            <div class="stream-container">
+                <div class="live-tag">● LIVE</div>
+                <iframe
+                    src="https://www.youtube.com/embed/LVO3JJrJb9g?autoplay=1&mute=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div style="padding:12px 20px; background:#000; color:#555; font-size:0.68rem; font-weight:700; display:flex; justify-content:space-between; text-transform:uppercase; letter-spacing:1px;">
+                <span>Sensor: 140º SE — Mértola</span>
+                <span>Status: Operacional</span>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             SECÇÃO 1 — SISTEMA SINTRÓPICO
+             Para adicionar fotos: adiciona mais objetos ao array
+             { src: 'img/foto.jpg', titulo: 'Título', caption: 'Descrição' }
+        ══════════════════════════════════════════════════ -->
+        <div class="section-title">Sistema Sintrópico</div>
+        <div class="gallery-grid" id="galeria-sintropico"></div>
+
+        <!-- ══════════════════════════════════════════════════
+             SECÇÃO 2 — ENERGIA SOLAR
+        ══════════════════════════════════════════════════ -->
+        <div class="section-title">Energia Solar & Off-Grid</div>
+        <div class="gallery-grid" id="galeria-energia"></div>
+
+        <!-- ══════════════════════════════════════════════════
+             SECÇÃO 3 — GALINHAS DE SERVIÇO
+        ══════════════════════════════════════════════════ -->
+        <div class="section-title">Galinhas de Serviço</div>
+        <div class="gallery-grid" id="galeria-galinhas"></div>
+
+        <!-- ══════════════════════════════════════════════════
+             SECÇÃO 4 — SOLO & BIOMASSA
+        ══════════════════════════════════════════════════ -->
+        <div class="section-title">Solo & Biomassa</div>
+        <div class="gallery-grid" id="galeria-solo"></div>
+
+        <!-- ══════════════════════════════════════════════════
+             SECÇÃO 5 — DESTILAÇÃO & ÓLEOS
+        ══════════════════════════════════════════════════ -->
+        <div class="section-title">Destilação & Óleos Essenciais</div>
+        <div class="gallery-grid" id="galeria-destilacao"></div>
+
+        <!-- ══════════════════════════════════════════════════
+             SECÇÃO 6 — ESTUFA
+        ══════════════════════════════════════════════════ -->
+        <div class="section-title">Estufa 3×6m</div>
+        <div class="gallery-grid" id="galeria-estufa"></div>
+
+    </main>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox-overlay" onclick="closeLightbox()">
+        <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button id="lightbox-prev" onclick="event.stopPropagation(); navegarLightbox(-1)">&#8592;</button>
+        <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+        <button id="lightbox-next" onclick="event.stopPropagation(); navegarLightbox(1)">&#8594;</button>
+        <div id="lightbox-footer" onclick="event.stopPropagation()">
+            <div id="lightbox-titulo"></div>
+            <div id="lightbox-caption"></div>
+            <div id="lightbox-counter"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | Mértola, Portugal.<br>
+                Monitorização em tempo real via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        /* ══════════════════════════════════════════════════
+           DADOS DAS GALERIAS
+           Para adicionar fotos: adiciona mais objetos { src, titulo, caption }
+           Para remover: apaga o objeto
+        ══════════════════════════════════════════════════ */
+
+        const GALERIAS = {
+            'galeria-sintropico': [
+                { src: 'img/sintropia-ano2.jpg',    titulo: 'Sistema Sintrópico — Ano 2',       caption: '630m² de sucessão sintrópica adaptada ao clima semiárido de Mértola.' },
+                { src: 'img/agro-panoramica.jpg',   titulo: 'Vista Panorâmica',                  caption: 'Vista geral do sistema com estratificação vertical em desenvolvimento.' },
+                { src: 'img/agro-arvores1.jpg',     titulo: 'Estrato Arbóreo',                   caption: 'Alfarrobeiras, Sobreiros e Melias no segundo ano de crescimento.' },
+                { src: 'img/agro-poda1.jpg',        titulo: 'Poda de Estratificação',            caption: 'Intervenção técnica que acelera a sucessão e produz biomassa para o solo.' },
+                { src: 'img/agro-frutos.jpg',       titulo: 'Primeiros Frutos',                  caption: 'Colheita inicial — o sistema começa a devolver energia.' },
+                { src: 'img/terreno_rega.jpg',      titulo: 'Sistema de Rega',                   caption: 'Rega por gotejamento alimentada a energia solar, monitorizada via IoT.' },
+            ],
+            'galeria-energia': [
+                { src: 'img/solar-panels.jpg',      titulo: 'Painéis Fotovoltaicos',             caption: '1000Wp de capacidade instalada orientada a 140° SE para máxima eficiência.' },
+                { src: 'img/agro-rega.jpg',         titulo: 'Bomba Solar',                       caption: 'A energia solar alimenta diretamente a bomba de rega do poço.' },
+            ],
+            'galeria-galinhas': [
+                { src: 'img/galinhas-trabalho.jpg', titulo: 'Galinhas em Rotação',               caption: '13 aves de serviço que fertilizam, controlam pragas e aram o solo naturalmente.' },
+                { src: 'img/agro-galinhas1.jpg',    titulo: 'Integração no Sistema',             caption: 'As galinhas entram em rotação nas zonas podadas, acelerando a decomposição.' },
+                { src: 'img/agro-galinhas2.jpg',    titulo: 'Fertilização Natural',              caption: 'Zero inputs externos — as galinhas fecham o ciclo de nutrientes do sistema.' },
+            ],
+            'galeria-solo': [
+                { src: 'img/solo-regenerado.jpg',   titulo: 'Solo em Regeneração',               caption: 'Perfil de solo semiárido após dois anos de cobertura contínua com biomassa.' },
+                { src: 'img/agro-solo1.jpg',        titulo: 'Mulch de Biomassa',                 caption: 'Cobertura permanente do solo — reduz temperatura e retém humidade crítica.' },
+                { src: 'img/agro-solo2.jpg',        titulo: 'Microbiologia Ativa',               caption: 'Minhocas e fungos micorrízicos — sinais de solo vivo em clima hostil.' },
+            ],
+            'galeria-destilacao': [
+                { src: 'img/destilacao-esteva.jpg', titulo: 'Destilação a Vapor',                caption: 'Extração de óleo essencial de Esteva (Cistus ladanifer) por destilação a vapor.' },
+                { src: 'img/oleoesteva.jpg',        titulo: 'Óleo de Esteva',                    caption: 'Produto final: óleo essencial de Cistus ladanifer colhida no próprio terreno.' },
+                { src: 'img/mel.jpg',               titulo: 'Mel Cru de Esteva',                 caption: 'Mel produzido localmente pelos polinizadores que visitam o sistema.' },
+            ],
+            'galeria-estufa': [
+                { src: 'img/estufa-inverno.jpg',    titulo: 'Estufa 3×6m',                       caption: 'Estrutura de propagação e proteção térmica para as espécies mais sensíveis.' },
+                { src: 'img/agro-arvores2.jpg',     titulo: 'Propagação de Espécies',            caption: 'Germinação e crescimento inicial de espécies antes da transplantação.' },
+                { src: 'img/agro-arvores3.jpg',     titulo: 'Proteção de Inverno',               caption: 'A estufa permite manter espécies tropicais vivas durante o frio de Mértola.' },
+            ],
+        };
+
+        /* ══════════════════════════════════════════════════
+           RENDERIZAR GALERIAS
+        ══════════════════════════════════════════════════ */
+        Object.entries(GALERIAS).forEach(([id, fotos]) => {
+            const container = document.getElementById(id);
+            if (!container) return;
+
+            fotos.forEach((foto, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <img src="${foto.src}" alt="${foto.titulo}" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h4>${foto.titulo}</h4>
+                        <p>${foto.caption.substring(0, 55)}${foto.caption.length > 55 ? '...' : ''}</p>
+                        <span class="zoom-hint">🔍 Ver em detalhe${fotos.length > 1 ? ' · ' + fotos.length + ' fotos' : ''}</span>
+                    </div>
+                `;
+                item.addEventListener('click', () => openLightbox(id, index));
+                container.appendChild(item);
+            });
+        });
+
+        /* ══════════════════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════════════════ */
+        let lbGaleriaAtual = null;
+        let lbIndex = 0;
+
+        function openLightbox(galeriaId, index) {
+            lbGaleriaAtual = galeriaId;
+            lbIndex = index;
+            document.getElementById('lightbox-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            renderLightbox();
+        }
+
+        function renderLightbox() {
+            const fotos = GALERIAS[lbGaleriaAtual];
+            const foto  = fotos[lbIndex];
+
+            document.getElementById('lightbox-titulo').textContent  = foto.titulo;
+            document.getElementById('lightbox-caption').textContent = foto.caption;
+            document.getElementById('lightbox-img').src = foto.src;
+
+            const temMais = fotos.length > 1;
+            const d = temMais ? 'flex' : 'none';
+            document.getElementById('lightbox-prev').style.display = d;
+            document.getElementById('lightbox-next').style.display = d;
+            document.getElementById('lightbox-counter').textContent = temMais
+                ? (lbIndex + 1) + ' / ' + fotos.length
+                : '';
+        }
+
+        function navegarLightbox(direcao) {
+            const fotos = GALERIAS[lbGaleriaAtual];
+            lbIndex = (lbIndex + direcao + fotos.length) % fotos.length;
+            const img = document.getElementById('lightbox-img');
+            img.style.opacity = '0';
+            setTimeout(() => {
+                renderLightbox();
+                img.style.opacity = '1';
+            }, 140);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('lightbox-img').style.transition = 'opacity 0.14s ease';
+
+        document.addEventListener('keydown', e => {
+            if (!document.getElementById('lightbox-overlay').classList.contains('active')) return;
+            if (e.key === 'Escape')     closeLightbox();
+            if (e.key === 'ArrowRight') navegarLightbox(1);
+            if (e.key === 'ArrowLeft')  navegarLightbox(-1);
+        });
+
+    </script>
+</body>
+</html>
