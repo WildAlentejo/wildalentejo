@@ -2,15 +2,356 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Wild Alentejo - Em Breve</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wild Alentejo | Engenharia de Regeneração</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body { background: #2D4C2F; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; }
-        .logo { max-width: 150px; margin-bottom: 20px; }
+
+        /* STATUS BAR — igual ao sistemas2 */
+        .status-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        .status-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        /* SECTION LABEL — igual ao sistemas2 */
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 800;
+            margin: 50px 0 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .section-label::after {
+            content: "";
+            height: 1px;
+            background: var(--border);
+            flex-grow: 1;
+        }
+
+        /* SENSOR CARDS — igual ao sistemas2 */
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 0 0 20px;
+        }
+        .sensor-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .sensor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .sensor-card h3 {
+            margin: 0;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+        .sensor-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0 4px;
+            line-height: 1;
+        }
+        .sensor-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .sensor-sub.verde { color: #27ae60; }
+        .sensor-sub.azul  { color: #3498db; }
+        .sensor-sub.laranja { color: var(--accent); }
+
+        /* GRID DE CONTEÚDO — igual ao charts-section do sistemas2 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        .info-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .info-card-header {
+            font-weight: 800;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .info-card p {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+        .info-card p:last-child { margin-bottom: 0; }
+
+        /* LISTA DE PRINCÍPIOS */
+        .principios-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .principios-lista li {
+            font-size: 0.88rem;
+            color: #444;
+            padding: 9px 0;
+            border-bottom: 1px solid #f0ede6;
+            line-height: 1.5;
+            display: flex;
+            gap: 10px;
+        }
+        .principios-lista li:last-child { border-bottom: none; }
+        .principios-lista li .check {
+            color: var(--secondary);
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        /* LINKS RÁPIDOS */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-bottom: 60px;
+        }
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 18px 14px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+            border-top: 4px solid var(--primary);
+        }
+        .link-card:hover {
+            border-color: var(--secondary);
+            border-top-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        }
+        .link-card-tag {
+            font-size: 0.55rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #999;
+        }
+        .link-card-nome {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+        }
+        .link-card-desc {
+            font-size: 0.7rem;
+            color: #888;
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+        @media (max-width: 900px) {
+            .links-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 500px) {
+            .links-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* IMAGEM */
+        .img-contexto-container {
+            width: 100%;
+            margin-bottom: 50px;
+            border: 1px solid #eee;
+            padding: 10px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .img-tecnica {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.9);
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .img-tecnica { height: 230px; }
+        }
     </style>
 </head>
 <body>
-    <img src="img/logo.png" alt="Logo" class="logo">
-    <h1>Em Breve</h1>
-    <p>Estamos a preparar a nossa loja e sistemas sintrópicos.</p>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="index.html" class="active">Início</a>
+                <a href="sistemas2.html">O Sistema</a>
+                <a href="logbook.html">Logbook</a>
+                <a href="adote.html">Adote-me</a>
+                <a href="agrofloresta.html">Agrofloresta</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="loja.html">Loja</a>
+                <a href="sobre.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- STATUS BAR — igual ao sistemas2 -->
+    <div class="status-bar">
+        <div class="container status-bar-inner">
+            <span><strong>Wild Alentejo</strong> — Engenharia de Regeneração Semiárida</span>
+            <span>Mértola, Portugal · Off-Grid</span>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <!-- MÉTRICAS PRINCIPAIS -->
+        <div class="section-label">Estado do Sistema</div>
+
+        <div class="sensor-grid">
+            <div class="sensor-card">
+                <h3>Energia</h3>
+                <div class="sensor-val">1.0</div>
+                <div class="sensor-sub verde">kWp Solar</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Baterias</h3>
+                <div class="sensor-val">360</div>
+                <div class="sensor-sub azul">Ah Banco</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Sintropia</h3>
+                <div class="sensor-val">630</div>
+                <div class="sensor-sub verde">m² Ativos</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Espécies</h3>
+                <div class="sensor-val">+40</div>
+                <div class="sensor-sub verde">Plantadas</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Operação</h3>
+                <div class="sensor-val">100%</div>
+                <div class="sensor-sub laranja">Off-Grid</div>
+            </div>
+        </div>
+
+        <!-- IMAGEM -->
+        <div class="img-contexto-container">
+            <img src="img/terreno.jpg" alt="Wild Alentejo — Mértola" class="img-tecnica">
+        </div>
+
+        <!-- DESCRIÇÃO + PRINCÍPIOS -->
+        <div class="section-label">O Projeto</div>
+
+        <div class="info-grid">
+
+            <div class="info-card">
+                <div class="info-card-header">📍 Design de Ciclo Fechado</div>
+                <p>O Wild Alentejo opera numa propriedade de 1000m² em Mértola, focada em reverter a desertificação através de engenharia regenerativa.</p>
+                <p>Gerimos recursos hídricos, energéticos e biológicos com precisão técnica para garantir a viabilidade da vida num ambiente semiárido, sem depender de qualquer rede externa.</p>
+                <p>Cada sistema foi desenhado para trabalhar em sinergia: os painéis alimentam a bomba de água, que irriga a floresta, que protege o solo, que retém humidade para o próximo ciclo.</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-header">⚙️ Princípios de Operação</div>
+                <ul class="principios-lista">
+                    <li><span class="check">✔</span><div><strong>Soberania</strong> — Independência total de redes externas em energia, água e saneamento.</div></li>
+                    <li><span class="check">✔</span><div><strong>Termodinâmica</strong> — Orientação passiva a 140° SE para máxima eficiência solar.</div></li>
+                    <li><span class="check">✔</span><div><strong>Sintropia</strong> — Processos naturais de sucessão para acumular energia e água no solo.</div></li>
+                    <li><span class="check">✔</span><div><strong>Frugalidade</strong> — Redução drástica de consumo via design inteligente com 15m² de área habitável.</div></li>
+                    <li><span class="check">✔</span><div><strong>Monitorização</strong> — Sensores IoT em tempo real via Home Assistant e GitHub Gist.</div></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- LINKS RÁPIDOS -->
+        <div class="section-label">Explorar o Sistema</div>
+
+        <div class="links-grid">
+            <a href="sistemas2.html" class="link-card">
+                <span class="link-card-tag">IoT · Tempo Real</span>
+                <span class="link-card-nome">O Sistema</span>
+                <span class="link-card-desc">Sensores de temperatura e humidade em tempo real — 5 zonas monitorizadas.</span>
+            </a>
+            <a href="agrofloresta.html" class="link-card">
+                <span class="link-card-tag">Agricultura</span>
+                <span class="link-card-nome">Agrofloresta</span>
+                <span class="link-card-desc">Sucessão sintrópica, estratificação e gestão de biomassa em semiárido.</span>
+            </a>
+            <a href="logbook.html" class="link-card">
+                <span class="link-card-tag">Campo</span>
+                <span class="link-card-nome">Logbook</span>
+                <span class="link-card-desc">Registo cronológico de intervenções, medições e observações do terreno.</span>
+            </a>
+            <a href="adote.html" class="link-card">
+                <span class="link-card-tag">Participar</span>
+                <span class="link-card-nome">Adote-me</span>
+                <span class="link-card-desc">Patrocine uma espécie e contribua para o ciclo de regeneração.</span>
+            </a>
+            <a href="galeria.html" class="link-card">
+                <span class="link-card-tag">Visual</span>
+                <span class="link-card-nome">Galeria</span>
+                <span class="link-card-desc">Arquivo fotográfico do projeto e da evolução do terreno.</span>
+            </a>
+            <a href="loja.html" class="link-card">
+                <span class="link-card-tag">Produção Local</span>
+                <span class="link-card-nome">Loja</span>
+                <span class="link-card-desc">Mel cru, óleos essenciais e excedentes do ecossistema.</span>
+            </a>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | Mértola, Portugal.<br>
+                Monitorização em tempo real via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

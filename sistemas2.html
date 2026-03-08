@@ -27,9 +27,15 @@
         /* SENSOR CARDS */
         .sensor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
             margin: 0 0 20px;
+        }
+        @media (max-width: 900px) {
+            .sensor-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 500px) {
+            .sensor-grid { grid-template-columns: repeat(2, 1fr); }
         }
         .sensor-card {
             background: var(--card-bg);
