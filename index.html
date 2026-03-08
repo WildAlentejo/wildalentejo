@@ -6,8 +6,7 @@
     <title>Wild Alentejo | Engenharia de Regeneração</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-
-        /* STATUS BAR — igual ao sistemas2 */
+        /* STATUS BAR */
         .status-bar {
             background: var(--card-bg);
             border-bottom: 1px solid var(--border);
@@ -21,7 +20,7 @@
             padding: 10px 0;
         }
 
-        /* SECTION LABEL — igual ao sistemas2 */
+        /* SECTION LABEL */
         .section-label {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -100,7 +99,7 @@
             .sensor-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* GRID DE CONTEÚDO — igual ao charts-section do sistemas2 */
+        /* GRID DE CONTEÚDO */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -215,12 +214,10 @@
             position: relative;
             overflow: hidden;
         }
-
         .carrosel-track {
             display: flex;
             transition: transform 0.5s ease;
         }
-
         .carrosel-track img {
             width: 100%;
             flex-shrink: 0;
@@ -229,7 +226,6 @@
             display: block;
             filter: saturate(0.9);
         }
-
         .carrosel-btn {
             position: absolute;
             top: 50%;
@@ -260,7 +256,6 @@
             gap: 7px;
             z-index: 10;
         }
-
         .carrosel-dot {
             width: 8px; height: 8px;
             border-radius: 50%;
@@ -301,7 +296,6 @@
         </div>
     </header>
 
-    <!-- STATUS BAR — igual ao sistemas2 -->
     <div class="status-bar">
         <div class="container status-bar-inner">
             <span><strong>Wild Alentejo</strong> — Engenharia de Regeneração Semiárida</span>
@@ -311,7 +305,6 @@
 
     <main class="container">
 
-        <!-- MÉTRICAS PRINCIPAIS -->
         <div class="section-label">Estado do Sistema</div>
 
         <div class="sensor-grid">
@@ -342,27 +335,22 @@
             </div>
         </div>
 
-        <!-- CARROSEL
-             Adiciona ou remove imagens aqui dentro do .carrosel-track
-        -->
         <div class="carrosel-wrap" id="carrosel">
             <div class="carrosel-track" id="carrosel-track">
-                <img src="img/terreno.jpg"       alt="Wild Alentejo — Vista Aérea">
-                <img src="img/terreno_rega.jpg"  alt="Wild Alentejo — Sistema de Rega">
+                <img src="img/terreno.jpg" alt="Wild Alentejo — Vista Aérea">
+                <img src="img/terreno_rega.jpg" alt="Wild Alentejo — Sistema de Rega">
                 <img src="img/agrofloresta-hero1.jpg" alt="Wild Alentejo — Agrofloresta">
                 <img src="img/aridez_monocultura.jpeg" alt="Wild Alentejo — Sintropia">
-                <img src="img/estufa-inverno.jpg"  alt="Wild Alentejo — Energia Solar">
+                <img src="img/estufa-inverno.jpg" alt="Wild Alentejo — Energia Solar">
             </div>
             <button class="carrosel-btn prev" onclick="moverCarrosel(-1)">&#8592;</button>
             <button class="carrosel-btn next" onclick="moverCarrosel(1)">&#8594;</button>
             <div class="carrosel-dots" id="carrosel-dots"></div>
         </div>
 
-        <!-- DESCRIÇÃO + PRINCÍPIOS -->
         <div class="section-label">O Projeto</div>
 
         <div class="info-grid">
-
             <div class="info-card">
                 <div class="info-card-header">📍 Design de Ciclo Fechado</div>
                 <p>O Wild Alentejo opera numa propriedade de 1000m² em Mértola, focada em reverter a desertificação através de engenharia regenerativa.</p>
@@ -380,45 +368,42 @@
                     <li><span class="check">✔</span><div><strong>Monitorização</strong> — Sensores IoT em tempo real via Home Assistant e GitHub Gist.</div></li>
                 </ul>
             </div>
-
         </div>
 
-        <!-- LINKS RÁPIDOS -->
         <div class="section-label">Explorar o Sistema</div>
 
         <div class="links-grid">
             <a href="sistemas2.html" class="link-card">
                 <span class="link-card-tag">IoT · Tempo Real</span>
                 <span class="link-card-nome">O Sistema</span>
-                <span class="link-card-desc">Sensores de temperatura e humidade em tempo real — 5 zonas monitorizadas.</span>
+                <span class="link-card-desc">Sensores de temperatura e humidade em tempo real.</span>
             </a>
             <a href="agrofloresta.html" class="link-card">
                 <span class="link-card-tag">Agricultura</span>
                 <span class="link-card-nome">Agrofloresta</span>
-                <span class="link-card-desc">Sucessão sintrópica, estratificação e gestão de biomassa em semiárido.</span>
+                <span class="link-card-desc">Gestão de biomassa em semiárido.</span>
             </a>
             <a href="logbook.html" class="link-card">
                 <span class="link-card-tag">Campo</span>
                 <span class="link-card-nome">Logbook</span>
-                <span class="link-card-desc">Registo cronológico de intervenções, medições e observações do terreno.</span>
+                <span class="link-card-desc">Registo cronológico de intervenções.</span>
             </a>
             <a href="adote.html" class="link-card">
                 <span class="link-card-tag">Participar</span>
                 <span class="link-card-nome">Adote-me</span>
-                <span class="link-card-desc">Patrocine uma espécie e contribua para o ciclo de regeneração.</span>
+                <span class="link-card-desc">Patrocine uma espécie.</span>
             </a>
             <a href="galeria.html" class="link-card">
                 <span class="link-card-tag">Visual</span>
                 <span class="link-card-nome">Galeria</span>
-                <span class="link-card-desc">Arquivo fotográfico do projeto e da evolução do terreno.</span>
+                <span class="link-card-desc">Arquivo fotográfico do projeto.</span>
             </a>
             <a href="produtos.html" class="link-card">
                 <span class="link-card-tag">Produção Local</span>
                 <span class="link-card-nome">Produtos</span>
-                <span class="link-card-desc">Mel cru, óleos essenciais e excedentes do ecossistema.</span>
+                <span class="link-card-desc">Mel cru e óleos essenciais.</span>
             </a>
         </div>
-
     </main>
 
     <footer>
@@ -432,33 +417,38 @@
             </div>
         </div>
     </footer>
-<!-- BANNER COOKIES -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
-    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
-    <div style="display:flex; gap:10px; flex-shrink:0;">
-        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
-        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+        </div>
     </div>
-</div>
 
-<script>
-    // Mostrar banner se ainda não decidiu
-    if (!localStorage.getItem('cookies')) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function aceitarCookies() {
-        localStorage.setItem('cookies', 'aceite');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function recusarCookies() {
-        localStorage.setItem('cookies', 'recusado');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
+    <script>
+        // Lógica do Cookie Banner
+        const banner = document.getElementById('cookie-banner');
+        
+        if (!localStorage.getItem('cookies')) {
+            banner.style.display = 'flex';
+        }
 
-  
-        const track  = document.getElementById('carrosel-track');
+        function aceitarCookies() {
+            localStorage.setItem('cookies', 'aceite');
+            banner.style.display = 'none';
+        }
+
+        function recusarCookies() {
+            localStorage.setItem('cookies', 'recusado');
+            banner.style.display = 'none';
+        }
+
+        // Lógica do Carrossel
+        const track = document.getElementById('carrosel-track');
         const dotsEl = document.getElementById('carrosel-dots');
-        const total  = track.children.length;
+        const slides = track.querySelectorAll('img');
+        const total = slides.length;
         let atual = 0;
         let timer;
 
@@ -488,7 +478,7 @@
         // Swipe em mobile
         let touchX = 0;
         track.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
-        track.addEventListener('touchend',   e => {
+        track.addEventListener('touchend', e => {
             const diff = touchX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 40) moverCarrosel(diff > 0 ? 1 : -1);
         });
