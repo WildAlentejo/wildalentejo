@@ -40,16 +40,16 @@
             flex-grow: 1;
         }
 
-        /* SENSOR CARDS — igual ao sistemas2 */
+        /* SENSOR CARDS */
         .sensor-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
+            gap: 10px;
             margin: 0 0 20px;
         }
         .sensor-card {
             background: var(--card-bg);
-            padding: 25px;
+            padding: 20px 10px;
             border-radius: 4px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             border-top: 4px solid var(--secondary);
@@ -62,27 +62,43 @@
         }
         .sensor-card h3 {
             margin: 0;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             color: #888;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             font-weight: 800;
         }
         .sensor-val {
-            font-size: 2.2rem;
+            font-size: 1.9rem;
             font-weight: 800;
             color: var(--primary);
-            margin: 10px 0 4px;
+            margin: 8px 0 4px;
             line-height: 1;
         }
         .sensor-sub {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             font-weight: 700;
         }
-        .sensor-sub.verde { color: #27ae60; }
-        .sensor-sub.azul  { color: #3498db; }
+        .sensor-sub.verde   { color: #27ae60; }
+        .sensor-sub.azul    { color: #3498db; }
         .sensor-sub.laranja { color: var(--accent); }
+
+        @media (max-width: 900px) {
+            .sensor-grid { grid-template-columns: repeat(3, 1fr); }
+            .sensor-card { padding: 18px 10px; }
+            .sensor-val  { font-size: 1.8rem; }
+        }
+        @media (max-width: 600px) {
+            .sensor-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .sensor-card { padding: 12px 6px; }
+            .sensor-card h3 { font-size: 0.55rem; letter-spacing: 0; }
+            .sensor-val  { font-size: 1.3rem; margin: 6px 0 3px; }
+            .sensor-sub  { font-size: 0.7rem; }
+        }
+        @media (max-width: 380px) {
+            .sensor-grid { grid-template-columns: repeat(2, 1fr); }
+        }
 
         /* GRID DE CONTEÚDO — igual ao charts-section do sistemas2 */
         .info-grid {
@@ -263,7 +279,7 @@
             </div>
             <div class="sensor-card">
                 <h3>Espécies</h3>
-                <div class="sensor-val">+40</div>
+                <div class="sensor-val">+30</div>
                 <div class="sensor-sub verde">Plantadas</div>
             </div>
             <div class="sensor-card">
@@ -296,7 +312,7 @@
                     <li><span class="check">✔</span><div><strong>Soberania</strong> — Independência total de redes externas em energia, água e saneamento.</div></li>
                     <li><span class="check">✔</span><div><strong>Termodinâmica</strong> — Orientação passiva a 140° SE para máxima eficiência solar.</div></li>
                     <li><span class="check">✔</span><div><strong>Sintropia</strong> — Processos naturais de sucessão para acumular energia e água no solo.</div></li>
-                    <li><span class="check">✔</span><div><strong>Frugalidade</strong> — Redução drástica de consumo via design inteligente com 15m² de área semi-habitável.</div></li>
+                    <li><span class="check">✔</span><div><strong>Frugalidade</strong> — Redução drástica de consumo via design inteligente com 15m² de área habitável.</div></li>
                     <li><span class="check">✔</span><div><strong>Monitorização</strong> — Sensores IoT em tempo real via Home Assistant e GitHub Gist.</div></li>
                 </ul>
             </div>
@@ -332,10 +348,10 @@
                 <span class="link-card-nome">Galeria</span>
                 <span class="link-card-desc">Arquivo fotográfico do projeto e da evolução do terreno.</span>
             </a>
-            <a href="produtos.html" class="link-card">
+            <a href="loja.html" class="link-card">
                 <span class="link-card-tag">Produção Local</span>
-                <span class="link-card-nome">Local</span>
-                <span class="link-card-desc">Mel cru, óleos essenciais, frutos e legumes tudo produzido insite.</span>
+                <span class="link-card-nome">Loja</span>
+                <span class="link-card-desc">Mel cru, óleos essenciais e excedentes do ecossistema.</span>
             </a>
         </div>
 
