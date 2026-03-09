@@ -7,7 +7,7 @@
 
     // Criar overlay
     var overlay = document.createElement('div');
-    overlay.className = 'nav-mobile-overlay';
+    overlay.style.cssText = 'display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1049;';
     document.body.appendChild(overlay);
 
     // Criar botão hamburger
@@ -20,25 +20,31 @@
     function fecharMenu() {
         btn.classList.remove('aberto');
         nav.classList.remove('mobile-aberto');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        overlay.style.display = 'none';
     }
 
     function abrirMenu() {
         btn.classList.add('aberto');
         nav.classList.add('mobile-aberto');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        overlay.style.display = 'block';
     }
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
         btn.classList.contains('aberto') ? fecharMenu() : abrirMenu();
     });
 
     overlay.addEventListener('click', fecharMenu);
 
-    // Só fecha o menu — deixa o browser navegar normalmente
+    // Navegar primeiro, fechar depois
     nav.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', fecharMenu);
+        a.addEventListener('click', function(e) {
+            var href = a.getAttribute('href');
+            e.preventDefault();
+            fecharMenu();
+            setTimeout(function() {
+                window.location.href = href;
+            }, 50);
+        });
     });
 })();
