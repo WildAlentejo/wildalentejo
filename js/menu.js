@@ -5,11 +5,6 @@
 
     if (!nav || !headerContainer) return;
 
-    // Criar overlay
-    var overlay = document.createElement('div');
-    overlay.style.cssText = 'display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1049;';
-    document.body.appendChild(overlay);
-
     // Criar botão hamburger
     var btn = document.createElement('button');
     btn.className = 'hamburger';
@@ -20,24 +15,26 @@
     function fecharMenu() {
         btn.classList.remove('aberto');
         nav.classList.remove('mobile-aberto');
-        overlay.style.display = 'none';
+    }
+
+    function abrirMenu() {
+        btn.classList.add('aberto');
+        nav.classList.add('mobile-aberto');
     }
 
     btn.addEventListener('click', function(e) {
         e.stopPropagation();
-        btn.classList.contains('aberto') ? fecharMenu() : (function(){
-            btn.classList.add('aberto');
-            nav.classList.add('mobile-aberto');
-            overlay.style.display = 'block';
-        })();
+        btn.classList.contains('aberto') ? fecharMenu() : abrirMenu();
     });
 
-    overlay.addEventListener('click', fecharMenu);
-
-    // SEM preventDefault — deixa o browser navegar normalmente
-    nav.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() {
+    // Fechar ao clicar fora do nav
+    document.addEventListener('click', function(e) {
+        if (nav.classList.contains('mobile-aberto') && !nav.contains(e.target) && e.target !== btn) {
             fecharMenu();
-        });
+        }
+    });
+
+    nav.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', fecharMenu);
     });
 })();
