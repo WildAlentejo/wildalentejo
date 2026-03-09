@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa do Site | Wild Alentejo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .sitemap-hero {
+            padding: 60px 0 40px;
+        }
+        .sitemap-hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin: 0 0 8px;
+        }
+        .sitemap-hero p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 800;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .section-label::after {
+            content: "";
+            height: 1px;
+            background: var(--border);
+            flex-grow: 1;
+        }
+
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .sitemap-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--primary);
+            padding: 24px 22px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .sitemap-card:hover {
+            border-color: var(--secondary);
+            border-top-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        }
+        .sitemap-card-icon {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        .sitemap-card-tag {
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+        }
+        .sitemap-card-nome {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+        }
+        .sitemap-card-url {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 700;
+            font-family: monospace;
+            margin-top: 4px;
+        }
+        .sitemap-card-desc {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
+        .sitemap-card.legal {
+            border-top-color: #aaa;
+        }
+        .sitemap-card.legal:hover {
+            border-top-color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .sitemap-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .sitemap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sistemas2.html">O Sistema</a>
+                <a href="logbook.html">Logbook</a>
+                <a href="adote.html">Adote-me</a>
+                <a href="agrofloresta.html">Agrofloresta</a>
+                <a href="produtos.html">Produção</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="sobre.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="sitemap-hero">
+            <h1>Mapa do Site</h1>
+            <p>Todas as páginas disponíveis em wildalentejo.pt</p>
+        </div>
+
+        <div class="section-label">Páginas Principais</div>
+
+        <div class="sitemap-grid">
+
+            <a href="index.html" class="sitemap-card">
+                <div class="sitemap-card-icon">🏠</div>
+                <div class="sitemap-card-tag">Página Principal</div>
+                <div class="sitemap-card-nome">Início</div>
+                <div class="sitemap-card-url">index.html</div>
+                <div class="sitemap-card-desc">Estado do sistema, carrossel de fotos e visão geral do projeto.</div>
+            </a>
+
+            <a href="sistemas2.html" class="sitemap-card">
+                <div class="sitemap-card-icon">📡</div>
+                <div class="sitemap-card-tag">IoT · Tempo Real</div>
+                <div class="sitemap-card-nome">O Sistema</div>
+                <div class="sitemap-card-url">sistemas2.html</div>
+                <div class="sitemap-card-desc">Dashboard com sensores de temperatura e humidade em tempo real via Home Assistant.</div>
+            </a>
+
+            <a href="logbook.html" class="sitemap-card">
+                <div class="sitemap-card-icon">📓</div>
+                <div class="sitemap-card-tag">Diário de Campo</div>
+                <div class="sitemap-card-nome">Logbook</div>
+                <div class="sitemap-card-url">logbook.html</div>
+                <div class="sitemap-card-desc">Registo cronológico de todas as intervenções e observações no terreno.</div>
+            </a>
+
+            <a href="adote.html" class="sitemap-card">
+                <div class="sitemap-card-icon">🌱</div>
+                <div class="sitemap-card-tag">Participar</div>
+                <div class="sitemap-card-nome">Adote-me</div>
+                <div class="sitemap-card-url">adote.html</div>
+                <div class="sitemap-card-desc">Patrocine uma espécie e acompanhe o seu crescimento no projeto.</div>
+            </a>
+
+            <a href="agrofloresta.html" class="sitemap-card">
+                <div class="sitemap-card-icon">🌳</div>
+                <div class="sitemap-card-tag">Agricultura Regenerativa</div>
+                <div class="sitemap-card-nome">Agrofloresta</div>
+                <div class="sitemap-card-url">agrofloresta.html</div>
+                <div class="sitemap-card-desc">Sistema agroflorestal sintropico em semiárido — espécies, técnicas e evolução.</div>
+            </a>
+
+            <a href="produtos.html" class="sitemap-card">
+                <div class="sitemap-card-icon">🍯</div>
+                <div class="sitemap-card-tag">Produção Local</div>
+                <div class="sitemap-card-nome">Produção</div>
+                <div class="sitemap-card-url">produtos.html</div>
+                <div class="sitemap-card-desc">Mel cru, óleos essenciais e outros produtos do projeto.</div>
+            </a>
+
+            <a href="galeria.html" class="sitemap-card">
+                <div class="sitemap-card-icon">📷</div>
+                <div class="sitemap-card-tag">Arquivo Visual</div>
+                <div class="sitemap-card-nome">Galeria</div>
+                <div class="sitemap-card-url">galeria.html</div>
+                <div class="sitemap-card-desc">Fotografia e vídeo do projeto — sintropia, energia, solo, estufa e mais.</div>
+            </a>
+
+            <a href="sobre.html" class="sitemap-card">
+                <div class="sitemap-card-icon">✉️</div>
+                <div class="sitemap-card-tag">Contacto</div>
+                <div class="sitemap-card-nome">Contacto</div>
+                <div class="sitemap-card-url">sobre.html</div>
+                <div class="sitemap-card-desc">Formulário de contacto e informações sobre o projeto.</div>
+            </a>
+
+        </div>
+
+        <div class="section-label">Legal</div>
+
+        <div class="sitemap-grid">
+
+            <a href="privacidade.html" class="sitemap-card legal">
+                <div class="sitemap-card-icon">🔒</div>
+                <div class="sitemap-card-tag">Política</div>
+                <div class="sitemap-card-nome">Privacidade</div>
+                <div class="sitemap-card-url">privacidade.html</div>
+                <div class="sitemap-card-desc">Política de privacidade e uso de cookies.</div>
+            </a>
+
+            <a href="sitemap.html" class="sitemap-card legal">
+                <div class="sitemap-card-icon">🗺️</div>
+                <div class="sitemap-card-tag">Navegação</div>
+                <div class="sitemap-card-nome">Mapa do Site</div>
+                <div class="sitemap-card-url">sitemap.html</div>
+                <div class="sitemap-card-desc">Esta página — lista de todas as páginas do site.</div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | Mértola, Portugal.<br>
+                Monitorização em tempo real via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+        </div>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() {
+            localStorage.setItem('cookies', 'aceite');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        function recusarCookies() {
+            localStorage.setItem('cookies', 'recusado');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+    </script>
+    <script src="js/menu.js"></script>
+
+</body>
+</html>
