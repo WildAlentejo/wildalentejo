@@ -166,15 +166,15 @@
         .timeline { margin-bottom: 60px; }
         .tl-entry {
             display: grid;
-            grid-template-columns: 120px 1fr;
-            gap: 30px;
+            grid-template-columns: 120px 30px 1fr;
+            gap: 0 15px;
             margin-bottom: 35px;
             position: relative;
         }
         .tl-entry::before {
             content: '';
             position: absolute;
-            left: 59px; top: 24px; bottom: -35px;
+            left: 136px; top: 24px; bottom: -35px;
             width: 2px;
             background: var(--border);
         }
@@ -182,12 +182,13 @@
         .tl-data { text-align: right; padding-top: 4px; }
         .tl-data strong { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 800; }
         .tl-dot {
-            position: absolute;
-            left: 52px; top: 6px;
+            position: relative;
             width: 16px; height: 16px;
             background: var(--secondary);
             border: 3px solid var(--primary);
             border-radius: 50%;
+            margin-top: 6px;
+            justify-self: center;
         }
         .tl-content { background: var(--card-bg); border: 1px solid var(--border); padding: 20px 25px; }
         .tl-content h4 { margin: 0 0 8px; font-size: 1rem; color: var(--primary); text-transform: uppercase; }
@@ -243,9 +244,8 @@
             .foto-grid { grid-template-columns: repeat(2, 1fr); }
             .foto-item.grande { grid-column: span 2; }
             .video-grid { grid-template-columns: 1fr; }
-            .tl-entry { grid-template-columns: 80px 1fr; gap: 15px; }
-            .tl-entry::before { left: 39px; }
-            .tl-dot { left: 32px; }
+            .tl-entry { grid-template-columns: 80px 30px 1fr; gap: 0 10px; }
+            .tl-entry::before { left: 102px; }
         }
         @media (max-width: 480px) {
             .foto-grid { grid-template-columns: 1fr; }
