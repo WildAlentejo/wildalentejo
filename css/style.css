@@ -1,0 +1,267 @@
+/* ============================================================
+   WILD ALENTEJO — Sistema de Design Unificado
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --primary:   #2D4C2F;
+    --secondary: #8DAF57;
+    --accent:    #cc4400;
+    --bg:        #f4f1ea;
+    --card-bg:   #fdfdfa;
+    --text:      #333;
+    --text-muted:#666;
+    --border:    #e8e4dc;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    margin: 0;
+    background-color: var(--bg);
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ── Header ── */
+header {
+    background: url('img/pattern-alentejo.png'), rgba(45, 76, 47, 0.98);
+    background-repeat: repeat;
+    background-size: 320px;
+    background-blend-mode: overlay;
+    padding: 8px 0;
+    border-bottom: 2px solid var(--secondary);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 130px;
+}
+
+.logo {
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: 90px;
+    width: auto;
+    display: block;
+    border-radius: 12px;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+}
+
+/* ── Navigation ── */
+nav {
+    display: flex;
+    gap: 25px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+nav a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.2s;
+    padding-bottom: 3px;
+    white-space: nowrap;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+nav a.active,
+nav a.active-link {
+    color: #ffffff;
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 3px;
+}
+
+/* ── Footer ── */
+footer {
+    background: url('img/pattern-alentejo.png'), var(--primary);
+    background-repeat: repeat;
+    background-size: 400px;
+    background-blend-mode: soft-light;
+    text-align: center;
+    padding: 80px 0 40px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 80px;
+    border-top: 4px solid var(--secondary);
+}
+
+footer .footer-logo {
+    height: 60px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+footer a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.25s;
+}
+
+footer a:hover { color: #ffffff; }
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* ── Typographic Utilities ── */
+h2 {
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+/* ── Cards ── */
+.card-base {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 25px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.card-base:hover {
+    border-color: var(--secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+}
+
+/* ── Buttons ── */
+.btn-primary {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 24px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    transition: background 0.25s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover { background: var(--secondary); color: #fff; }
+
+/* ── Hamburger Button ── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: auto;
+    z-index: 1100;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.aberto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.aberto span:nth-child(2) { opacity: 0; }
+.hamburger.aberto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile Nav Overlay ── */
+.nav-mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1050;
+}
+
+.nav-mobile-overlay.active { display: block; }
+
+nav.mobile-aberto {
+    display: flex !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    header .container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+        padding: 10px 20px;
+    }
+
+    .logo img { height: 65px; }
+
+    .hamburger { display: flex; }
+
+    nav {
+        display: none;
+        position: fixed;
+        top: 0; right: 0;
+        width: 260px;
+        height: 100vh;
+        background: var(--primary);
+        flex-direction: column;
+        gap: 0;
+        padding: 90px 0 40px;
+        z-index: 1100;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        overflow-y: auto;
+    }
+
+    nav a {
+        font-size: 0.8rem;
+        padding: 16px 30px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        letter-spacing: 1.5px;
+        white-space: normal;
+    }
+
+    nav a:hover { background: rgba(255,255,255,0.08); }
+
+    nav a.active, nav a.active-link {
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        border-left: 3px solid var(--secondary);
+        padding-left: 27px;
+    }
+}
