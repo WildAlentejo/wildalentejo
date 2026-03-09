@@ -23,25 +23,21 @@
         overlay.style.display = 'none';
     }
 
-    function abrirMenu() {
-        btn.classList.add('aberto');
-        nav.classList.add('mobile-aberto');
-        overlay.style.display = 'block';
-    }
-
     btn.addEventListener('click', function(e) {
         e.stopPropagation();
-        btn.classList.contains('aberto') ? fecharMenu() : abrirMenu();
+        btn.classList.contains('aberto') ? fecharMenu() : (function(){
+            btn.classList.add('aberto');
+            nav.classList.add('mobile-aberto');
+            overlay.style.display = 'block';
+        })();
     });
 
     overlay.addEventListener('click', fecharMenu);
 
+    // SEM preventDefault — deixa o browser navegar normalmente
     nav.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function(e) {
-            e.preventDefault();
-            var href = a.href; // usar .href em vez de getAttribute
+        a.addEventListener('click', function() {
             fecharMenu();
-            window.location.href = href; // sem setTimeout
         });
     });
 })();
