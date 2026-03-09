@@ -37,17 +37,8 @@
 
     overlay.addEventListener('click', fecharMenu);
 
-    // Fechar e navegar ao clicar num link
+    // Só fecha o menu — deixa o browser navegar normalmente
     nav.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function(e) {
-            var href = a.getAttribute('href');
-            fecharMenu();
-            if (href && href !== '#') {
-                e.preventDefault();
-                setTimeout(function() {
-                    window.location.href = href;
-                }, 150);
-            }
-        });
+        a.addEventListener('click', fecharMenu);
     });
 })();
