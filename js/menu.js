@@ -36,15 +36,12 @@
 
     overlay.addEventListener('click', fecharMenu);
 
-    // Navegar primeiro, fechar depois
     nav.querySelectorAll('a').forEach(function(a) {
         a.addEventListener('click', function(e) {
-            var href = a.getAttribute('href');
             e.preventDefault();
+            var href = a.href; // usar .href em vez de getAttribute
             fecharMenu();
-            setTimeout(function() {
-                window.location.href = href;
-            }, 50);
+            window.location.href = href; // sem setTimeout
         });
     });
 })();
