@@ -50,35 +50,46 @@
             letter-spacing: 0.5px;
             margin: 0;
         }
-        .metricas-bar {
+        .sensor-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            background: var(--primary);
-            border: 2px solid var(--primary);
-            margin-bottom: 60px;
+            gap: 10px;
+            margin: 0 0 60px;
         }
-        .metrica-box {
+        .sensor-card {
             background: var(--card-bg);
-            padding: 22px 15px;
+            padding: 20px 10px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary);
             text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .metrica-box strong {
-            display: block;
-            font-size: 1.6rem;
-            font-weight: 900;
+        .sensor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .sensor-card h3 {
+            margin: 0;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 0.8px;
+            font-weight: 800;
+        }
+        .sensor-val {
+            font-size: 1.9rem;
+            font-weight: 800;
             color: var(--primary);
+            margin: 8px 0 4px;
             line-height: 1;
         }
-        .metrica-box span {
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            color: #888;
-            letter-spacing: 1px;
-            margin-top: 5px;
-            display: block;
+        .sensor-sub {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 700;
         }
+        .sensor-sub.verde   { color: #27ae60; }
         .section-label {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -303,7 +314,7 @@
         @media (max-width: 768px) {
             .hero-agro { height: 240px; }
             .hero-agro-overlay h1 { font-size: 1.8rem; }
-            .metricas-bar { grid-template-columns: repeat(2, 1fr); }
+            .sensor-grid { grid-template-columns: repeat(2, 1fr); }
             .intro-texto { grid-template-columns: 1fr; gap: 30px; }
             .foto-grid { grid-template-columns: repeat(2, 1fr); }
             .foto-item.grande { grid-column: span 2; }
@@ -349,11 +360,27 @@
 
     <main class="container">
 
-        <div class="metricas-bar">
-            <div class="metrica-box"><strong>900 m²</strong><span>Área Total</span></div>
-            <div class="metrica-box"><strong>+30</strong><span>Espécies Plantadas</span></div>
-            <div class="metrica-box"><strong>3</strong><span>Anos de Sistema</span></div>
-            <div class="metrica-box"><strong>100%</strong><span>Sem Herbicidas</span></div>
+        <div class="sensor-grid-agro">
+            <div class="sensor-card">
+                <h3>Área Total</h3>
+                <div class="sensor-val">900 m²</div>
+                <div class="sensor-sub verde">Sintropia Ativa</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Espécies</h3>
+                <div class="sensor-val">+30</div>
+                <div class="sensor-sub verde">Plantadas</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Sistema</h3>
+                <div class="sensor-val">3</div>
+                <div class="sensor-sub verde">Anos Ativos</div>
+            </div>
+            <div class="sensor-card">
+                <h3>Herbicidas</h3>
+                <div class="sensor-val">100%</div>
+                <div class="sensor-sub verde">Zero Inputs</div>
+            </div>
         </div>
 
         <div class="section-label">O que é a Agrofloresta Sintrópica</div>
