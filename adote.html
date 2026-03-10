@@ -15,7 +15,6 @@
         }
         .intro-adote h2 { font-size: 2.5rem; color: var(--primary); }
 
-        /* FILTROS */
         .filtros-wrap {
             display: flex;
             flex-wrap: wrap;
@@ -35,11 +34,7 @@
             transition: all 0.2s;
         }
         .filtro-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .filtro-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
+        .filtro-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
 
         .grid-adocao {
             display: grid;
@@ -166,7 +161,6 @@
             margin-top: 40px;
         }
 
-        /* LIGHTBOX */
         #lightbox-overlay {
             display: none;
             position: fixed;
@@ -220,7 +214,6 @@
             <p>Este programa financia a gestão técnica de espécies críticas em Mértola. O seu contributo é convertido diretamente em mulching, poda de estratificação e manutenção do sistema.</p>
         </div>
 
-        <!-- FILTROS -->
         <div class="filtros-wrap">
             <button class="filtro-btn active" onclick="filtrar('todos')">🌿 Todos</button>
             <button class="filtro-btn" onclick="filtrar('emergente')">🌳 Emergente</button>
@@ -259,7 +252,7 @@
                 <span class="spec-label">🌳 Estrato Emergente</span>
                 <div class="planta-nome">Eucalipto</div>
                 <div class="planta-funcao">Biomassa rápida, drenagem hídrica, abrigo fauna.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/eucalipto.jpeg'], 0, 'Eucalipto')">
                     <img src="img/eucalipto.jpeg" alt="Eucalipto">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -281,7 +274,7 @@
                 <span class="spec-label">🌳 Estrato Emergente</span>
                 <div class="planta-nome">Salgueiro</div>
                 <div class="planta-funcao">Controlo hídrico, biomassa, enraizamento profundo.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/salgueiro.jpeg'], 0, 'Salgueiro')">
                     <img src="img/salgueiro.jpeg" alt="Salgueiro">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -292,7 +285,7 @@
                 <span class="spec-label">🌳 Estrato Emergente</span>
                 <div class="planta-nome">Lódão-bastardo</div>
                 <div class="planta-funcao">Árvore estrutural mediterrânica, alimento para aves, regeneração natural.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/lodaobastardo.jpeg'], 0, 'Lódão-bastardo')">
                     <img src="img/lodaobastardo.jpeg" alt="Lódão-bastardo">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -337,7 +330,7 @@
                 <span class="spec-label">🍊 Produção</span>
                 <div class="planta-nome">Oliveira</div>
                 <div class="planta-funcao">Azeite, estabilidade ecológica, longevidade.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/oliveira_zambujeiro.jpeg'], 0, 'Oliveira')">
                     <img src="img/oliveira_zambujeiro.jpeg" alt="Oliveira">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -348,7 +341,7 @@
                 <span class="spec-label">🍊 Produção</span>
                 <div class="planta-nome">Amendoeira</div>
                 <div class="planta-funcao">Fruto seco, atracção de polinizadores.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/amendoeira.jpeg'], 0, 'Amendoeira')">
                     <img src="img/amendoeira.jpeg" alt="Amendoeira">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -359,7 +352,7 @@
                 <span class="spec-label">🍊 Produção</span>
                 <div class="planta-nome">Nespereira</div>
                 <div class="planta-funcao">Fruta precoce (Inverno/Primavera).</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/nespereira.jpeg'], 0, 'Nespereira')">
                     <img src="img/nespereira.jpeg" alt="Nespereira">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -370,7 +363,7 @@
                 <span class="spec-label">🍊 Produção</span>
                 <div class="planta-nome">Amoreira Branca</div>
                 <div class="planta-funcao">Fruta, biomassa rápida.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/amoreirabranca.jpeg'], 0, 'Amoreira Branca')">
                     <img src="img/amoreirabranca.jpeg" alt="Amoreira Branca">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -382,7 +375,7 @@
                 <span class="spec-label">🌿 Arbustivo</span>
                 <div class="planta-nome">Romanzeira</div>
                 <div class="planta-funcao">Fruta, polinizadores.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/romanzeira.jpeg'], 0, 'Romanzeira')">
                     <img src="img/romanzeira.jpeg" alt="Romanzeira">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -393,7 +386,7 @@
                 <span class="spec-label">🌿 Arbustivo</span>
                 <div class="planta-nome">Murta</div>
                 <div class="planta-funcao">Abrigo fauna, medicinal.</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Medronheiro1.jpg'], 0, 'Murta')">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Murta.jpeg.jpg'], 0, 'Murta')">
                     <img src="img/Murta.jpeg.jpg" alt="Murta">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -404,7 +397,7 @@
                 <span class="spec-label">🌿 Arbustivo</span>
                 <div class="planta-nome">Aroeira</div>
                 <div class="planta-funcao">Resistência à seca, biodiversidade.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/aroeira.jpeg'], 0, 'Aroeira')">
                     <img src="img/aroeira.jpeg" alt="Aroeira">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -416,7 +409,7 @@
                 <span class="spec-label">🌸 Aromático</span>
                 <div class="planta-nome">Lavanda</div>
                 <div class="planta-funcao">Polinizadores, repelente de insetos.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/lavanda.jpeg'], 0, 'Lavanda')">
                     <img src="img/lavanda.jpeg" alt="Lavanda">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -438,7 +431,7 @@
                 <span class="spec-label">🌸 Aromático</span>
                 <div class="planta-nome">Alecrim</div>
                 <div class="planta-funcao">Polinizadores, medicinal.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/alecrim.jpeg'], 0, 'Alecrim')">
                     <img src="img/alecrim.jpeg" alt="Alecrim">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -450,7 +443,7 @@
                 <span class="spec-label">🌾 Gramíneas Estruturais</span>
                 <div class="planta-nome">Vetiver</div>
                 <div class="planta-funcao">Controlo de erosão, infiltração de água, raízes profundas.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/vetiver.jpeg'], 0, 'Vetiver')">
                     <img src="img/vetiver.jpeg" alt="Vetiver">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -461,7 +454,7 @@
                 <span class="spec-label">🌾 Gramíneas Estruturais</span>
                 <div class="planta-nome">Erva-príncipe</div>
                 <div class="planta-funcao">Biomassa, repelente de insetos.</div>
-                <div class="planta-img-wrap sem-foto">
+                <div class="planta-img-wrap" onclick="openLightbox(['img/ervaprincipe.jpeg'], 0, 'Erva-príncipe')">
                     <img src="img/ervaprincipe.jpeg" alt="Erva-príncipe">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">/ ano</small></div>
@@ -518,19 +511,11 @@
     </div>
 
     <script>
-        // COOKIES
         const cb = document.getElementById('cookie-banner');
         if (!localStorage.getItem('cookies')) { cb.style.display = 'flex'; }
-        function aceitarCookies() {
-            localStorage.setItem('cookies', 'aceite');
-            cb.style.display = 'none';
-        }
-        function recusarCookies() {
-            localStorage.setItem('cookies', 'recusado');
-            cb.style.display = 'none';
-        }
+        function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); cb.style.display = 'none'; }
+        function recusarCookies() { localStorage.setItem('cookies', 'recusado'); cb.style.display = 'none'; }
 
-        // FILTROS
         function filtrar(estrato) {
             document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
@@ -543,7 +528,6 @@
             });
         }
 
-        // LIGHTBOX
         let lbImagens = [], lbIndex = 0;
 
         function openLightbox(imagens, index, caption) {
