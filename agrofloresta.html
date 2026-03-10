@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agrofloresta Sintrópica | Wild Alentejo</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
     <style>
         .hero-agro {
             position: relative;
@@ -16,11 +15,14 @@
         }
         .hero-agro img {
             width: 100%;
-            height: 100%;
+            height: 130%;
             object-fit: cover;
             object-position: center 60%;
             display: block;
             filter: saturate(0.85);
+            position: absolute;
+            top: 0; left: 0;
+            will-change: transform;
         }
         .hero-agro-overlay {
             position: absolute;
@@ -349,7 +351,7 @@
 
         <div class="metricas-bar">
             <div class="metrica-box"><strong>900 m²</strong><span>Área Total</span></div>
-            <div class="metrica-box"><strong>+30</strong><span>Espécies Plantadas</span></div>
+            <div class="metrica-box"><strong>+40</strong><span>Espécies Plantadas</span></div>
             <div class="metrica-box"><strong>3</strong><span>Anos de Sistema</span></div>
             <div class="metrica-box"><strong>100%</strong><span>Sem Herbicidas</span></div>
         </div>
@@ -460,15 +462,13 @@
                 <table class="especies-table">
                     <thead><tr><th>Espécie</th><th>Funções Principais</th></tr></thead>
                     <tbody>
-                        <tr><td>Sobreiro</td><td>Climax-Sombra estrutural, microclima, raízes profundas, abrigo fauna</td></tr>
-                        <tr><td>Azinheira</td><td>Climax-Sombra estrutural, produção de bolota, estabilidade do ecossistema</td></tr>
-                        <tr><td>Oliveira</td><td>Climax-Azeite, estabilidade ecológica, longevidade</td></tr>
-                        <tr><td>Alfarrobeira</td><td>Climax-Fruto, grande resistência à seca</td></tr>
-                        <tr><td>Eucalipto</td><td>Sucessionais-Biomassa rápida, drenagem hídrica, abrigo fauna</td></tr>
-                        <tr><td>Choupo Branco</td><td>Sucessionais-Bomba de água, biomassa rápida, estabilização de solo</td></tr>
-                        <tr><td>Salgueiro</td><td>Sucessionais-Controlo hídrico, biomassa, enraizamento profundo</td></tr>
-                        <tr><td>Lódão-bastardo</td><td>Climax-Árvore estrutural mediterrânica, alimento para aves, regeneração natural</td></tr>
-                        <tr><td>Melia azedarach</td><td>Sucessionais-Biomassa rápida, sombra, inseticida natural</td></tr>
+                        <tr><td>Sobreiro</td><td>Sombra estrutural, microclima, raízes profundas, abrigo fauna</td></tr>
+                        <tr><td>Azinheira</td><td>Sombra estrutural, produção de bolota, estabilidade do ecossistema</td></tr>
+                        <tr><td>Eucalipto</td><td>Biomassa rápida, drenagem hídrica, abrigo fauna</td></tr>
+                        <tr><td>Choupo Branco</td><td>Bomba de água, biomassa rápida, estabilização de solo</td></tr>
+                        <tr><td>Salgueiro</td><td>Controlo hídrico, biomassa, enraizamento profundo</td></tr>
+                        <tr><td>Lódão-bastardo</td><td>Árvore estrutural mediterrânica, alimento para aves, regeneração natural</td></tr>
+                        <tr><td><em>Melia azedarach</em></td><td>Biomassa rápida, sombra, inseticida natural</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -488,10 +488,12 @@
                         <tr><td>Laranjeira</td><td>Fruta, atracção de polinizadores</td></tr>
                         <tr><td>Tangerineira</td><td>Fruta</td></tr>
                         <tr><td>Limoeiro</td><td>Fruta</td></tr>
+                        <tr><td>Oliveira</td><td>Azeite, estabilidade ecológica, longevidade</td></tr>
                         <tr><td>Figueira</td><td>Fruta, alimento para fauna</td></tr>
                         <tr><td>Nespereira</td><td>Fruta precoce (Inverno/Primavera)</td></tr>
                         <tr><td>Pereira</td><td>Fruta</td></tr>
                         <tr><td>Amendoeira</td><td>Fruto seco, atracção de polinizadores</td></tr>
+                        <tr><td>Alfarrobeira</td><td>Fruto, grande resistência à seca</td></tr>
                         <tr><td>Pessegueiro</td><td>Fruta</td></tr>
                         <tr><td>Albricoqueiro</td><td>Fruta</td></tr>
                         <tr><td>Amoreira Branca</td><td>Fruta, biomassa rápida</td></tr>
@@ -519,7 +521,8 @@
                             <tr><td>Aroeira</td><td>Resistência à seca, biodiversidade</td></tr>
                             <tr><td>Sanguinho-das-sebes</td><td>Alimento fauna</td></tr>
                             <tr><td>Sanguinho-do-monte</td><td>Regeneração natural</td></tr>
-                            <tr><td>Tagasaste</td><td>Fixação de azoto, biomassa</td></tr>                            
+                            <tr><td>Tagasaste</td><td>Fixação de azoto, biomassa</td></tr>
+                            <tr><td>Carpeteiro</td><td>Cobertura vegetal, proteção do solo</td></tr>
                             <tr><td>Esteva</td><td>Pioneira, retenção de humidade, resina medicinal</td></tr>
                         </tbody>
                     </table>
@@ -626,7 +629,7 @@
                 <div class="tl-dot"></div>
                 <div class="tl-content">
                     <h4>Plantação Inicial</h4>
-                    <p>Instalação das pioneiras de crescimento rápido (Melia, Choupo, Amoreira, Eucalipto) e das espécies de clímax (Alfarrobeira, Sobreiro, Nespereira). 30+ espécies no total.</p>
+                    <p>Instalação das pioneiras de crescimento rápido (Melia, Choupo, Amoreira, Eucalipto) e das espécies de clímax (Alfarrobeira, Sobreiro, Nespereira). 40+ espécies no total.</p>
                 </div>
             </div>
             <div class="tl-entry">
@@ -743,8 +746,15 @@
             if (e.key === 'ArrowLeft')  navegarLightbox(-1);
         });
     </script>
+    <script>
+        (function() {
+            var heroImg = document.querySelector('.hero-agro img');
+            if (!heroImg) return;
+            window.addEventListener('scroll', function() {
+                heroImg.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
+            }, { passive: true });
+        })();
+    </script>
     <script src="js/menu.js"></script>
-    <script src="js/fadein.js"></script>
-
 </body>
 </html>
