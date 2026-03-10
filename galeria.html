@@ -131,6 +131,45 @@
             letter-spacing: 1px;
         }
 
+        /* VÍDEO NA GALERIA */
+        .gallery-item-video {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            background: #111;
+        }
+        .gallery-item-video img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: saturate(0.7) brightness(0.65);
+            transition: filter 0.3s;
+            display: block;
+        }
+        .gallery-item-video:hover img {
+            filter: saturate(1) brightness(0.55);
+        }
+        .play-btn {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 58px; height: 58px;
+            background: rgba(255,255,255,0.92);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            pointer-events: none;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .gallery-item-video:hover .play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: white;
+        }
+        .gallery-item-video .gallery-overlay {
+            opacity: 1;
+            background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%);
+        }
+
         /* ══════════════════════════════
            LIGHTBOX
         ══════════════════════════════ */
@@ -165,6 +204,26 @@
         @keyframes zoomIn {
             from { transform: scale(0.93); opacity: 0; }
             to   { transform: scale(1);    opacity: 1; }
+        }
+
+        /* Lightbox vídeo */
+        #lightbox-video-wrap {
+            display: none;
+            width: 82vw;
+            max-width: 900px;
+            cursor: default;
+        }
+        #lightbox-video-wrap.active { display: block; }
+        #lightbox-video-wrap .video-ratio {
+            position: relative;
+            padding-top: 56.25%;
+        }
+        #lightbox-video-wrap iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+            border-radius: 2px;
         }
 
         #lightbox-close {
@@ -243,6 +302,7 @@
         @media (max-width: 768px) {
             .gallery-grid { grid-template-columns: 1fr 1fr; }
             #lightbox-img { max-width: 95vw; max-height: 70vh; }
+            #lightbox-video-wrap { width: 95vw; }
             #lightbox-prev { left: 8px; }
             #lightbox-next { right: 8px; }
             #lightbox-footer { padding: 15px 60px; }
@@ -293,41 +353,21 @@
             </div>
         </div>
 
-        <!-- ══════════════════════════════════════════════════
-             SECÇÃO 1 — SISTEMA SINTRÓPICO
-             Para adicionar fotos: adiciona mais objetos ao array
-             { src: 'img/foto.jpg', titulo: 'Título', caption: 'Descrição' }
-        ══════════════════════════════════════════════════ -->
         <div class="section-title">Sistema Sintrópico</div>
         <div class="gallery-grid" id="galeria-sintropico"></div>
 
-        <!-- ══════════════════════════════════════════════════
-             SECÇÃO 2 — ENERGIA SOLAR
-        ══════════════════════════════════════════════════ -->
         <div class="section-title">Energia Solar & Off-Grid</div>
         <div class="gallery-grid" id="galeria-energia"></div>
 
-        <!-- ══════════════════════════════════════════════════
-             SECÇÃO 3 — GALINHAS DE SERVIÇO
-        ══════════════════════════════════════════════════ -->
         <div class="section-title">Galinhas de Serviço</div>
         <div class="gallery-grid" id="galeria-galinhas"></div>
 
-        <!-- ══════════════════════════════════════════════════
-             SECÇÃO 4 — SOLO & BIOMASSA
-        ══════════════════════════════════════════════════ -->
         <div class="section-title">Solo & Biomassa</div>
         <div class="gallery-grid" id="galeria-solo"></div>
 
-        <!-- ══════════════════════════════════════════════════
-             SECÇÃO 5 — DESTILAÇÃO & ÓLEOS
-        ══════════════════════════════════════════════════ -->
         <div class="section-title">Destilação & Óleos Essenciais</div>
         <div class="gallery-grid" id="galeria-destilacao"></div>
 
-        <!-- ══════════════════════════════════════════════════
-             SECÇÃO 6 — ESTUFA
-        ══════════════════════════════════════════════════ -->
         <div class="section-title">Estufa 3×6m</div>
         <div class="gallery-grid" id="galeria-estufa"></div>
 
@@ -338,6 +378,11 @@
         <button id="lightbox-close" onclick="closeLightbox()">✕</button>
         <button id="lightbox-prev" onclick="event.stopPropagation(); navegarLightbox(-1)">&#8592;</button>
         <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+        <div id="lightbox-video-wrap" onclick="event.stopPropagation()">
+            <div class="video-ratio">
+                <iframe id="lightbox-video-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+            </div>
+        </div>
         <button id="lightbox-next" onclick="event.stopPropagation(); navegarLightbox(1)">&#8594;</button>
         <div id="lightbox-footer" onclick="event.stopPropagation()">
             <div id="lightbox-titulo"></div>
@@ -360,137 +405,159 @@
         </div>
     </footer>
 
-   <!-- BANNER COOKIES -->
-    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
-    <div style="display:flex; gap:10px; flex-shrink:0;">
-        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
-        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+    <!-- BANNER COOKIES -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+        </div>
     </div>
-</div>
 
-<script>
-    // Mostrar banner se ainda não decidiu
-    if (!localStorage.getItem('cookies')) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function aceitarCookies() {
-        localStorage.setItem('cookies', 'aceite');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function recusarCookies() {
-        localStorage.setItem('cookies', 'recusado');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-
-
-        /* ══════════════════════════════════════════════════
-           DADOS DAS GALERIAS
-           Para adicionar fotos: adiciona mais objetos { src, titulo, caption }
-           Para remover: apaga o objeto
-        ══════════════════════════════════════════════════ */
+    <script>
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() {
+            localStorage.setItem('cookies', 'aceite');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        function recusarCookies() {
+            localStorage.setItem('cookies', 'recusado');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
 
         const GALERIAS = {
             'galeria-sintropico': [
-                { src: 'img/terreno.jpg',    titulo: 'Inicio Vista Aerea',       caption: '900m² de sucessão sintrópica adaptada ao clima semiárido de Mértola.' },
-                { src: 'img/agrofloresta-hero1.jpg',   titulo: 'Vista Panorâmica',                  caption: 'Vista geral do sistema com estratificação vertical em desenvolvimento.' },
-                { src: 'img/agro-arvores1.jpg',     titulo: 'Estrato Arbóreo',                   caption: 'Alfarrobeiras, Sobreiros e Melias no segundo ano de crescimento.' },
-                { src: 'img/agro-poda1.jpg',        titulo: 'Poda de Estratificação',            caption: 'Intervenção técnica que acelera a sucessão e produz biomassa para o solo.' },
-                { src: 'img/agro-frutos.jpg',       titulo: 'Primeiros Frutos',                  caption: 'Colheita inicial — o sistema começa a devolver energia.' },
-                { src: 'img/terreno_rega.jpg',      titulo: 'Sistema de Rega',                   caption: 'Rega por gotejamento alimentada a energia solar, monitorizada via IoT.' },
+                { src: 'img/terreno.jpg',            titulo: 'Inicio Vista Aerea',      caption: '900m² de sucessão sintrópica adaptada ao clima semiárido de Mértola.' },
+                { src: 'img/agrofloresta-hero1.jpg', titulo: 'Vista Panorâmica',        caption: 'Vista geral do sistema com estratificação vertical em desenvolvimento.' },
+                { src: 'img/agro-arvores1.jpg',      titulo: 'Estrato Arbóreo',         caption: 'Alfarrobeiras, Sobreiros e Melias no segundo ano de crescimento.' },
+                { src: 'img/agro-poda1.jpg',         titulo: 'Poda de Estratificação',  caption: 'Intervenção técnica que acelera a sucessão e produz biomassa para o solo.' },
+                { src: 'img/agro-frutos.jpg',        titulo: 'Primeiros Frutos',        caption: 'Colheita inicial — o sistema começa a devolver energia.' },
+                { src: 'img/terreno_rega.jpg',       titulo: 'Sistema de Rega',         caption: 'Rega por gotejamento alimentada a energia solar, monitorizada via IoT.' },
             ],
             'galeria-energia': [
-                { src: 'img/solar-panels.jpg',      titulo: 'Painéis Fotovoltaicos',             caption: '1350Wp de capacidade instalada orientada a 140° SE para máxima eficiência.' },
-                { src: 'img/bombasolar.jpeg',         titulo: 'Bomba Solar',                       caption: 'A energia solar alimenta diretamente a bomba de rega do poço.' },
+                { src: 'img/solar-panels.jpg', titulo: 'Painéis Fotovoltaicos', caption: '1350Wp de capacidade instalada orientada a 140° SE para máxima eficiência.' },
+                { src: 'img/bombasolar.jpeg',  titulo: 'Bomba Solar',           caption: 'A energia solar alimenta diretamente a bomba de rega do poço.' },
             ],
             'galeria-galinhas': [
-                { src: 'img/galinhas-trabalho.jpg', titulo: 'Galinhas em Rotação',               caption: '13 aves de serviço que fertilizam, controlam pragas e aram o solo naturalmente.' },
-                { src: 'img/agro-galinhas1.jpg',    titulo: 'Integração no Sistema',             caption: 'As galinhas entram em rotação nas zonas podadas, acelerando a decomposição.' },
-                { src: 'img/agro-galinhas2.jpg',    titulo: 'Fertilização Natural',              caption: 'Zero inputs externos — as galinhas fecham o ciclo de nutrientes do sistema.' },
+                { src: 'img/galinhas-trabalho.jpg', titulo: 'Galinhas em Rotação',   caption: '13 aves de serviço que fertilizam, controlam pragas e aram o solo naturalmente.' },
+                { src: 'img/agro-galinhas1.jpg',    titulo: 'Integração no Sistema', caption: 'As galinhas entram em rotação nas zonas podadas, acelerando a decomposição.' },
+                { src: 'img/agro-galinhas2.jpg',    titulo: 'Fertilização Natural',  caption: 'Zero inputs externos — as galinhas fecham o ciclo de nutrientes do sistema.' },
+                { video: 'https://www.youtube.com/embed/nv2H6OjIK8w', thumb: 'img/galinhas-trabalho.jpg', titulo: 'Galinhas em Acção', caption: 'Vídeo das galinhas de serviço no sistema agroflorestal.' },
             ],
             'galeria-solo': [
-                { src: 'img/solo-regenerado.jpg',   titulo: 'Solo em Regeneração',               caption: 'Perfil de solo semiárido após dois anos de cobertura contínua com biomassa.' },
-                { src: 'img/agro-solo1.jpg',        titulo: 'Mulch de Biomassa',                 caption: 'Cobertura permanente do solo — reduz temperatura e retém humidade crítica.' },
-                { src: 'img/agro-solo2.jpg',        titulo: 'Microbiologia Ativa',               caption: 'Minhocas e fungos micorrízicos — sinais de solo vivo em clima hostil.' },
+                { src: 'img/solo-regenerado.jpg', titulo: 'Solo em Regeneração', caption: 'Perfil de solo semiárido após dois anos de cobertura contínua com biomassa.' },
+                { src: 'img/agro-solo1.jpg',      titulo: 'Mulch de Biomassa',   caption: 'Cobertura permanente do solo — reduz temperatura e retém humidade crítica.' },
+                { src: 'img/agro-solo2.jpg',      titulo: 'Microbiologia Ativa', caption: 'Minhocas e fungos micorrízicos — sinais de solo vivo em clima hostil.' },
             ],
             'galeria-destilacao': [
-                { src: 'img/destilacao-esteva.jpg', titulo: 'Destilação a Vapor',                caption: 'Extração de óleo essencial de Esteva (Cistus ladanifer) por destilação a vapor.' },
-                { src: 'img/oleoesteva.jpg',        titulo: 'Óleo de Esteva',                    caption: 'Produto final: óleo essencial de Cistus ladanifer colhida no próprio terreno.' },
-                { src: 'img/mel.jpeg',               titulo: 'Mel Cru de Esteva, Eucalipto, Rosmaninho e Alecrim',                 caption: 'Mel produzido por produtores locais.' },
+                { src: 'img/destilacao-esteva.jpg', titulo: 'Destilação a Vapor', caption: 'Extração de óleo essencial de Esteva (Cistus ladanifer) por destilação a vapor.' },
+                { src: 'img/oleoesteva.jpg',        titulo: 'Óleo de Esteva',     caption: 'Produto final: óleo essencial de Cistus ladanifer colhida no próprio terreno.' },
+                { src: 'img/mel.jpeg',              titulo: 'Mel Cru de Esteva, Eucalipto, Rosmaninho e Alecrim', caption: 'Mel produzido por produtores locais.' },
             ],
             'galeria-estufa': [
-                { src: 'img/estufa-inverno.jpg',    titulo: 'Estufa 3×6m',                       caption: 'Estrutura de propagação e proteção térmica para as espécies mais sensíveis.' },
-                { src: 'img/agro-arvores2.jpg',     titulo: 'Propagação de Espécies',            caption: 'Germinação e crescimento inicial de espécies antes da transplantação.' },
-                { src: 'img/agro-arvores3.jpg',     titulo: 'Proteção de Inverno',               caption: 'A estufa permite manter espécies vivas durante o frio de Mértola.' },
+                { src: 'img/estufa-inverno.jpg', titulo: 'Estufa 3×6m',          caption: 'Estrutura de propagação e proteção térmica para as espécies mais sensíveis.' },
+                { src: 'img/agro-arvores2.jpg',  titulo: 'Propagação de Espécies', caption: 'Germinação e crescimento inicial de espécies antes da transplantação.' },
+                { src: 'img/agro-arvores3.jpg',  titulo: 'Proteção de Inverno',   caption: 'A estufa permite manter espécies vivas durante o frio de Mértola.' },
             ],
         };
 
-        /* ══════════════════════════════════════════════════
-           RENDERIZAR GALERIAS
-        ══════════════════════════════════════════════════ */
-        Object.entries(GALERIAS).forEach(([id, fotos]) => {
+        // Renderizar galerias
+        Object.entries(GALERIAS).forEach(([id, items]) => {
             const container = document.getElementById(id);
             if (!container) return;
 
-            fotos.forEach((foto, index) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.innerHTML = `
-                    <img src="${foto.src}" alt="${foto.titulo}" loading="lazy">
-                    <div class="gallery-overlay">
-                        <h4>${foto.titulo}</h4>
-                        <p>${foto.caption.substring(0, 55)}${foto.caption.length > 55 ? '...' : ''}</p>
-                        <span class="zoom-hint">🔍 Ver em detalhe${fotos.length > 1 ? ' · ' + fotos.length + ' fotos' : ''}</span>
-                    </div>
-                `;
-                item.addEventListener('click', () => openLightbox(id, index));
-                container.appendChild(item);
+            const fotos = items.filter(i => !i.video);
+
+            items.forEach((item, index) => {
+                if (item.video) {
+                    // Card de vídeo
+                    const el = document.createElement('div');
+                    el.className = 'gallery-item-video';
+                    el.innerHTML = `
+                        <img src="${item.thumb}" alt="${item.titulo}" loading="lazy">
+                        <div class="play-btn">▶</div>
+                        <div class="gallery-overlay">
+                            <h4>${item.titulo}</h4>
+                            <p>${item.caption.substring(0, 55)}${item.caption.length > 55 ? '...' : ''}</p>
+                        </div>
+                    `;
+                    el.addEventListener('click', () => openLightboxVideo(item));
+                    container.appendChild(el);
+                } else {
+                    // Card de foto
+                    const fotoIndex = fotos.indexOf(item);
+                    const el = document.createElement('div');
+                    el.className = 'gallery-item';
+                    el.innerHTML = `
+                        <img src="${item.src}" alt="${item.titulo}" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h4>${item.titulo}</h4>
+                            <p>${item.caption.substring(0, 55)}${item.caption.length > 55 ? '...' : ''}</p>
+                            <span class="zoom-hint">🔍 Ver em detalhe${fotos.length > 1 ? ' · ' + fotos.length + ' fotos' : ''}</span>
+                        </div>
+                    `;
+                    el.addEventListener('click', () => openLightbox(id, fotoIndex));
+                    container.appendChild(el);
+                }
             });
         });
 
-        /* ══════════════════════════════════════════════════
-           LIGHTBOX
-        ══════════════════════════════════════════════════ */
+        // LIGHTBOX FOTOS
         let lbGaleriaAtual = null;
         let lbIndex = 0;
 
         function openLightbox(galeriaId, index) {
             lbGaleriaAtual = galeriaId;
             lbIndex = index;
+            document.getElementById('lightbox-img').style.display = 'block';
+            document.getElementById('lightbox-video-wrap').classList.remove('active');
+            document.getElementById('lightbox-video-iframe').src = '';
             document.getElementById('lightbox-overlay').classList.add('active');
             document.body.style.overflow = 'hidden';
             renderLightbox();
         }
 
         function renderLightbox() {
-            const fotos = GALERIAS[lbGaleriaAtual];
+            const fotos = GALERIAS[lbGaleriaAtual].filter(i => !i.video);
             const foto  = fotos[lbIndex];
-
             document.getElementById('lightbox-titulo').textContent  = foto.titulo;
             document.getElementById('lightbox-caption').textContent = foto.caption;
             document.getElementById('lightbox-img').src = foto.src;
-
             const temMais = fotos.length > 1;
-            const d = temMais ? 'flex' : 'none';
-            document.getElementById('lightbox-prev').style.display = d;
-            document.getElementById('lightbox-next').style.display = d;
-            document.getElementById('lightbox-counter').textContent = temMais
-                ? (lbIndex + 1) + ' / ' + fotos.length
-                : '';
+            document.getElementById('lightbox-prev').style.display = temMais ? 'flex' : 'none';
+            document.getElementById('lightbox-next').style.display = temMais ? 'flex' : 'none';
+            document.getElementById('lightbox-counter').textContent = temMais ? (lbIndex + 1) + ' / ' + fotos.length : '';
         }
 
         function navegarLightbox(direcao) {
-            const fotos = GALERIAS[lbGaleriaAtual];
+            const fotos = GALERIAS[lbGaleriaAtual].filter(i => !i.video);
             lbIndex = (lbIndex + direcao + fotos.length) % fotos.length;
             const img = document.getElementById('lightbox-img');
             img.style.opacity = '0';
-            setTimeout(() => {
-                renderLightbox();
-                img.style.opacity = '1';
-            }, 140);
+            setTimeout(() => { renderLightbox(); img.style.opacity = '1'; }, 140);
+        }
+
+        // LIGHTBOX VÍDEO
+        function openLightboxVideo(item) {
+            document.getElementById('lightbox-img').style.display = 'none';
+            document.getElementById('lightbox-video-wrap').classList.add('active');
+            document.getElementById('lightbox-video-iframe').src = item.video + '?autoplay=1';
+            document.getElementById('lightbox-titulo').textContent  = item.titulo;
+            document.getElementById('lightbox-caption').textContent = item.caption;
+            document.getElementById('lightbox-counter').textContent = '';
+            document.getElementById('lightbox-prev').style.display = 'none';
+            document.getElementById('lightbox-next').style.display = 'none';
+            document.getElementById('lightbox-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             document.getElementById('lightbox-overlay').classList.remove('active');
+            document.getElementById('lightbox-video-iframe').src = ''; // para o vídeo
+            document.getElementById('lightbox-img').style.display = 'block';
+            document.getElementById('lightbox-video-wrap').classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -502,7 +569,6 @@
             if (e.key === 'ArrowRight') navegarLightbox(1);
             if (e.key === 'ArrowLeft')  navegarLightbox(-1);
         });
-
     </script>
     <script src="js/menu.js"></script>
 </body>
