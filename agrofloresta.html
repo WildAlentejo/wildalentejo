@@ -193,6 +193,7 @@
         .tl-content { background: var(--card-bg); border: 1px solid var(--border); padding: 20px 25px; }
         .tl-content h4 { margin: 0 0 8px; font-size: 1rem; color: var(--primary); text-transform: uppercase; }
         .tl-content p { margin: 0; font-size: 0.88rem; color: #555; line-height: 1.6; }
+
         /* LIGHTBOX */
         #lightbox-overlay {
             display: none;
@@ -236,6 +237,66 @@
         #lightbox-footer { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; font-family: 'Inter', sans-serif; }
         #lightbox-caption { color: rgba(255,255,255,0.75); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
         #lightbox-counter { color: rgba(255,255,255,0.4); font-size: 0.68rem; margin-top: 4px; }
+
+        /* ESPÉCIES */
+        .especies-wrapper { margin-bottom: 60px; }
+        .estrato-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--primary);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .estrato-espontaneas { border-top-color: var(--secondary); }
+        .estrato-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(45,76,47,0.03);
+        }
+        .estrato-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .estrato-titulo {
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--primary);
+        }
+        .estrato-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+        .especies-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .especies-table thead tr { background: rgba(45,76,47,0.05); }
+        .especies-table th {
+            text-align: left;
+            padding: 9px 20px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+        }
+        .especies-table td {
+            padding: 9px 20px;
+            color: #444;
+            border-top: 1px solid #f0ede6;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .especies-table td:first-child {
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+            width: 35%;
+        }
+        .especies-table em { font-style: italic; font-weight: 400; }
+        .estrato-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
         @media (max-width: 768px) {
             .hero-agro { height: 240px; }
             .hero-agro-overlay h1 { font-size: 1.8rem; }
@@ -246,6 +307,8 @@
             .video-grid { grid-template-columns: 1fr; }
             .tl-entry { grid-template-columns: 80px 30px 1fr; gap: 0 10px; }
             .tl-entry::before { left: 102px; }
+            .estrato-grid-2 { grid-template-columns: 1fr; }
+            .especies-table td:first-child { width: auto; white-space: normal; }
         }
         @media (max-width: 480px) {
             .foto-grid { grid-template-columns: 1fr; }
@@ -285,7 +348,7 @@
 
         <div class="metricas-bar">
             <div class="metrica-box"><strong>900 m²</strong><span>Área Total</span></div>
-            <div class="metrica-box"><strong>+30</strong><span>Espécies Plantadas</span></div>
+            <div class="metrica-box"><strong>+40</strong><span>Espécies Plantadas</span></div>
             <div class="metrica-box"><strong>3</strong><span>Anos de Sistema</span></div>
             <div class="metrica-box"><strong>100%</strong><span>Sem Herbicidas</span></div>
         </div>
@@ -380,11 +443,178 @@
             </div>
         </div>
 
+        <div class="section-label">Espécies do Sistema</div>
+
+        <div class="especies-wrapper">
+
+            <!-- Estrato Emergente -->
+            <div class="estrato-block">
+                <div class="estrato-header">
+                    <span class="estrato-icon">🌳</span>
+                    <div>
+                        <div class="estrato-titulo">Estrato Emergente</div>
+                        <div class="estrato-sub">Árvores &gt;10 m — Estrutura, microclima e abrigo</div>
+                    </div>
+                </div>
+                <table class="especies-table">
+                    <thead><tr><th>Espécie</th><th>Funções Principais</th></tr></thead>
+                    <tbody>
+                        <tr><td>Sobreiro</td><td>Sombra estrutural, microclima, raízes profundas, abrigo fauna</td></tr>
+                        <tr><td>Azinheira</td><td>Sombra estrutural, produção de bolota, estabilidade do ecossistema</td></tr>
+                        <tr><td>Eucalipto</td><td>Biomassa rápida, drenagem hídrica, abrigo fauna</td></tr>
+                        <tr><td>Choupo Branco</td><td>Bomba de água, biomassa rápida, estabilização de solo</td></tr>
+                        <tr><td>Salgueiro</td><td>Controlo hídrico, biomassa, enraizamento profundo</td></tr>
+                        <tr><td>Lódão-bastardo</td><td>Árvore estrutural mediterrânica, alimento para aves, regeneração natural</td></tr>
+                        <tr><td><em>Melia azedarach</em></td><td>Biomassa rápida, sombra, inseticida natural</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Estrato Alto Produção -->
+            <div class="estrato-block">
+                <div class="estrato-header">
+                    <span class="estrato-icon">🍊</span>
+                    <div>
+                        <div class="estrato-titulo">Estrato Alto — Produção</div>
+                        <div class="estrato-sub">Fruteiras e árvores de produção alimentar</div>
+                    </div>
+                </div>
+                <table class="especies-table">
+                    <thead><tr><th>Espécie</th><th>Funções Principais</th></tr></thead>
+                    <tbody>
+                        <tr><td>Laranjeira</td><td>Fruta, atracção de polinizadores</td></tr>
+                        <tr><td>Tangerineira</td><td>Fruta</td></tr>
+                        <tr><td>Limoeiro</td><td>Fruta</td></tr>
+                        <tr><td>Oliveira</td><td>Azeite, estabilidade ecológica, longevidade</td></tr>
+                        <tr><td>Figueira</td><td>Fruta, alimento para fauna</td></tr>
+                        <tr><td>Nespereira</td><td>Fruta precoce (Inverno/Primavera)</td></tr>
+                        <tr><td>Pereira</td><td>Fruta</td></tr>
+                        <tr><td>Amendoeira</td><td>Fruto seco, atracção de polinizadores</td></tr>
+                        <tr><td>Alfarrobeira</td><td>Fruto, grande resistência à seca</td></tr>
+                        <tr><td>Pessegueiro</td><td>Fruta</td></tr>
+                        <tr><td>Albricoqueiro</td><td>Fruta</td></tr>
+                        <tr><td>Amoreira Branca</td><td>Fruta, biomassa rápida</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Linha dupla: Arbustivo + coluna direita -->
+            <div class="estrato-grid-2">
+
+                <!-- Arbustivo -->
+                <div class="estrato-block" style="margin-bottom:0;">
+                    <div class="estrato-header">
+                        <span class="estrato-icon">🌿</span>
+                        <div>
+                            <div class="estrato-titulo">Estrato Arbustivo</div>
+                            <div class="estrato-sub">1–5 m — Biodiversidade e cobertura</div>
+                        </div>
+                    </div>
+                    <table class="especies-table">
+                        <thead><tr><th>Espécie</th><th>Funções</th></tr></thead>
+                        <tbody>
+                            <tr><td>Romanzeira</td><td>Fruta, polinizadores</td></tr>
+                            <tr><td>Murta</td><td>Abrigo fauna, medicinal</td></tr>
+                            <tr><td>Aroeira</td><td>Resistência à seca, biodiversidade</td></tr>
+                            <tr><td>Sanguinho-das-sebes</td><td>Alimento fauna</td></tr>
+                            <tr><td>Sanguinho-do-monte</td><td>Regeneração natural</td></tr>
+                            <tr><td>Tagasaste</td><td>Fixação de azoto, biomassa</td></tr>
+                            <tr><td>Carpeteiro</td><td>Cobertura vegetal, proteção do solo</td></tr>
+                            <tr><td>Esteva</td><td>Pioneira, retenção de humidade, resina medicinal</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Coluna direita: 3 estratos pequenos -->
+                <div style="display:flex; flex-direction:column; gap:16px;">
+
+                    <div class="estrato-block" style="margin-bottom:0;">
+                        <div class="estrato-header">
+                            <span class="estrato-icon">🌸</span>
+                            <div>
+                                <div class="estrato-titulo">Estrato Aromático</div>
+                                <div class="estrato-sub">Polinizadores e medicinais</div>
+                            </div>
+                        </div>
+                        <table class="especies-table">
+                            <thead><tr><th>Espécie</th><th>Funções</th></tr></thead>
+                            <tbody>
+                                <tr><td>Lavanda</td><td>Polinizadores, repelente de insetos</td></tr>
+                                <tr><td>Rosmaninho</td><td>Polinizadores</td></tr>
+                                <tr><td>Alecrim</td><td>Polinizadores, medicinal</td></tr>
+                                <tr><td>Orégãos</td><td>Polinizadores, culinário</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="estrato-block" style="margin-bottom:0;">
+                        <div class="estrato-header">
+                            <span class="estrato-icon">🌾</span>
+                            <div>
+                                <div class="estrato-titulo">Gramíneas Estruturais</div>
+                                <div class="estrato-sub">Controlo de erosão e infiltração</div>
+                            </div>
+                        </div>
+                        <table class="especies-table">
+                            <thead><tr><th>Espécie</th><th>Funções</th></tr></thead>
+                            <tbody>
+                                <tr><td>Vetiver</td><td>Controlo de erosão, infiltração de água, raízes profundas</td></tr>
+                                <tr><td>Erva-príncipe</td><td>Biomassa, repelente de insetos</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="estrato-block" style="margin-bottom:0;">
+                        <div class="estrato-header">
+                            <span class="estrato-icon">🌱</span>
+                            <div>
+                                <div class="estrato-titulo">Perenes Alimentares</div>
+                                <div class="estrato-sub">Produção contínua de alimento</div>
+                            </div>
+                        </div>
+                        <table class="especies-table">
+                            <thead><tr><th>Espécie</th><th>Funções</th></tr></thead>
+                            <tbody>
+                                <tr><td>Moringa</td><td>Folhas comestíveis, biomassa rápida</td></tr>
+                                <tr><td>Ora-pro-nóbis</td><td>Proteína vegetal, folhas comestíveis</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Espontâneas -->
+            <div class="estrato-block estrato-espontaneas">
+                <div class="estrato-header">
+                    <span class="estrato-icon">🍃</span>
+                    <div>
+                        <div class="estrato-titulo">Espontâneas do Terreno</div>
+                        <div class="estrato-sub">Extremamente importantes no sistema — trabalham sem qualquer intervenção</div>
+                    </div>
+                </div>
+                <table class="especies-table">
+                    <thead><tr><th>Espécie</th><th>Funções</th></tr></thead>
+                    <tbody>
+                        <tr><td>Malva</td><td>Mineralização de nutrientes</td></tr>
+                        <tr><td>Serralha</td><td>Biomassa rápida</td></tr>
+                        <tr><td>Cardo</td><td>Raízes profundas, descompactação do solo</td></tr>
+                        <tr><td>Funcho</td><td>Atrai insetos benéficos</td></tr>
+                        <tr><td>Dente-de-leão</td><td>Mineralização de minerais</td></tr>
+                        <tr><td>Azedas</td><td>Acumulação de minerais</td></tr>
+                        <tr><td>Tanchagem</td><td>Medicinal, melhoria do solo</td></tr>
+                        <tr><td>Trevo (flor amarela)</td><td>Fixação de azoto, cobertura viva</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
         <div class="section-label">Evolução do Sistema</div>
 
         <div class="timeline">
             <div class="tl-entry">
-                <div class="tl-data"><strong> Set 2022</strong></div>
+                <div class="tl-data"><strong>Set 2022</strong></div>
                 <div class="tl-dot"></div>
                 <div class="tl-content">
                     <h4>Preparação do Solo</h4>
@@ -396,7 +626,7 @@
                 <div class="tl-dot"></div>
                 <div class="tl-content">
                     <h4>Plantação Inicial</h4>
-                    <p>Instalação das pioneiras de crescimento rápido (Melia, Choupo, Amoreira, Eucalipto) e das espécies de clímax (Alfarrobeira, Sobreiro, Nespereira). 30+ espécies no total.</p>
+                    <p>Instalação das pioneiras de crescimento rápido (Melia, Choupo, Amoreira, Eucalipto) e das espécies de clímax (Alfarrobeira, Sobreiro, Nespereira). 40+ espécies no total.</p>
                 </div>
             </div>
             <div class="tl-entry">
@@ -453,7 +683,8 @@
     </footer>
 
     <!-- BANNER COOKIES -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
         <div style="display:flex; gap:10px; flex-shrink:0;">
             <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
             <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
@@ -461,7 +692,6 @@
     </div>
 
     <script>
-        // COOKIES
         if (!localStorage.getItem('cookies')) {
             document.getElementById('cookie-banner').style.display = 'flex';
         }
@@ -474,7 +704,6 @@
             document.getElementById('cookie-banner').style.display = 'none';
         }
 
-        // LIGHTBOX
         let lbImagens = [], lbIndex = 0;
 
         function openLightbox(imagens, index, caption) {
