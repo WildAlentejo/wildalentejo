@@ -9,9 +9,7 @@
 
     function animarContador(el, destino, prefixo, sufixo, duracao) {
         var startTime = null;
-
         function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
         function step(timestamp) {
             if (!startTime) startTime = timestamp;
             var progresso = Math.min((timestamp - startTime) / duracao, 1);
@@ -30,18 +28,21 @@
         if (el.dataset.animado) return;
         el.dataset.animado = '1';
 
-        var texto = el.textContent.trim();
-        // Suporta: "1.350", "+30", "900", "100%", "900 m²", "+40", "3"
-        var match = texto.match(/^(\+?)(\d[\d.,\s]*)(%|m²)?/);
+        var textoOriginal = el.textContent.trim();
+
+        // Extrair prefixo (ex: "+"), número, e o resto como sufixo
+        // Exemplos: "900 m²", "+30", "100%", "1.350", "540", "3"
+        var match = textoOriginal.match(/^([+]?)(\d[\d.,]*)(.*)$/);
         if (!match) return;
 
         var prefixo = match[1] || '';
-        var numStr  = match[2].replace(/[.,\s]/g, '');
-        var sufixo  = match[3] ? ' ' + match[3] : (texto.includes('%') ? '%' : '');
+        var numStr  = match[2].replace(/[.,]/g, ''); // remover formatação pt
+        var sufixo  = match[3] || '';                // tudo o resto: " m²", "%", ""
         var destino = parseInt(numStr, 10);
-        if (isNaN(destino)) return;
 
-        var duracao = Math.min(Math.max(destino * 1.2, 800), 2000);
+        if (isNaN(destino) || destino === 0) return;
+
+        var duracao = Math.min(Math.max(destino * 1.5, 800), 2000);
         el.textContent = prefixo + '0' + sufixo;
 
         setTimeout(function() {
@@ -50,10 +51,9 @@
     }
 
     function init() {
-        // Configuração: { elemento pai, elemento com número }
         var configs = [
-            { pai: '.sensor-card',  filho: '.sensor-val' },
-            { pai: '.metrica-box',  filho: 'strong' },
+            { pai: '.sensor-card', filho: '.sensor-val' },
+            { pai: '.metrica-box', filho: 'strong' },
         ];
 
         configs.forEach(function(cfg) {
