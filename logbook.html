@@ -2,135 +2,246 @@
 layout: default
 title: Logbook
 ---
-<style>
-    .logbook-header {
-        padding: 50px 0 10px;
-    }
-    .section-label {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--accent);
-        font-weight: 800;
-        margin: 0 0 30px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    .section-label::after {
-        content: "";
-        height: 1px;
-        background: var(--border);
-        flex-grow: 1;
-    }
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logbook | Wild Alentejo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <style>
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 800;
+            margin: 50px 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .section-label::after {
+            content: "";
+            height: 1px;
+            background: var(--border);
+            flex-grow: 1;
+        }
 
-    .logbook-list {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 60px;
-    }
+        .log-entry {
+            border-left: 3px solid var(--primary);
+            margin: 0 0 0 0;
+            padding: 0 0 50px 30px;
+            position: relative;
+        }
+        .log-entry:last-of-type {
+            border-left: 3px solid transparent;
+        }
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 4px;
+            width: 17px;
+            height: 17px;
+            background: var(--secondary);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+        }
 
-    .logbook-entry {
-        border-left: 3px solid var(--primary);
-        padding: 0 0 40px 30px;
-        position: relative;
-        margin-bottom: 0;
-    }
-    .logbook-entry:last-child { border-left: 3px solid transparent; }
+        .log-date {
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
 
-    .logbook-entry::before {
-        content: '';
-        position: absolute;
-        left: -10px;
-        top: 4px;
-        width: 17px;
-        height: 17px;
-        background: var(--secondary);
-        border: 3px solid var(--primary);
-        border-radius: 50%;
-        transition: background 0.2s;
-    }
-    .logbook-entry:hover::before { background: var(--primary); }
+        .log-content h2 {
+            font-size: 1.8rem;
+            margin: 0 0 14px;
+            letter-spacing: -1px;
+            color: var(--primary);
+        }
 
-    .entry-date {
-        font-weight: 800;
-        color: var(--accent);
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        display: block;
-        margin-bottom: 6px;
-    }
+        .log-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .tag {
+            font-size: 0.6rem;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid #ddd;
+        }
 
-    .entry-title {
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: var(--primary);
-        letter-spacing: -0.5px;
-        text-decoration: none;
-        display: block;
-        margin-bottom: 10px;
-        transition: color 0.2s;
-        line-height: 1.2;
-    }
-    .entry-title:hover { color: var(--accent); }
+        .log-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .log-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
 
-    .entry-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 12px;
-    }
-    .tag {
-        font-size: 0.6rem;
-        background: #f0f0f0;
-        padding: 3px 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-        border: 1px solid #ddd;
-    }
+        /* Utterances */
+        .comments-wrap {
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+        }
+        .comments-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            margin-bottom: 14px;
+            display: block;
+        }
+        .utterances { max-width: 100% !important; }
+        .utterances-frame { width: 100% !important; }
 
-    .entry-excerpt {
-        font-size: 0.88rem;
-        color: #666;
-        line-height: 1.6;
-        max-width: 680px;
-        margin-bottom: 14px;
-    }
+        @media (max-width: 768px) {
+            .log-grid { grid-template-columns: 1fr; }
+            .log-content h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
 
-    .entry-link {
-        font-size: 0.7rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--primary);
-        text-decoration: none;
-        opacity: 0.6;
-        transition: opacity 0.2s;
-    }
-    .entry-link:hover { opacity: 1; }
-</style>
-
-<div class="logbook-header">
-    <div class="section-label">Logbook do Sistema</div>
-</div>
-
-<ul class="logbook-list">
-{% for post in site.posts %}
-    <li class="logbook-entry">
-        <span class="entry-date">
-            {{ post.date | date: "%d %B %Y" | replace: "January","Janeiro" | replace: "February","Fevereiro" | replace: "March","Março" | replace: "April","Abril" | replace: "May","Maio" | replace: "June","Junho" | replace: "July","Julho" | replace: "August","Agosto" | replace: "September","Setembro" | replace: "October","Outubro" | replace: "November","Novembro" | replace: "December","Dezembro" }}
-        </span>
-        <a href="{{ post.url }}" class="entry-title">{{ post.title }}</a>
-        {% if post.tags %}
-        <div class="entry-tags">
-            {% for tag in post.tags %}
-            <span class="tag">{{ tag }}</span>
-            {% endfor %}
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sistemas2.html">O Sistema</a>
+                <a href="logbook.html" class="active">Logbook</a>
+                <a href="adote.html">Adote-me</a>
+                <a href="agrofloresta.html">Agrofloresta</a>
+                <a href="produtos.html">Produção</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="sobre.html">Contacto</a>
+            </nav>
         </div>
-        {% endif %}
-        <p class="entry-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
-        <a href="{{ post.url }}" class="entry-link">Ler mais →</a>
-    </li>
-{% endfor %}
-</ul>
+    </header>
+
+    <main class="container">
+
+        <div class="section-label">Logbook do Sistema</div>
+
+        <!-- ═══════════════════════════════════════════════
+             ENTRADA 1 — copia este bloco para novos posts
+        ════════════════════════════════════════════════ -->
+        <div class="log-entry">
+            <span class="log-date">13 Agosto 2025</span>
+            <div class="log-content">
+                <h2>Otimização do Sistema Fotovoltaico</h2>
+                <div class="log-tags">
+                    <span class="tag">Energia</span>
+                    <span class="tag">Off-Grid</span>
+                </div>
+                <div class="log-grid">
+                    <div>
+                        <p>Ajuste do azimute dos painéis para 140º ES para maximizar a colheita solar matinal. As baterias LiFePO4 atingem 100% SOC antes das 11:30h, permitindo bombagem hídrica prolongada durante o pico de radiação.</p>
+                        <ul style="font-size: 0.85rem; color: #666; padding-left: 20px;">
+                            <li>Tensão média: 13.4V</li>
+                            <li>Pico de produção: 1180W</li>
+                        </ul>
+                    </div>
+                    <img src="img/solar-panels.jpg" alt="Painéis Solares" class="log-img">
+                </div>
+                <div class="comments-wrap">
+                    <span class="comments-label">💬 Comentários</span>
+                    <script src="https://utteranc.es/client.js"
+                        repo="WildAlentejo/wildalentejo"
+                        issue-term="Logbook: Otimização do Sistema Fotovoltaico"
+                        label="logbook"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             ENTRADA 2
+        ════════════════════════════════════════════════ -->
+        <div class="log-entry">
+            <span class="log-date">02 Julho 2025</span>
+            <div class="log-content">
+                <h2>Gestão de Stress Hídrico (Estio)</h2>
+                <div class="log-tags">
+                    <span class="tag">Água</span>
+                    <span class="tag">Mértola</span>
+                </div>
+                <div class="log-grid">
+                    <div>
+                        <p>Nível do poço atingiu a marca crítica de 0.6m. Implementado protocolo de rega restritiva via IoT. Prioridade absoluta para as alfarrobeiras e estrato produtivo da agrofloresta sintrópica.</p>
+                        <p style="font-size: 0.85rem; font-style: italic;">Nota: O mulch de eucalipto está a manter o solo 8ºC abaixo da temperatura ambiente.</p>
+                    </div>
+                    <img src="img/poco_log.jpg" alt="Poço Mértola" class="log-img">
+                </div>
+                <div class="comments-wrap">
+                    <span class="comments-label">💬 Comentários</span>
+                    <script src="https://utteranc.es/client.js"
+                        repo="WildAlentejo/wildalentejo"
+                        issue-term="Logbook: Gestão de Stress Hídrico (Estio)"
+                        label="logbook"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | Mértola, Portugal.<br>
+                Monitorização via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="sitemap.html" style="opacity:0.6; font-weight:400;">Mapa do Site</a>
+                &nbsp;·&nbsp;
+                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+        </div>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); document.getElementById('cookie-banner').style.display = 'none'; }
+        function recusarCookies() { localStorage.setItem('cookies', 'recusado'); document.getElementById('cookie-banner').style.display = 'none'; }
+    </script>
+    <script src="js/menu.js"></script>
+    <script src="js/fadein.js"></script>
+
+</body>
+</html>
