@@ -1,3 +1,19 @@
 title: Wild Alentejo
-description: Vida off-grid no semiárido
-permalink: /blog/:year/:month/:day/:title/
+description: Vida off-grid no semiárido — Mértola, Portugal
+url: "https://wildalentejo.pt"
+permalink: /logbook/:year/:month/:day/:title/
+
+# Jekyll
+markdown: kramdown
+highlighter: rouge
+
+# Posts
+collections:
+  posts:
+    output: true
+
+# Excluir ficheiros desnecessários
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
