@@ -6,7 +6,12 @@ tags: [Horta, Estufa, Autossuficiência]
 ---
 Ter salsa plantada na estufa em Mértola há mais de um ano é a prova de que, com o microclima certo, esta erva é uma das mais produtivas do sistema.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4D5bS6Qpt4I" frameborder="0" allowfullscreen>&nbsp;</iframe>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px;">
+  <iframe src="https://www.youtube.com/embed/4D5bS6Qpt4I" 
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+          allowfullscreen>
+  </iframe>
+</div>
 
 A salsa (Petroselinum crispum) divide-se principalmente entre a de folha lisa, mais resistente ao calor, e a frisada. Na estufa, a gestão do solo e da água é o que dita o sucesso a longo prazo.
 
