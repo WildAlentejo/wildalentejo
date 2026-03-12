@@ -1,7 +1,9 @@
-layout: post title: "Salsa na Estufa: Um Ano de Resiliência e Sabor"
+---
+layout: post 
+title: "Salsa na Estufa: Um Ano de Resiliência e Sabor"
 date: 2026-03-12 
 tags: [Horta, Estufa, Autossuficiência]
-
+---
 Ter salsa plantada na estufa em Mértola há mais de um ano é a prova de que, com o microclima certo, esta erva é uma das mais produtivas do sistema.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4D5bS6Qpt4I" frameborder="0" allowfullscreen></iframe>
