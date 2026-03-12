@@ -1,0 +1,450 @@
+---
+lang: pt
+---
+{% assign t = site.data.translations[page.lang] %}
+<!DOCTYPE html>
+<html lang="{{ t.html_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.adote_titulo }}</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/adote.html">
+    <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/adote.html">
+    <style>
+        .intro-adote { padding: 60px 0 40px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .intro-adote h2 { font-size: 2.5rem; color: var(--primary); }
+        .filtros-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+        .filtro-btn { background: var(--card-bg); border: 1px solid var(--border); padding: 8px 16px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; color: #666; transition: all 0.2s; }
+        .filtro-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .filtro-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .grid-adocao { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .card-planta { background: var(--card-bg); border: 1px solid var(--border); border-top: 4px solid var(--primary); padding: 24px; display: flex; flex-direction: column; transition: transform 0.25s, box-shadow 0.25s; }
+        .card-planta:hover { border-color: var(--secondary); border-top-color: var(--secondary); transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        .card-planta.hidden { display: none; }
+        .spec-label { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; display: block; }
+        .planta-nome { font-size: 1.1rem; font-weight: 900; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: -0.3px; }
+        .planta-funcao { font-size: 0.78rem; color: #666; line-height: 1.5; margin-bottom: 16px; flex-grow: 1; }
+        .planta-img-wrap { width: 100%; height: 140px; overflow: hidden; margin-bottom: 16px; cursor: zoom-in; position: relative; background: #e8e4dc; }
+        .planta-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .planta-img-wrap:hover img { transform: scale(1.06); }
+        .planta-img-wrap::after { content: "🔍"; position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.45); color: white; font-size: 0.65rem; text-align: center; padding: 6px; opacity: 0; transition: opacity 0.25s; }
+        .planta-img-wrap:hover::after { opacity: 1; }
+        .preco-box { font-size: 1.3rem; font-weight: 900; color: #1a1a1a; padding: 14px 0; border-top: 1px solid #eee; margin-top: auto; }
+        .btn-adote { display: block; background: var(--primary); color: white; text-decoration: none; text-align: center; padding: 12px; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; transition: background 0.25s; margin-top: 10px; }
+        .btn-adote:hover { background: #4a7c3f; color: white; }
+        .seccao-tecnica-box { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; margin-bottom: 60px; }
+        .nota-privacidade { background: #fff5f5; border-left: 4px solid var(--accent); padding: 25px; font-size: 0.85rem; color: #444; margin-top: 40px; }
+        #lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+        #lightbox-overlay.active { display: flex; }
+        #lightbox-img { max-width: 85vw; max-height: 80vh; border-radius: 4px; cursor: default; }
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: none; color: white; padding: 15px; cursor: pointer; font-size: 1.5rem; }
+        #lightbox-prev { left: 10px; } #lightbox-next { right: 10px; }
+        .lang-switch { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #fff; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 3px; text-decoration: none; transition: background 0.2s; margin-left: 10px; }
+        .lang-switch:hover { background: rgba(255,255,255,0.3); }
+        @media (max-width: 600px) { .grid-adocao { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="/index.html">{{ t.nav_inicio }}</a>
+                <a href="/sistemas2.html">{{ t.nav_sistema }}</a>
+                <a href="/logbook.html">{{ t.nav_logbook }}</a>
+                <a href="/adote.html" class="active">{{ t.nav_adote }}</a>
+                <a href="/agrofloresta.html">{{ t.nav_agro }}</a>
+                <a href="/produtos.html">{{ t.nav_producao }}</a>
+                <a href="/galeria.html">{{ t.nav_galeria }}</a>
+                <a href="/sobre.html">{{ t.nav_contacto }}</a>
+                <a href="{{ t.nav_lang_url }}adote.html" class="lang-switch">{{ t.nav_lang }}</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="intro-adote">
+            <h2>{{ t.adote_h2 }}</h2>
+            <p>{{ t.adote_intro }}</p>
+        </div>
+
+        <div class="filtros-wrap">
+            <button class="filtro-btn active" onclick="filtrar('todos', this)">{{ t.adote_filtro_todos }}</button>
+            <button class="filtro-btn" onclick="filtrar('emergente', this)">{{ t.adote_filtro_emergente }}</button>
+            <button class="filtro-btn" onclick="filtrar('producao', this)">{{ t.adote_filtro_producao }}</button>
+            <button class="filtro-btn" onclick="filtrar('arbustivo', this)">{{ t.adote_filtro_arbustivo }}</button>
+            <button class="filtro-btn" onclick="filtrar('aromatico', this)">{{ t.adote_filtro_aromatico }}</button>
+            <button class="filtro-btn" onclick="filtrar('gramineas', this)">{{ t.adote_filtro_gramineas }}</button>
+        </div>
+
+        <div class="grid-adocao">
+
+            <!-- EMERGENTE -->
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_sobreiro }}</div>
+                <div class="planta-funcao">{{ t.fn_sobreiro }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/sobreiro.jpeg'], 0, '{{ t.sp_sobreiro }}')">
+                    <img src="img/sobreiro.jpeg" alt="{{ t.sp_sobreiro }}">
+                </div>
+                <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_sobreiro }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_azinheira }}</div>
+                <div class="planta-funcao">{{ t.fn_azinheira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Azinheira.jpg'], 0, '{{ t.sp_azinheira }}')">
+                    <img src="img/Azinheira.jpg" alt="{{ t.sp_azinheira }}">
+                </div>
+                <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_azinheira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_eucalipto }}</div>
+                <div class="planta-funcao">{{ t.fn_eucalipto }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/eucalipto.jpeg'], 0, '{{ t.sp_eucalipto }}')">
+                    <img src="img/eucalipto.jpeg" alt="{{ t.sp_eucalipto }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_eucalipto }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_choupo }}</div>
+                <div class="planta-funcao">{{ t.fn_choupo }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Choupo1.jpg'], 0, '{{ t.sp_choupo }}')">
+                    <img src="img/Choupo1.jpg" alt="{{ t.sp_choupo }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_choupo }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_salgueiro }}</div>
+                <div class="planta-funcao">{{ t.fn_salgueiro }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/salgueiro.jpeg'], 0, '{{ t.sp_salgueiro }}')">
+                    <img src="img/salgueiro.jpeg" alt="{{ t.sp_salgueiro }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_salgueiro }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_lodao }}</div>
+                <div class="planta-funcao">{{ t.fn_lodao }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/lodaobastardo.jpeg'], 0, '{{ t.sp_lodao }}')">
+                    <img src="img/lodaobastardo.jpeg" alt="{{ t.sp_lodao }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_lodao }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="emergente">
+                <span class="spec-label">{{ t.estrato_emergente }}</span>
+                <div class="planta-nome">{{ t.sp_melia }}</div>
+                <div class="planta-funcao">{{ t.fn_melia }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Melia1.jpg'], 0, '{{ t.sp_melia }}')">
+                    <img src="img/Melia1.jpg" alt="{{ t.sp_melia }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_melia }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <!-- PRODUÇÃO -->
+            <div class="card-planta" data-estrato="producao">
+                <span class="spec-label">{{ t.estrato_producao }}</span>
+                <div class="planta-nome">{{ t.sp_alfarrobeira }}</div>
+                <div class="planta-funcao">{{ t.fn_alfarrobeira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/alfarrobeira.jpg'], 0, '{{ t.sp_alfarrobeira }}')">
+                    <img src="img/alfarrobeira.jpg" alt="{{ t.sp_alfarrobeira }}">
+                </div>
+                <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_alfarrobeira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="producao">
+                <span class="spec-label">{{ t.estrato_producao }}</span>
+                <div class="planta-nome">{{ t.sp_figueira }}</div>
+                <div class="planta-funcao">{{ t.fn_figueira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Figueira.jpg'], 0, '{{ t.sp_figueira }}')">
+                    <img src="img/Figueira.jpg" alt="{{ t.sp_figueira }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_figueira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="producao">
+                <span class="spec-label">{{ t.estrato_producao }}</span>
+                <div class="planta-nome">{{ t.sp_oliveira }}</div>
+                <div class="planta-funcao">{{ t.fn_oliveira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/oliveira_zambujeiro.jpeg'], 0, '{{ t.sp_oliveira }}')">
+                    <img src="img/oliveira_zambujeiro.jpeg" alt="{{ t.sp_oliveira }}">
+                </div>
+                <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_oliveira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="producao">
+                <span class="spec-label">{{ t.estrato_producao }}</span>
+                <div class="planta-nome">{{ t.sp_amendoeira }}</div>
+                <div class="planta-funcao">{{ t.fn_amendoeira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/amendoeira.jpeg'], 0, '{{ t.sp_amendoeira }}')">
+                    <img src="img/amendoeira.jpeg" alt="{{ t.sp_amendoeira }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_amendoeira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="producao">
+                <span class="spec-label">{{ t.estrato_producao }}</span>
+                <div class="planta-nome">{{ t.sp_nespereira }}</div>
+                <div class="planta-funcao">{{ t.fn_nespereira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/nespereira.jpeg'], 0, '{{ t.sp_nespereira }}')">
+                    <img src="img/nespereira.jpeg" alt="{{ t.sp_nespereira }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_nespereira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="producao">
+                <span class="spec-label">{{ t.estrato_producao }}</span>
+                <div class="planta-nome">{{ t.sp_amoreira }}</div>
+                <div class="planta-funcao">{{ t.fn_amoreira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/amoreirabranca.jpeg'], 0, '{{ t.sp_amoreira }}')">
+                    <img src="img/amoreirabranca.jpeg" alt="{{ t.sp_amoreira }}">
+                </div>
+                <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_amoreira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <!-- ARBUSTIVO -->
+            <div class="card-planta" data-estrato="arbustivo">
+                <span class="spec-label">{{ t.estrato_arbustivo }}</span>
+                <div class="planta-nome">{{ t.sp_romanzeira }}</div>
+                <div class="planta-funcao">{{ t.fn_romanzeira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/romanzeira.jpeg'], 0, '{{ t.sp_romanzeira }}')">
+                    <img src="img/romanzeira.jpeg" alt="{{ t.sp_romanzeira }}">
+                </div>
+                <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_romanzeira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="arbustivo">
+                <span class="spec-label">{{ t.estrato_arbustivo }}</span>
+                <div class="planta-nome">{{ t.sp_murta }}</div>
+                <div class="planta-funcao">{{ t.fn_murta }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Murta.jpeg'], 0, '{{ t.sp_murta }}')">
+                    <img src="img/Murta.jpeg" alt="{{ t.sp_murta }}">
+                </div>
+                <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_murta }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="arbustivo">
+                <span class="spec-label">{{ t.estrato_arbustivo }}</span>
+                <div class="planta-nome">{{ t.sp_aroeira }}</div>
+                <div class="planta-funcao">{{ t.fn_aroeira }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/aroeira.jpeg'], 0, '{{ t.sp_aroeira }}')">
+                    <img src="img/aroeira.jpeg" alt="{{ t.sp_aroeira }}">
+                </div>
+                <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_aroeira }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="arbustivo">
+                <span class="spec-label">{{ t.estrato_arbustivo }}</span>
+                <div class="planta-nome">{{ t.sp_medronheiro }}</div>
+                <div class="planta-funcao">{{ t.fn_medronheiro }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/Medronheiro1.jpg'], 0, '{{ t.sp_medronheiro }}')">
+                    <img src="img/Medronheiro1.jpg" alt="{{ t.sp_medronheiro }}">
+                </div>
+                <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_medronheiro }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="arbustivo">
+                <span class="spec-label">{{ t.estrato_arbustivo }}</span>
+                <div class="planta-nome">{{ t.sp_goji }}</div>
+                <div class="planta-funcao">{{ t.fn_goji }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/goji.jpeg'], 0, '{{ t.sp_goji }}')">
+                    <img src="img/goji.jpeg" alt="{{ t.sp_goji }}">
+                </div>
+                <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_goji }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <!-- AROMÁTICO -->
+            <div class="card-planta" data-estrato="aromatico">
+                <span class="spec-label">{{ t.estrato_aromatico }}</span>
+                <div class="planta-nome">{{ t.sp_lavanda }}</div>
+                <div class="planta-funcao">{{ t.fn_lavanda }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/lavanda.jpeg'], 0, '{{ t.sp_lavanda }}')">
+                    <img src="img/lavanda.jpeg" alt="{{ t.sp_lavanda }}">
+                </div>
+                <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_lavanda }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="aromatico">
+                <span class="spec-label">{{ t.estrato_aromatico }}</span>
+                <div class="planta-nome">{{ t.sp_rosmaninho }}</div>
+                <div class="planta-funcao">{{ t.fn_rosmaninho }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/rosmaninho.jpeg'], 0, '{{ t.sp_rosmaninho }}')">
+                    <img src="img/rosmaninho.jpeg" alt="{{ t.sp_rosmaninho }}">
+                </div>
+                <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_rosmaninho }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="aromatico">
+                <span class="spec-label">{{ t.estrato_aromatico }}</span>
+                <div class="planta-nome">{{ t.sp_alecrim }}</div>
+                <div class="planta-funcao">{{ t.fn_alecrim }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/alecrim.jpeg'], 0, '{{ t.sp_alecrim }}')">
+                    <img src="img/alecrim.jpeg" alt="{{ t.sp_alecrim }}">
+                </div>
+                <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_alecrim }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <!-- GRAMÍNEAS -->
+            <div class="card-planta" data-estrato="gramineas">
+                <span class="spec-label">{{ t.estrato_gramineas }}</span>
+                <div class="planta-nome">{{ t.sp_vetiver }}</div>
+                <div class="planta-funcao">{{ t.fn_vetiver }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/vetiver.jpeg'], 0, '{{ t.sp_vetiver }}')">
+                    <img src="img/vetiver.jpeg" alt="{{ t.sp_vetiver }}">
+                </div>
+                <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_vetiver }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="gramineas">
+                <span class="spec-label">{{ t.estrato_gramineas }}</span>
+                <div class="planta-nome">{{ t.sp_ervaprincipe }}</div>
+                <div class="planta-funcao">{{ t.fn_ervaprincipe }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/ervaprincipe.jpeg'], 0, '{{ t.sp_ervaprincipe }}')">
+                    <img src="img/ervaprincipe.jpeg" alt="{{ t.sp_ervaprincipe }}">
+                </div>
+                <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_ervaprincipe }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+            <div class="card-planta" data-estrato="gramineas">
+                <span class="spec-label">{{ t.estrato_cobertura }}</span>
+                <div class="planta-nome">{{ t.sp_trevo }}</div>
+                <div class="planta-funcao">{{ t.fn_trevo }}</div>
+                <div class="planta-img-wrap" onclick="openLightbox(['img/trevo_subterranea.jpeg'], 0, '{{ t.sp_trevo }}')">
+                    <img src="img/trevo_subterranea.jpeg" alt="{{ t.sp_trevo }}">
+                </div>
+                <div class="preco-box">1€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
+                <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_trevo }}" class="btn-adote">{{ t.adote_btn }}</a>
+            </div>
+
+        </div>
+
+        <section class="seccao-tecnica-box">
+            <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">{{ t.adote_sec_titulo }}</h3>
+            <ul style="line-height: 2; color: #444; list-style: none; padding: 0;">
+                <li>✔ {{ t.adote_inc1 }}</li>
+                <li>✔ {{ t.adote_inc2 }}</li>
+                <li>✔ {{ t.adote_inc3 }}</li>
+                <li>✔ {{ t.adote_inc4 }}</li>
+            </ul>
+            <div class="nota-privacidade">{{ t.adote_privacidade }}</div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="/sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
+                &nbsp;·&nbsp;
+                <a href="/privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="lightbox-overlay" onclick="closeLightbox()">
+        <button class="lb-nav" id="lightbox-prev" onclick="event.stopPropagation(); navegarLightbox(-1)">&#8592;</button>
+        <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+        <button class="lb-nav" id="lightbox-next" onclick="event.stopPropagation(); navegarLightbox(1)">&#8594;</button>
+        <div id="lightbox-footer" style="position:absolute; bottom:20px; color:white; text-align:center; width:100%;">
+            <div id="lightbox-caption" style="font-weight:700; letter-spacing:1px;"></div>
+            <div id="lightbox-counter" style="font-size:0.8rem; opacity:0.6;"></div>
+        </div>
+    </div>
+
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_aceitar }}</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_recusar }}</button>
+        </div>
+    </div>
+
+    <script>
+        const cb = document.getElementById('cookie-banner');
+        if (!localStorage.getItem('cookies')) { cb.style.display = 'flex'; }
+        function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); cb.style.display = 'none'; }
+        function recusarCookies() { localStorage.setItem('cookies', 'recusado'); cb.style.display = 'none'; }
+
+        function filtrar(estrato, btn) {
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.card-planta').forEach(c => {
+                c.classList.toggle('hidden', estrato !== 'todos' && c.dataset.estrato !== estrato);
+            });
+        }
+
+        let lbImagens = [], lbIndex = 0;
+        function openLightbox(imagens, index, caption) {
+            lbImagens = imagens; lbIndex = index;
+            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox-img').src = lbImagens[lbIndex];
+            document.getElementById('lightbox-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            atualizarNavegacao();
+        }
+        function navegarLightbox(dir) {
+            lbIndex = (lbIndex + dir + lbImagens.length) % lbImagens.length;
+            document.getElementById('lightbox-img').src = lbImagens[lbIndex];
+            atualizarNavegacao();
+        }
+        function atualizarNavegacao() {
+            const multi = lbImagens.length > 1;
+            document.getElementById('lightbox-prev').style.display = multi ? 'block' : 'none';
+            document.getElementById('lightbox-next').style.display = multi ? 'block' : 'none';
+            document.getElementById('lightbox-counter').textContent = multi ? `${lbIndex + 1} / ${lbImagens.length}` : '';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') navegarLightbox(1);
+            if (e.key === 'ArrowLeft') navegarLightbox(-1);
+        });
+    </script>
+    <script src="js/menu.js"></script>
+    <script src="js/fadein.js"></script>
+
+</body>
+</html>
