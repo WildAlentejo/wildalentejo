@@ -3,9 +3,7 @@ layout: default
 ---
 <style>
     .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
+        display: block;
         font-size: 0.7rem;
         font-weight: 800;
         text-transform: uppercase;
@@ -15,7 +13,6 @@ layout: default
         margin: 30px 0 20px;
         opacity: 0.6;
         transition: opacity 0.2s;
-        display: block;
     }
     .back-link:hover { opacity: 1; }
     .log-entry {
@@ -64,12 +61,15 @@ layout: default
     }
     .post-body img {
         width: 100%;
-        max-height: 420px;
+        max-height: 200px;
         object-fit: cover;
         border: 1px solid #eee;
         margin: 20px 0;
         display: block;
+        cursor: zoom-in;
+        transition: opacity 0.2s;
     }
+    .post-body img:hover { opacity: 0.88; }
     .post-body ul { padding-left: 20px; color: #666; }
     .post-body p em { color: #888; font-size: 0.88rem; }
     .post-nav {
@@ -105,6 +105,39 @@ layout: default
     }
     .utterances { max-width: 100% !important; }
     .utterances-frame { width: 100% !important; }
+
+    /* Lightbox */
+    #lb-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.92);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+    }
+    #lb-overlay.active { display: flex; }
+    #lb-img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 3px;
+        cursor: default;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    #lb-close {
+        position: absolute;
+        top: 20px; right: 24px;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2.5rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        line-height: 1;
+    }
+    #lb-close:hover { opacity: 1; }
 </style>
 
 <a href="/logbook.html" class="back-link">← Logbook</a>
@@ -151,3 +184,26 @@ layout: default
         async>
     </script>
 </div>
+
+<!-- Lightbox — clica na imagem para ver em grande -->
+<div id="lb-overlay" onclick="closeLb()">
+    <button id="lb-close" onclick="closeLb()">×</button>
+    <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
+
+<script>
+    document.querySelectorAll('.post-body img').forEach(img => {
+        img.title = 'Clica para ampliar';
+        img.addEventListener('click', () => {
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb-img').alt = img.alt;
+            document.getElementById('lb-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    function closeLb() {
+        document.getElementById('lb-overlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+</script>
