@@ -1,0 +1,176 @@
+---
+layout: default
+---
+<style>
+    .log-entry {
+        border-left: 3px solid var(--primary);
+        margin: 40px 0;
+        padding-left: 30px;
+        position: relative;
+    }
+    .log-entry::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: 17px;
+        height: 17px;
+        background: var(--secondary);
+        border: 3px solid var(--primary);
+        border-radius: 50%;
+    }
+    .log-date {
+        font-weight: 800;
+        color: var(--accent);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+    }
+    .log-entry h1 {
+        font-size: 2rem;
+        margin: 0 0 16px;
+        letter-spacing: -1px;
+        color: var(--primary);
+    }
+    .log-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+    .tag {
+        font-size: 0.6rem;
+        background: #f0f0f0;
+        padding: 4px 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: 1px solid #ddd;
+    }
+    .log-body {
+        font-size: 0.95rem;
+        color: #444;
+        line-height: 1.8;
+        max-width: 720px;
+    }
+    .log-body img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        margin: 20px 0;
+    }
+    .log-body ul {
+        padding-left: 20px;
+        color: #666;
+    }
+    .log-body p em {
+        color: #888;
+        font-size: 0.88rem;
+    }
+
+    /* Navegação entre posts */
+    .post-nav {
+        display: flex;
+        justify-content: space-between;
+        margin: 50px 0 30px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        gap: 20px;
+    }
+    .post-nav a {
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--primary);
+        text-decoration: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+    .post-nav a:hover { opacity: 1; }
+
+    /* Comentários */
+    .comments-wrap {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+    }
+    .comments-label {
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: var(--accent);
+        margin-bottom: 16px;
+        display: block;
+    }
+    .utterances { max-width: 100% !important; }
+    .utterances-frame { width: 100% !important; }
+
+    /* Voltar ao logbook */
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--primary);
+        text-decoration: none;
+        margin-bottom: 30px;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 1; }
+</style>
+
+<a href="/logbook.html" class="back-link">← Logbook</a>
+
+<div class="log-entry">
+    <span class="log-date">
+        {{ page.date | date: "%d %B %Y" | replace: "January","Janeiro" | replace: "February","Fevereiro" | replace: "March","Março" | replace: "April","Abril" | replace: "May","Maio" | replace: "June","Junho" | replace: "July","Julho" | replace: "August","Agosto" | replace: "September","Setembro" | replace: "October","Outubro" | replace: "November","Novembro" | replace: "December","Dezembro" }}
+    </span>
+
+    <h1>{{ page.title }}</h1>
+
+    {% if page.tags %}
+    <div class="log-tags">
+        {% for tag in page.tags %}
+        <span class="tag">{{ tag }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="log-body">
+        {{ content }}
+    </div>
+</div>
+
+<!-- Navegação entre posts -->
+<div class="post-nav">
+    <div>
+        {% if page.previous.url %}
+        <a href="{{ page.previous.url }}">← {{ page.previous.title }}</a>
+        {% endif %}
+    </div>
+    <div>
+        {% if page.next.url %}
+        <a href="{{ page.next.url }}">{{ page.next.title }} →</a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Utterances — comentários via GitHub Issues -->
+<div class="comments-wrap">
+    <span class="comments-label">💬 Comentários</span>
+    <script src="https://utteranc.es/client.js"
+        repo="WildAlentejo/wildalentejo"
+        issue-term="title"
+        label="logbook"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
