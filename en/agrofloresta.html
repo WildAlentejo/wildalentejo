@@ -1,0 +1,804 @@
+---
+lang: en
+---
+{% assign t = site.data.translations[page.lang] %}
+<!DOCTYPE html>
+<html lang="{{ t.html_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.agro_titulo }}</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/agrofloresta.html">
+    <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/agrofloresta.html">
+    <style>
+        .hero-agro {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            margin-bottom: 60px;
+            overflow: hidden;
+        }
+        .hero-agro img {
+            width: 100%;
+            height: 130%;
+            object-fit: cover;
+            object-position: center 60%;
+            display: block;
+            filter: saturate(0.85);
+            position: absolute;
+            top: 0; left: 0;
+            will-change: transform;
+        }
+        .hero-agro-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 45px;
+            text-align: center;
+        }
+        .hero-agro-overlay h1 {
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: #ffffff;
+            margin: 0 0 10px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .hero-agro-overlay p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 0 0 60px;
+        }
+        .sensor-card {
+            background: var(--card-bg);
+            padding: 20px 10px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .sensor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .sensor-card h3 {
+            margin: 0;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 0.8px;
+            font-weight: 800;
+        }
+        .sensor-val {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 8px 0 4px;
+            line-height: 1;
+        }
+        .sensor-sub {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .sensor-sub.verde   { color: #27ae60; }
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--accent);
+            font-weight: 800;
+            margin: 60px 0 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .section-label::after {
+            content: "";
+            height: 1px;
+            background: var(--border);
+            flex-grow: 1;
+        }
+        .intro-texto {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: start;
+            margin-bottom: 60px;
+        }
+        .intro-texto h2 { font-size: 2rem; margin: 0 0 20px; line-height: 1.1; }
+        .intro-texto p { font-size: 0.95rem; color: #444; line-height: 1.75; margin-bottom: 16px; }
+        .intro-lado {
+            background: var(--card-bg);
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+        }
+        .intro-lado h3 { font-size: 0.8rem; margin: 0 0 18px; letter-spacing: 1px; }
+        .principio-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+        .principio-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+        .principio-item strong { font-size: 0.78rem; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 2px; }
+        .principio-item p { font-size: 0.82rem; color: #666; margin: 0; line-height: 1.5; }
+        .foto-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 60px;
+        }
+        .foto-item {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            cursor: zoom-in;
+            position: relative;
+            background: #e8e4dc;
+        }
+        .foto-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.3s;
+            filter: saturate(0.8);
+            display: block;
+        }
+        .foto-item:hover img { transform: scale(1.07); filter: saturate(1); }
+        .foto-item .foto-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 20px 12px 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .foto-item:hover .foto-label { opacity: 1; }
+        .foto-item.grande { grid-column: span 2; aspect-ratio: 16/9; }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        .video-card { background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; }
+        .video-wrapper { position: relative; padding-top: 56.25%; }
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; border: none;
+        }
+        .video-info { padding: 16px 20px; border-top: 2px solid var(--secondary); }
+        .video-info h4 { margin: 0 0 5px; font-size: 0.9rem; color: var(--primary); text-transform: uppercase; }
+        .video-info p { margin: 0; font-size: 0.8rem; color: var(--text-muted); }
+        .timeline { margin-bottom: 60px; }
+        .tl-entry {
+            display: grid;
+            grid-template-columns: 120px 30px 1fr;
+            gap: 0 15px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        .tl-entry::before {
+            content: '';
+            position: absolute;
+            left: 136px; top: 24px; bottom: -35px;
+            width: 2px;
+            background: var(--border);
+        }
+        .tl-entry:last-child::before { display: none; }
+        .tl-data { text-align: right; padding-top: 4px; }
+        .tl-data strong { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+        .tl-dot {
+            position: relative;
+            width: 16px; height: 16px;
+            background: var(--secondary);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            margin-top: 6px;
+            justify-self: center;
+        }
+        .tl-content { background: var(--card-bg); border: 1px solid var(--border); padding: 20px 25px; }
+        .tl-content h4 { margin: 0 0 8px; font-size: 1rem; color: var(--primary); text-transform: uppercase; }
+        .tl-content p { margin: 0; font-size: 0.88rem; color: #555; line-height: 1.6; }
+        /* LIGHTBOX */
+        #lightbox-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            align-items: center; justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.2s ease;
+        }
+        #lightbox-overlay.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #lightbox-img {
+            max-width: 88vw; max-height: 88vh;
+            object-fit: contain;
+            border-radius: 3px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+            cursor: default;
+            transition: opacity 0.15s;
+        }
+        #lightbox-close {
+            position: absolute; top: 18px; right: 22px;
+            color: white; font-size: 2rem; font-weight: 300;
+            cursor: pointer; opacity: 0.7; transition: opacity 0.2s;
+            background: none; border: none; font-family: 'Inter', sans-serif;
+        }
+        #lightbox-close:hover { opacity: 1; }
+        #lightbox-prev, #lightbox-next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white; font-size: 1.3rem;
+            width: 48px; height: 48px; border-radius: 50%;
+            cursor: pointer; transition: background 0.2s;
+            display: none; align-items: center; justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+        #lightbox-prev { left: 18px; }
+        #lightbox-next { right: 18px; }
+        #lightbox-prev:hover, #lightbox-next:hover { background: rgba(255,255,255,0.25); }
+        #lightbox-footer { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; font-family: 'Inter', sans-serif; }
+        #lightbox-caption { color: rgba(255,255,255,0.75); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        #lightbox-counter { color: rgba(255,255,255,0.4); font-size: 0.68rem; margin-top: 4px; }
+        /* ESPÉCIES */
+        .especies-wrapper { margin-bottom: 60px; }
+        .estrato-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--primary);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .estrato-espontaneas { border-top-color: var(--secondary); }
+        .estrato-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(45,76,47,0.03);
+        }
+        .estrato-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .estrato-titulo {
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--primary);
+        }
+        .estrato-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+        .especies-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .especies-table thead tr { background: rgba(45,76,47,0.05); }
+        .especies-table th {
+            text-align: left;
+            padding: 9px 20px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+        }
+        .especies-table td {
+            padding: 9px 20px;
+            color: #444;
+            border-top: 1px solid #f0ede6;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .especies-table td:first-child {
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+            width: 35%;
+        }
+        .especies-table em { font-style: italic; font-weight: 400; }
+        .estrato-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .lang-switch {
+            font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; color: #fff; background: rgba(255,255,255,0.15);
+            padding: 4px 10px; border-radius: 3px; text-decoration: none;
+            transition: background 0.2s; margin-left: 10px;
+        }
+        .lang-switch:hover { background: rgba(255,255,255,0.3); }
+        @media (max-width: 768px) {
+            .hero-agro { height: 240px; }
+            .hero-agro-overlay h1 { font-size: 1.8rem; }
+            .sensor-grid { grid-template-columns: repeat(2, 1fr); }
+            .intro-texto { grid-template-columns: 1fr; gap: 30px; }
+            .foto-grid { grid-template-columns: repeat(2, 1fr); }
+            .foto-item.grande { grid-column: span 2; }
+            .video-grid { grid-template-columns: 1fr; }
+            .tl-entry { grid-template-columns: 80px 30px 1fr; gap: 0 10px; }
+            .tl-entry::before { left: 102px; }
+            .estrato-grid-2 { grid-template-columns: 1fr; }
+            .especies-table td:first-child { width: auto; white-space: normal; }
+        }
+        @media (max-width: 480px) {
+            .foto-grid { grid-template-columns: 1fr; }
+            .foto-item.grande { grid-column: span 1; aspect-ratio: 4/3; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/index.html"><img src="/img/logo.png" alt="Wild Alentejo"></a>
+            </div>
+            <nav>
+                <a href="/index.html">{{ t.nav_inicio }}</a>
+                <a href="/sistemas2.html">{{ t.nav_sistema }}</a>
+                <a href="/logbook.html">{{ t.nav_logbook }}</a>
+                <a href="/adote.html">{{ t.nav_adote }}</a>
+                <a href="/agrofloresta.html" class="active">{{ t.nav_agro }}</a>
+                <a href="/produtos.html">{{ t.nav_producao }}</a>
+                <a href="/galeria.html">{{ t.nav_galeria }}</a>
+                <a href="/sobre.html">{{ t.nav_contacto }}</a>
+                <a href="{{ t.nav_lang_url }}agrofloresta.html" class="lang-switch">{{ t.nav_lang }}</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-agro">
+        <img src="/img/agrofloresta-hero1.jpg" alt="{{ t.agro_hero_h1 }}">
+        <div class="hero-agro-overlay">
+            <h1>{{ t.agro_hero_h1 }}</h1>
+            <p>{{ t.agro_hero_p }}</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <div class="sensor-grid">
+            <div class="sensor-card">
+                <h3>{{ t.agro_card1_h }}</h3>
+                <div class="sensor-val">{{ t.agro_card1_v }}</div>
+                <div class="sensor-sub verde">{{ t.agro_card1_s }}</div>
+            </div>
+            <div class="sensor-card">
+                <h3>{{ t.agro_card2_h }}</h3>
+                <div class="sensor-val">{{ t.agro_card2_v }}</div>
+                <div class="sensor-sub verde">{{ t.agro_card2_s }}</div>
+            </div>
+            <div class="sensor-card">
+                <h3>{{ t.agro_card3_h }}</h3>
+                <div class="sensor-val">{{ t.agro_card3_v }}</div>
+                <div class="sensor-sub verde">{{ t.agro_card3_s }}</div>
+            </div>
+            <div class="sensor-card">
+                <h3>{{ t.agro_card4_h }}</h3>
+                <div class="sensor-val">{{ t.agro_card4_v }}</div>
+                <div class="sensor-sub verde">{{ t.agro_card4_s }}</div>
+            </div>
+        </div>
+
+        <div class="section-label">{{ t.agro_sec1 }}</div>
+
+        <div class="intro-texto">
+            <div>
+                <h2>{{ t.agro_h2 }}</h2>
+                <p>{{ t.agro_p1 }}</p>
+                <p>{{ t.agro_p2 }}</p>
+                <p>{{ t.agro_p3 }}</p>
+            </div>
+            <div class="intro-lado">
+                <h3>{{ t.agro_prin_titulo }}</h3>
+                <div class="principio-item">
+                    <span class="principio-icon">🌿</span>
+                    <div><strong>{{ t.agro_prin1_t }}</strong><p>{{ t.agro_prin1_d }}</p></div>
+                </div>
+                <div class="principio-item">
+                    <span class="principio-icon">🌳</span>
+                    <div><strong>{{ t.agro_prin2_t }}</strong><p>{{ t.agro_prin2_d }}</p></div>
+                </div>
+                <div class="principio-item">
+                    <span class="principio-icon">💧</span>
+                    <div><strong>{{ t.agro_prin3_t }}</strong><p>{{ t.agro_prin3_d }}</p></div>
+                </div>
+                <div class="principio-item">
+                    <span class="principio-icon">🐔</span>
+                    <div><strong>{{ t.agro_prin4_t }}</strong><p>{{ t.agro_prin4_d }}</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-label">{{ t.agro_sec_fotos }}</div>
+
+        <div class="foto-grid">
+            <div class="foto-item grande" onclick="openLightbox(['/img/agrofloresta-hero1.jpg'], 0, '{{ t.agro_foto1 }}')">
+                <img src="/img/agrofloresta-hero1.jpg" alt="{{ t.agro_foto1 }}">
+                <div class="foto-label">{{ t.agro_foto1 }}</div>
+            </div>
+            <div class="foto-item" onclick="openLightbox(['/img/agro-solo1.jpg','/img/agro-solo2.jpg'], 0, '{{ t.agro_foto2 }}')">
+                <img src="/img/agro-solo1.jpg" alt="{{ t.agro_foto2 }}">
+                <div class="foto-label">{{ t.agro_foto2 }}</div>
+            </div>
+            <div class="foto-item" onclick="openLightbox(['/img/agro-arvores1.jpg','/img/agro-arvores2.jpg','/img/agro-arvores3.jpg'], 0, '{{ t.agro_foto3 }}')">
+                <img src="/img/agro-arvores1.jpg" alt="{{ t.agro_foto3 }}">
+                <div class="foto-label">{{ t.agro_foto3 }}</div>
+            </div>
+            <div class="foto-item" onclick="openLightbox(['/img/agro-rega.jpg'], 0, '{{ t.agro_foto4 }}')">
+                <img src="/img/agro-rega.jpg" alt="{{ t.agro_foto4 }}">
+                <div class="foto-label">{{ t.agro_foto4 }}</div>
+            </div>
+            <div class="foto-item" onclick="openLightbox(['/img/agro-galinhas1.jpg','/img/agro-galinhas2.jpg'], 0, '{{ t.agro_foto5 }}')">
+                <img src="/img/agro-galinhas1.jpg" alt="{{ t.agro_foto5 }}">
+                <div class="foto-label">{{ t.agro_foto5 }}</div>
+            </div>
+            <div class="foto-item grande" onclick="openLightbox(['/img/agro-poda1.jpg','/img/agro-poda2.jpg'], 0, '{{ t.agro_foto6 }}')">
+                <img src="/img/agro-poda1.jpg" alt="{{ t.agro_foto6 }}">
+                <div class="foto-label">{{ t.agro_foto6 }}</div>
+            </div>
+            <div class="foto-item" onclick="openLightbox(['/img/agro-frutos.jpg'], 0, '{{ t.agro_foto7 }}')">
+                <img src="/img/agro-frutos.jpg" alt="{{ t.agro_foto7 }}">
+                <div class="foto-label">{{ t.agro_foto7 }}</div>
+            </div>
+        </div>
+
+        <div class="section-label">{{ t.agro_sec_videos }}</div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/t6M8SFBtVHU"
+                            allowfullscreen loading="lazy"
+                            title="{{ t.agro_vid1_h }}"></iframe>
+                </div>
+                <div class="video-info">
+                    <h4>{{ t.agro_vid1_h }}</h4>
+                    <p>{{ t.agro_vid1_p }}</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_2"
+                            allowfullscreen loading="lazy"
+                            title="{{ t.agro_vid2_h }}"></iframe>
+                </div>
+                <div class="video-info">
+                    <h4>{{ t.agro_vid2_h }}</h4>
+                    <p>{{ t.agro_vid2_p }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-label">{{ t.agro_sec_especies }}</div>
+
+        <div class="especies-wrapper">
+
+            <!-- Estrato Emergente -->
+            <div class="estrato-block">
+                <div class="estrato-header">
+                    <span class="estrato-icon">🌳</span>
+                    <div>
+                        <div class="estrato-titulo">{{ t.agro_e1_titulo }}</div>
+                        <div class="estrato-sub">{{ t.agro_e1_sub }}</div>
+                    </div>
+                </div>
+                <table class="especies-table">
+                    <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_funcoes }}</th></tr></thead>
+                    <tbody>
+                        <tr><td>{% if page.lang == 'en' %}Cork Oak{% else %}Sobreiro{% endif %}</td><td>{% if page.lang == 'en' %}Structural shade, microclimate, deep roots, wildlife shelter{% else %}Sombra estrutural, microclima, raízes profundas, abrigo fauna{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Holm Oak{% else %}Azinheira{% endif %}</td><td>{% if page.lang == 'en' %}Structural shade, acorn production, ecosystem stability{% else %}Sombra estrutural, produção de bolota, estabilidade do ecossistema{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Eucalyptus{% else %}Eucalipto{% endif %}</td><td>{% if page.lang == 'en' %}Fast biomass, water drainage, wildlife shelter{% else %}Biomassa rápida, drenagem hídrica, abrigo fauna{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}White Poplar{% else %}Choupo Branco{% endif %}</td><td>{% if page.lang == 'en' %}Water pump, fast biomass, soil stabilisation{% else %}Bomba de água, biomassa rápida, estabilização de solo{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Willow{% else %}Salgueiro{% endif %}</td><td>{% if page.lang == 'en' %}Water control, biomass, deep rooting{% else %}Controlo hídrico, biomassa, enraizamento profundo{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Hackberry{% else %}Lódão-bastardo{% endif %}</td><td>{% if page.lang == 'en' %}Mediterranean structural tree, bird food, natural regeneration{% else %}Árvore estrutural mediterrânica, alimento para aves, regeneração natural{% endif %}</td></tr>
+                        <tr><td><em>Melia azedarach</em></td><td>{% if page.lang == 'en' %}Fast biomass, shade, natural insecticide{% else %}Biomassa rápida, sombra, inseticida natural{% endif %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Estrato Alto Produção -->
+            <div class="estrato-block">
+                <div class="estrato-header">
+                    <span class="estrato-icon">🍊</span>
+                    <div>
+                        <div class="estrato-titulo">{{ t.agro_e2_titulo }}</div>
+                        <div class="estrato-sub">{{ t.agro_e2_sub }}</div>
+                    </div>
+                </div>
+                <table class="especies-table">
+                    <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_funcoes }}</th></tr></thead>
+                    <tbody>
+                        <tr><td>{% if page.lang == 'en' %}Orange Tree{% else %}Laranjeira{% endif %}</td><td>{% if page.lang == 'en' %}Fruit, pollinator attraction{% else %}Fruta, atracção de polinizadores{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Mandarin Tree{% else %}Tangerineira{% endif %}</td><td>{% if page.lang == 'en' %}Fruit{% else %}Fruta{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Lemon Tree{% else %}Limoeiro{% endif %}</td><td>{% if page.lang == 'en' %}Fruit{% else %}Fruta{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Olive Tree{% else %}Oliveira{% endif %}</td><td>{% if page.lang == 'en' %}Olive oil, ecological stability, longevity{% else %}Azeite, estabilidade ecológica, longevidade{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Fig Tree{% else %}Figueira{% endif %}</td><td>{% if page.lang == 'en' %}Fruit, wildlife food{% else %}Fruta, alimento para fauna{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Loquat{% else %}Nespereira{% endif %}</td><td>{% if page.lang == 'en' %}Early fruit (Winter/Spring){% else %}Fruta precoce (Inverno/Primavera){% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Pear Tree{% else %}Pereira{% endif %}</td><td>{% if page.lang == 'en' %}Fruit{% else %}Fruta{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Almond Tree{% else %}Amendoeira{% endif %}</td><td>{% if page.lang == 'en' %}Dried fruit, pollinator attraction{% else %}Fruto seco, atracção de polinizadores{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Carob Tree{% else %}Alfarrobeira{% endif %}</td><td>{% if page.lang == 'en' %}Fruit, high drought resistance{% else %}Fruto, grande resistência à seca{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Peach Tree{% else %}Pessegueiro{% endif %}</td><td>{% if page.lang == 'en' %}Fruit{% else %}Fruta{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Apricot Tree{% else %}Albricoqueiro{% endif %}</td><td>{% if page.lang == 'en' %}Fruit{% else %}Fruta{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}White Mulberry{% else %}Amoreira Branca{% endif %}</td><td>{% if page.lang == 'en' %}Fruit, fast biomass{% else %}Fruta, biomassa rápida{% endif %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Linha dupla: Arbustivo + coluna direita -->
+            <div class="estrato-grid-2">
+
+                <!-- Arbustivo -->
+                <div class="estrato-block" style="margin-bottom:0;">
+                    <div class="estrato-header">
+                        <span class="estrato-icon">🌿</span>
+                        <div>
+                            <div class="estrato-titulo">{{ t.agro_e3_titulo }}</div>
+                            <div class="estrato-sub">{{ t.agro_e3_sub }}</div>
+                        </div>
+                    </div>
+                    <table class="especies-table">
+                        <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_func }}</th></tr></thead>
+                        <tbody>
+                            <tr><td>{% if page.lang == 'en' %}Pomegranate{% else %}Romanzeira{% endif %}</td><td>{% if page.lang == 'en' %}Fruit, pollinators{% else %}Fruta, polinizadores{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Strawberry Tree{% else %}Medronheiro{% endif %}</td><td>{% if page.lang == 'en' %}Fruit, pollinators{% else %}Fruta, polinizadores{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Myrtle{% else %}Murta{% endif %}</td><td>{% if page.lang == 'en' %}Wildlife shelter, medicinal{% else %}Abrigo fauna, medicinal{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Mastic Tree{% else %}Aroeira{% endif %}</td><td>{% if page.lang == 'en' %}Drought resistance, biodiversity{% else %}Resistência à seca, biodiversidade{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Buckthorn{% else %}Sanguinho-das-sebes{% endif %}</td><td>{% if page.lang == 'en' %}Wildlife food{% else %}Alimento fauna{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Mediterranean Buckthorn{% else %}Sanguinho-do-monte{% endif %}</td><td>{% if page.lang == 'en' %}Natural regeneration{% else %}Regeneração natural{% endif %}</td></tr>
+                            <tr><td>Tagasaste</td><td>{% if page.lang == 'en' %}Nitrogen fixation, biomass{% else %}Fixação de azoto, biomassa{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Dorycnium{% else %}Carpeteiro{% endif %}</td><td>{% if page.lang == 'en' %}Ground cover, soil protection{% else %}Cobertura vegetal, proteção do solo{% endif %}</td></tr>
+                            <tr><td>{% if page.lang == 'en' %}Cistus{% else %}Esteva{% endif %}</td><td>{% if page.lang == 'en' %}Pioneer, moisture retention, medicinal resin{% else %}Pioneira, retenção de humidade, resina medicinal{% endif %}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Coluna direita: 3 estratos pequenos -->
+                <div style="display:flex; flex-direction:column; gap:16px;">
+
+                    <div class="estrato-block" style="margin-bottom:0;">
+                        <div class="estrato-header">
+                            <span class="estrato-icon">🌸</span>
+                            <div>
+                                <div class="estrato-titulo">{{ t.agro_e4_titulo }}</div>
+                                <div class="estrato-sub">{{ t.agro_e4_sub }}</div>
+                            </div>
+                        </div>
+                        <table class="especies-table">
+                            <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_func }}</th></tr></thead>
+                            <tbody>
+                                <tr><td>{% if page.lang == 'en' %}Lavender{% else %}Lavanda{% endif %}</td><td>{% if page.lang == 'en' %}Pollinators, insect repellent{% else %}Polinizadores, repelente de insetos{% endif %}</td></tr>
+                                <tr><td>{% if page.lang == 'en' %}French Lavender{% else %}Rosmaninho{% endif %}</td><td>{% if page.lang == 'en' %}Pollinators{% else %}Polinizadores{% endif %}</td></tr>
+                                <tr><td>{% if page.lang == 'en' %}Rosemary{% else %}Alecrim{% endif %}</td><td>{% if page.lang == 'en' %}Pollinators, medicinal{% else %}Polinizadores, medicinal{% endif %}</td></tr>
+                                <tr><td>{% if page.lang == 'en' %}Oregano{% else %}Orégãos{% endif %}</td><td>{% if page.lang == 'en' %}Pollinators, culinary{% else %}Polinizadores, culinário{% endif %}</td></tr>
+                                <tr><td>{% if page.lang == 'en' %}Thyme{% else %}Tomilho{% endif %}</td><td>{% if page.lang == 'en' %}Pollinators, culinary{% else %}Polinizadores, culinário{% endif %}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="estrato-block" style="margin-bottom:0;">
+                        <div class="estrato-header">
+                            <span class="estrato-icon">🌾</span>
+                            <div>
+                                <div class="estrato-titulo">{{ t.agro_e5_titulo }}</div>
+                                <div class="estrato-sub">{{ t.agro_e5_sub }}</div>
+                            </div>
+                        </div>
+                        <table class="especies-table">
+                            <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_func }}</th></tr></thead>
+                            <tbody>
+                                <tr><td>Vetiver</td><td>{% if page.lang == 'en' %}Erosion control, water infiltration, deep roots{% else %}Controlo de erosão, infiltração de água, raízes profundas{% endif %}</td></tr>
+                                <tr><td>{% if page.lang == 'en' %}Lemongrass{% else %}Erva-príncipe{% endif %}</td><td>{% if page.lang == 'en' %}Biomass, insect repellent{% else %}Biomassa, repelente de insetos{% endif %}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="estrato-block" style="margin-bottom:0;">
+                        <div class="estrato-header">
+                            <span class="estrato-icon">🌱</span>
+                            <div>
+                                <div class="estrato-titulo">{{ t.agro_e6_titulo }}</div>
+                                <div class="estrato-sub">{{ t.agro_e6_sub }}</div>
+                            </div>
+                        </div>
+                        <table class="especies-table">
+                            <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_func }}</th></tr></thead>
+                            <tbody>
+                                <tr><td>Moringa</td><td>{% if page.lang == 'en' %}Edible leaves, fast biomass{% else %}Folhas comestíveis, biomassa rápida{% endif %}</td></tr>
+                                <tr><td>Ora-pro-nóbis</td><td>{% if page.lang == 'en' %}Plant protein, edible leaves{% else %}Proteína vegetal, folhas comestíveis{% endif %}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Espontâneas -->
+            <div class="estrato-block estrato-espontaneas">
+                <div class="estrato-header">
+                    <span class="estrato-icon">🍃</span>
+                    <div>
+                        <div class="estrato-titulo">{{ t.agro_e7_titulo }}</div>
+                        <div class="estrato-sub">{{ t.agro_e7_sub }}</div>
+                    </div>
+                </div>
+                <table class="especies-table">
+                    <thead><tr><th>{{ t.agro_th_especie }}</th><th>{{ t.agro_th_func }}</th></tr></thead>
+                    <tbody>
+                        <tr><td>{% if page.lang == 'en' %}Mallow{% else %}Malva{% endif %}</td><td>{% if page.lang == 'en' %}Nutrient mineralisation{% else %}Mineralização de nutrientes{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Sowthistle{% else %}Serralha{% endif %}</td><td>{% if page.lang == 'en' %}Fast biomass{% else %}Biomassa rápida{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Thistle{% else %}Cardo{% endif %}</td><td>{% if page.lang == 'en' %}Deep roots, soil decompaction{% else %}Raízes profundas, descompactação do solo{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Fennel{% else %}Funcho{% endif %}</td><td>{% if page.lang == 'en' %}Attracts beneficial insects{% else %}Atrai insetos benéficos{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Dandelion{% else %}Dente-de-leão{% endif %}</td><td>{% if page.lang == 'en' %}Mineral mineralisation{% else %}Mineralização de minerais{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Sorrel{% else %}Azedas{% endif %}</td><td>{% if page.lang == 'en' %}Mineral accumulation{% else %}Acumulação de minerais{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Plantain{% else %}Tanchagem{% endif %}</td><td>{% if page.lang == 'en' %}Medicinal, soil improvement{% else %}Medicinal, melhoria do solo{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Clover (yellow){% else %}Trevo (flor amarela){% endif %}</td><td>{% if page.lang == 'en' %}Nitrogen fixation, living cover{% else %}Fixação de azoto, cobertura viva{% endif %}</td></tr>
+                        <tr><td>{% if page.lang == 'en' %}Mullein{% else %}Verbasco{% endif %}</td><td>{% if page.lang == 'en' %}Attracts beneficial insects, living cover{% else %} Atrai insetos benéficos, cobertura viva{% endif %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="section-label">{{ t.agro_sec_timeline }}</div>
+
+        <div class="timeline">
+            <div class="tl-entry">
+                <div class="tl-data"><strong>{{ t.agro_tl1_data }}</strong></div>
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <h4>{{ t.agro_tl1_h }}</h4>
+                    <p>{{ t.agro_tl1_p }}</p>
+                </div>
+            </div>
+            <div class="tl-entry">
+                <div class="tl-data"><strong>{{ t.agro_tl2_data }}</strong></div>
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <h4>{{ t.agro_tl2_h }}</h4>
+                    <p>{{ t.agro_tl2_p }}</p>
+                </div>
+            </div>
+            <div class="tl-entry">
+                <div class="tl-data"><strong>{{ t.agro_tl3_data }}</strong></div>
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <h4>{{ t.agro_tl3_h }}</h4>
+                    <p>{{ t.agro_tl3_p }}</p>
+                </div>
+            </div>
+            <div class="tl-entry">
+                <div class="tl-data"><strong>{{ t.agro_tl4_data }}</strong></div>
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <h4>{{ t.agro_tl4_h }}</h4>
+                    <p>{{ t.agro_tl4_p }}</p>
+                </div>
+            </div>
+            <div class="tl-entry">
+                <div class="tl-data"><strong>{{ t.agro_tl5_data }}</strong></div>
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <h4>{{ t.agro_tl5_h }}</h4>
+                    <p>{{ t.agro_tl5_p }}</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="lightbox-overlay" onclick="closeLightbox()">
+        <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button id="lightbox-prev" onclick="event.stopPropagation(); navegarLightbox(-1)">&#8592;</button>
+        <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+        <button id="lightbox-next" onclick="event.stopPropagation(); navegarLightbox(1)">&#8594;</button>
+        <div id="lightbox-footer">
+            <div id="lightbox-caption"></div>
+            <div id="lightbox-counter"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <img src="/img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="/sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
+                &nbsp;·&nbsp;
+                <a href="/privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BANNER COOKIES -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_aceitar }}</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_recusar }}</button>
+        </div>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() {
+            localStorage.setItem('cookies', 'aceite');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        function recusarCookies() {
+            localStorage.setItem('cookies', 'recusado');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
+        let lbImagens = [], lbIndex = 0;
+
+        function openLightbox(imagens, index, caption) {
+            lbImagens = imagens;
+            lbIndex = index;
+            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox-img').src = lbImagens[lbIndex];
+            document.getElementById('lightbox-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            atualizarNavegacao();
+        }
+
+        function navegarLightbox(direcao) {
+            lbIndex = (lbIndex + direcao + lbImagens.length) % lbImagens.length;
+            const img = document.getElementById('lightbox-img');
+            img.style.opacity = '0';
+            setTimeout(() => { img.src = lbImagens[lbIndex]; img.style.opacity = '1'; }, 150);
+            atualizarNavegacao();
+        }
+
+        function atualizarNavegacao() {
+            const temMais = lbImagens.length > 1;
+            const d = temMais ? 'flex' : 'none';
+            document.getElementById('lightbox-prev').style.display = d;
+            document.getElementById('lightbox-next').style.display = d;
+            document.getElementById('lightbox-counter').textContent = temMais ? (lbIndex + 1) + ' / ' + lbImagens.length : '';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape')     closeLightbox();
+            if (e.key === 'ArrowRight') navegarLightbox(1);
+            if (e.key === 'ArrowLeft')  navegarLightbox(-1);
+        });
+    </script>
+    <script>
+        (function() {
+            var heroImg = document.querySelector('.hero-agro img');
+            if (!heroImg) return;
+            window.addEventListener('scroll', function() {
+                heroImg.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
+            }, { passive: true });
+        })();
+    </script>
+    <script src="/js/counters.js"></script>
+    <script src="/js/fadein.js"></script>
+    <script src="/js/menu.js"></script>
+</body>
+</html>
