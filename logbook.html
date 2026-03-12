@@ -64,6 +64,31 @@
             border: 1px solid #eee;
         }
 
+        /* ── Utterances wrapper ───────────────────────────── */
+        .comments-wrap {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .comments-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        /* Utterances iframe fica 100% largura */
+        .utterances {
+            max-width: 100% !important;
+        }
+        .utterances-frame {
+            width: 100% !important;
+        }
+
         @media (max-width: 768px) {
             .log-grid { grid-template-columns: 1fr; }
         }
@@ -90,6 +115,10 @@
     </header>
 
     <main class="container">
+
+        <!-- ═══════════════════════════════════════════════════════════
+             ENTRADA 1
+        ════════════════════════════════════════════════════════════ -->
         <div class="log-entry">
             <span class="log-date">13 Agosto 2025</span>
             <div class="log-content">
@@ -108,9 +137,25 @@
                     </div>
                     <img src="img/solar-panels.jpg" alt="Painéis Solares" class="log-img">
                 </div>
+
+                <!-- Comentários desta entrada -->
+                <div class="comments-wrap">
+                    <span class="comments-label">💬 Comentários</span>
+                    <script src="https://utteranc.es/client.js"
+                        repo="WildAlentejo/wildalentejo"
+                        issue-term="Logbook: Otimização do Sistema Fotovoltaico"
+                        label="logbook"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                </div>
             </div>
         </div>
 
+        <!-- ═══════════════════════════════════════════════════════════
+             ENTRADA 2
+        ════════════════════════════════════════════════════════════ -->
         <div class="log-entry">
             <span class="log-date">02 Julho 2025</span>
             <div class="log-content">
@@ -126,8 +171,22 @@
                     </div>
                     <img src="img/poco_log.jpg" alt="Poço Mértola" class="log-img">
                 </div>
+
+                <!-- Comentários desta entrada -->
+                <div class="comments-wrap">
+                    <span class="comments-label">💬 Comentários</span>
+                    <script src="https://utteranc.es/client.js"
+                        repo="WildAlentejo/wildalentejo"
+                        issue-term="Logbook: Gestão de Stress Hídrico (Estio)"
+                        label="logbook"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                </div>
             </div>
         </div>
+
     </main>
 
     <footer>
@@ -143,30 +202,24 @@
             </div>
         </div>
     </footer>
-<!-- BANNER COOKIES -->
-    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
-    <div style="display:flex; gap:10px; flex-shrink:0;">
-        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
-        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
-    </div>
-</div>
 
-<script>
-    // Mostrar banner se ainda não decidiu
-    if (!localStorage.getItem('cookies')) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function aceitarCookies() {
-        localStorage.setItem('cookies', 'aceite');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function recusarCookies() {
-        localStorage.setItem('cookies', 'recusado');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-</script>
-<script src="js/menu.js"></script>
-<script src="js/fadein.js"></script>
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
+        </div>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); document.getElementById('cookie-banner').style.display = 'none'; }
+        function recusarCookies() { localStorage.setItem('cookies', 'recusado'); document.getElementById('cookie-banner').style.display = 'none'; }
+    </script>
+    <script src="js/menu.js"></script>
+    <script src="js/fadein.js"></script>
 
 </body>
 </html>
