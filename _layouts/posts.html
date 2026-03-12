@@ -1,0 +1,153 @@
+---
+layout: default
+---
+<style>
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--primary);
+        text-decoration: none;
+        margin: 30px 0 20px;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+        display: block;
+    }
+    .back-link:hover { opacity: 1; }
+    .log-entry {
+        border-left: 3px solid var(--primary);
+        padding: 0 0 50px 30px;
+        position: relative;
+        margin-top: 10px;
+    }
+    .log-entry::before {
+        content: '';
+        position: absolute;
+        left: -10px; top: 4px;
+        width: 17px; height: 17px;
+        background: var(--secondary);
+        border: 3px solid var(--primary);
+        border-radius: 50%;
+    }
+    .log-date {
+        font-weight: 800;
+        color: var(--accent);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+    }
+    .log-entry h1 {
+        font-size: 2rem;
+        margin: 0 0 16px;
+        letter-spacing: -1px;
+        color: var(--primary);
+    }
+    .log-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag {
+        font-size: 0.6rem;
+        background: #f0f0f0;
+        padding: 4px 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: 1px solid #ddd;
+    }
+    .post-body {
+        font-size: 0.95rem;
+        color: #444;
+        line-height: 1.8;
+        max-width: 720px;
+    }
+    .post-body img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        margin: 20px 0;
+        display: block;
+    }
+    .post-body ul { padding-left: 20px; color: #666; }
+    .post-body p em { color: #888; font-size: 0.88rem; }
+    .post-nav {
+        display: flex;
+        justify-content: space-between;
+        margin: 40px 0 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+    }
+    .post-nav a {
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--primary);
+        text-decoration: none;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+    }
+    .post-nav a:hover { opacity: 1; }
+    .comments-wrap {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+    }
+    .comments-label {
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: var(--accent);
+        margin-bottom: 16px;
+        display: block;
+    }
+    .utterances { max-width: 100% !important; }
+    .utterances-frame { width: 100% !important; }
+</style>
+
+<a href="/logbook.html" class="back-link">← Logbook</a>
+
+<div class="log-entry">
+    <span class="log-date">
+        {{ page.date | date: "%-d" }}
+        {% assign m = page.date | date: "%-m" | to_integer %}
+        {% case m %}
+          {% when 1 %}Janeiro{% when 2 %}Fevereiro{% when 3 %}Março
+          {% when 4 %}Abril{% when 5 %}Maio{% when 6 %}Junho
+          {% when 7 %}Julho{% when 8 %}Agosto{% when 9 %}Setembro
+          {% when 10 %}Outubro{% when 11 %}Novembro{% when 12 %}Dezembro
+        {% endcase %}
+        {{ page.date | date: "%Y" }}
+    </span>
+
+    <h1>{{ page.title }}</h1>
+
+    {% if page.tags %}
+    <div class="log-tags">
+        {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="post-body">
+        {{ content }}
+    </div>
+</div>
+
+<div class="post-nav">
+    <div>{% if page.previous.url %}<a href="{{ page.previous.url }}">← {{ page.previous.title }}</a>{% endif %}</div>
+    <div>{% if page.next.url %}<a href="{{ page.next.url }}">{{ page.next.title }} →</a>{% endif %}</div>
+</div>
+
+<div class="comments-wrap">
+    <span class="comments-label">💬 Comentários</span>
+    <script src="https://utteranc.es/client.js"
+        repo="WildAlentejo/wildalentejo"
+        issue-term="title"
+        label="logbook"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
