@@ -1,11 +1,17 @@
+---
+lang: pt
+---
+{% assign t = site.data.translations[page.lang] %}
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="{{ t.html_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto | Wild Alentejo</title>
+    <title>{{ t.sobre_titulo }}</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/sobre.html">
+    <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/sobre.html">
     <style>
         .sobre-layout {
             display: grid;
@@ -81,6 +87,14 @@
 
         .btn-contacto:hover { background: var(--secondary); }
 
+        .lang-switch {
+            font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; color: #fff; background: rgba(255,255,255,0.15);
+            padding: 4px 10px; border-radius: 3px; text-decoration: none;
+            transition: background 0.2s; margin-left: 10px;
+        }
+        .lang-switch:hover { background: rgba(255,255,255,0.3); }
+
         @media (max-width: 768px) {
             .sobre-layout { grid-template-columns: 1fr; gap: 40px; }
             .vida-grid { grid-template-columns: 1fr; }
@@ -95,14 +109,15 @@
                 <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
             </div>
             <nav>
-                <a href="index.html">Início</a>
-                <a href="sistemas2.html">O Sistema</a>
-                <a href="logbook.html">Logbook</a>
-                <a href="adote.html">Adote-me</a>
-                <a href="agrofloresta.html">Agrofloresta</a>
-                <a href="produtos.html">Produção</a>
-                <a href="galeria.html">Galeria</a>
-                <a href="sobre.html" class="active">Contacto</a>
+                <a href="index.html">{{ t.nav_inicio }}</a>
+                <a href="sistemas2.html">{{ t.nav_sistema }}</a>
+                <a href="logbook.html">{{ t.nav_logbook }}</a>
+                <a href="adote.html">{{ t.nav_adote }}</a>
+                <a href="agrofloresta.html">{{ t.nav_agro }}</a>
+                <a href="produtos.html">{{ t.nav_producao }}</a>
+                <a href="galeria.html">{{ t.nav_galeria }}</a>
+                <a href="sobre.html" class="active">{{ t.nav_contacto }}</a>
+                <a href="{{ t.nav_lang_url }}sobre.html" class="lang-switch">{{ t.nav_lang }}</a>
             </nav>
         </div>
     </header>
@@ -111,57 +126,57 @@
         <div class="sobre-layout">
 
             <div class="sobre-content">
-                <h2>O Operador e o Ecossistema</h2>
-                <p>O <strong>Wild Alentejo</strong> é o resultado de uma transição radical para a autossuficiência. Vivo 100% off-grid em Mértola, numa estrutura de 15 m² desenhada para o mínimo impacto e máxima eficiência termodinâmica.</p>
-                <p>A minha base é a <strong>Engenharia de Regeneração</strong>. Gerir 900 m² de agrofloresta sintrópica num clima semiárido exige monitorização constante e uma integração profunda com os ciclos da água e da biomassa.</p>
+                <h2>{{ t.sobre_h2 }}</h2>
+                <p>{{ t.sobre_p1 }}</p>
+                <p>{{ t.sobre_p2 }}</p>
 
                 <div class="vida-offgrid">
-                    <h3>Subsistência Off-Grid</h3>
+                    <h3>{{ t.sobre_offgrid_titulo }}</h3>
                     <div class="vida-grid">
-                        <div class="vida-item"><span>Infraestrutura</span>15 m² de área semi habitável</div>
-                        <div class="vida-item"><span>Energia</span>1350W Solar / 3x 180Ah</div>
-                        <div class="vida-item"><span>Água</span>Poço (Gestão Crítica)</div>
-                        <div class="vida-item"><span>Bio-Inputs</span>Galinhas e Fertilizante Humano</div>
+                        <div class="vida-item"><span>{{ t.sobre_infra_label }}</span>{{ t.sobre_infra_val }}</div>
+                        <div class="vida-item"><span>{{ t.sobre_energia_label }}</span>{{ t.sobre_energia_val }}</div>
+                        <div class="vida-item"><span>{{ t.sobre_agua_label }}</span>{{ t.sobre_agua_val }}</div>
+                        <div class="vida-item"><span>{{ t.sobre_bio_label }}</span>{{ t.sobre_bio_val }}</div>
                     </div>
                 </div>
 
                 <div class="metricas-grid">
                     <div class="metrica-item">
-                        <span class="metrica-valor">13</span>
-                        <span class="metrica-label">Aves de Serviço</span>
+                        <span class="metrica-valor">{{ t.sobre_m1_val }}</span>
+                        <span class="metrica-label">{{ t.sobre_m1_label }}</span>
                     </div>
                     <div class="metrica-item">
-                        <span class="metrica-valor">Zero</span>
-                        <span class="metrica-label">Rede Elétrica</span>
+                        <span class="metrica-valor">{{ t.sobre_m2_val }}</span>
+                        <span class="metrica-label">{{ t.sobre_m2_label }}</span>
                     </div>
                     <div class="metrica-item">
-                        <span class="metrica-valor">140º ES</span>
-                        <span class="metrica-label">Orientação Solar</span>
+                        <span class="metrica-valor">{{ t.sobre_m3_val }}</span>
+                        <span class="metrica-label">{{ t.sobre_m3_label }}</span>
                     </div>
                     <div class="metrica-item">
-                        <span class="metrica-valor">100%</span>
-                        <span class="metrica-label">Circularidade Hídrica</span>
+                        <span class="metrica-valor">{{ t.sobre_m4_val }}</span>
+                        <span class="metrica-label">{{ t.sobre_m4_label }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="contacto-box">
-                <h3>Contacto Direto</h3>
+                <h3>{{ t.sobre_contacto_titulo }}</h3>
                 <div class="info-item">
-                    <span class="info-label">Operador</span>
-                    <span class="info-value">WildAlentejo</span>
+                    <span class="info-label">{{ t.sobre_op_label }}</span>
+                    <span class="info-value">{{ t.sobre_op_val }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Localização</span>
-                    <span class="info-value">Mértola, Alentejo</span>
+                    <span class="info-label">{{ t.sobre_loc_label }}</span>
+                    <span class="info-value">{{ t.sobre_loc_val }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Email</span>
-                    <span class="info-value">info@wildalentejo.pt</span>
+                    <span class="info-label">{{ t.sobre_email_label }}</span>
+                    <span class="info-value">{{ t.sobre_email_val }}</span>
                 </div>
-                <a href="mailto:info@wildalentejo.pt" class="btn-contacto">Enviar Email</a>
+                <a href="mailto:info@wildalentejo.pt" class="btn-contacto">{{ t.sobre_btn }}</a>
                 <p style="font-size: 0.65rem; color: #888; margin-top: 25px; line-height: 1.5; font-style: italic;">
-                    Nota: O tempo de resposta depende das tarefas de campo e da prioridade do sistema.
+                    {{ t.sobre_nota }}
                 </p>
             </div>
 
@@ -171,41 +186,41 @@
     <footer>
         <div class="container">
             <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
-            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
             <div class="footer-bottom">
-                <p>&copy; 2026 Wild Alentejo | Mértola, Portugal.<br>
-                Monitorização em tempo real via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
-                <a href="sitemap.html" style="opacity:0.6; font-weight:400;">Mapa do Site</a>
+                <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                <a href="sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
                 &nbsp;·&nbsp;
-                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Política de Privacidade</a>
+                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
             </div>
         </div>
     </footer>
-<!-- BANNER COOKIES -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
-    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
-    <div style="display:flex; gap:10px; flex-shrink:0;">
-        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
-        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
-    </div>
-</div>
 
-<script>
-    // Mostrar banner se ainda não decidiu
-    if (!localStorage.getItem('cookies')) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function aceitarCookies() {
-        localStorage.setItem('cookies', 'aceite');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function recusarCookies() {
-        localStorage.setItem('cookies', 'recusado');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-</script>
-<script src="js/menu.js"></script>
-<script src="js/fadein.js"></script>
+    <!-- BANNER COOKIES -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>{{ t.cookie_texto }} <a href="privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_aceitar }}</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_recusar }}</button>
+        </div>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() {
+            localStorage.setItem('cookies', 'aceite');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        function recusarCookies() {
+            localStorage.setItem('cookies', 'recusado');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+    </script>
+    <script src="js/menu.js"></script>
+    <script src="js/fadein.js"></script>
 
 </body>
 </html>
