@@ -1,5 +1,5 @@
 ---
-lang: pt
+lang: en
 ---
 {% assign t = site.data.translations[page.lang] %}
 <!DOCTYPE html>
@@ -8,8 +8,8 @@ lang: pt
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ t.adote_titulo }}</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/img/logo.png">
     <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/adote.html">
     <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/adote.html">
     <style>
@@ -51,13 +51,13 @@ lang: pt
     <header>
         <div class="container">
             <div class="logo">
-                <a href="/index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+                <a href="/index.html"><img src="/img/logo.png" alt="Wild Alentejo"></a>
             </div>
             <nav>
                 <a href="/index.html">{{ t.nav_inicio }}</a>
                 <a href="/sistemas2.html">{{ t.nav_sistema }}</a>
                 <a href="/logbook.html">{{ t.nav_logbook }}</a>
-                <a href="/adote.html" class="active">{{ t.nav_adote }}</a>
+                <a href="/en/adote.html" class="active">{{ t.nav_adote }}</a>
                 <a href="/agrofloresta.html">{{ t.nav_agro }}</a>
                 <a href="/produtos.html">{{ t.nav_producao }}</a>
                 <a href="/galeria.html">{{ t.nav_galeria }}</a>
@@ -89,8 +89,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_sobreiro }}</div>
                 <div class="planta-funcao">{{ t.fn_sobreiro }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/sobreiro.jpeg'], 0, '{{ t.sp_sobreiro }}')">
-                    <img src="img/sobreiro.jpeg" alt="{{ t.sp_sobreiro }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/sobreiro.jpeg'], 0, '{{ t.sp_sobreiro }}')">
+                    <img src="/img/sobreiro.jpeg" alt="{{ t.sp_sobreiro }}">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_sobreiro }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -100,8 +100,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_azinheira }}</div>
                 <div class="planta-funcao">{{ t.fn_azinheira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Azinheira.jpg'], 0, '{{ t.sp_azinheira }}')">
-                    <img src="img/Azinheira.jpg" alt="{{ t.sp_azinheira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/Azinheira.jpg'], 0, '{{ t.sp_azinheira }}')">
+                    <img src="/img/Azinheira.jpg" alt="{{ t.sp_azinheira }}">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_azinheira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -111,8 +111,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_eucalipto }}</div>
                 <div class="planta-funcao">{{ t.fn_eucalipto }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/eucalipto.jpeg'], 0, '{{ t.sp_eucalipto }}')">
-                    <img src="img/eucalipto.jpeg" alt="{{ t.sp_eucalipto }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/eucalipto.jpeg'], 0, '{{ t.sp_eucalipto }}')">
+                    <img src="/img/eucalipto.jpeg" alt="{{ t.sp_eucalipto }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_eucalipto }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -122,8 +122,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_choupo }}</div>
                 <div class="planta-funcao">{{ t.fn_choupo }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Choupo1.jpg'], 0, '{{ t.sp_choupo }}')">
-                    <img src="img/Choupo1.jpg" alt="{{ t.sp_choupo }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/Choupo1.jpg'], 0, '{{ t.sp_choupo }}')">
+                    <img src="/img/Choupo1.jpg" alt="{{ t.sp_choupo }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_choupo }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -133,8 +133,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_salgueiro }}</div>
                 <div class="planta-funcao">{{ t.fn_salgueiro }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/salgueiro.jpeg'], 0, '{{ t.sp_salgueiro }}')">
-                    <img src="img/salgueiro.jpeg" alt="{{ t.sp_salgueiro }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/salgueiro.jpeg'], 0, '{{ t.sp_salgueiro }}')">
+                    <img src="/img/salgueiro.jpeg" alt="{{ t.sp_salgueiro }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_salgueiro }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -144,8 +144,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_lodao }}</div>
                 <div class="planta-funcao">{{ t.fn_lodao }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/lodaobastardo.jpeg'], 0, '{{ t.sp_lodao }}')">
-                    <img src="img/lodaobastardo.jpeg" alt="{{ t.sp_lodao }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/lodaobastardo.jpeg'], 0, '{{ t.sp_lodao }}')">
+                    <img src="/img/lodaobastardo.jpeg" alt="{{ t.sp_lodao }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_lodao }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -155,8 +155,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_emergente }}</span>
                 <div class="planta-nome">{{ t.sp_melia }}</div>
                 <div class="planta-funcao">{{ t.fn_melia }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Melia1.jpg'], 0, '{{ t.sp_melia }}')">
-                    <img src="img/Melia1.jpg" alt="{{ t.sp_melia }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/Melia1.jpg'], 0, '{{ t.sp_melia }}')">
+                    <img src="/img/Melia1.jpg" alt="{{ t.sp_melia }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_melia }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -167,8 +167,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_producao }}</span>
                 <div class="planta-nome">{{ t.sp_alfarrobeira }}</div>
                 <div class="planta-funcao">{{ t.fn_alfarrobeira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/alfarrobeira.jpg'], 0, '{{ t.sp_alfarrobeira }}')">
-                    <img src="img/alfarrobeira.jpg" alt="{{ t.sp_alfarrobeira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/alfarrobeira.jpg'], 0, '{{ t.sp_alfarrobeira }}')">
+                    <img src="/img/alfarrobeira.jpg" alt="{{ t.sp_alfarrobeira }}">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_alfarrobeira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -178,8 +178,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_producao }}</span>
                 <div class="planta-nome">{{ t.sp_figueira }}</div>
                 <div class="planta-funcao">{{ t.fn_figueira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Figueira.jpg'], 0, '{{ t.sp_figueira }}')">
-                    <img src="img/Figueira.jpg" alt="{{ t.sp_figueira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/Figueira.jpg'], 0, '{{ t.sp_figueira }}')">
+                    <img src="/img/Figueira.jpg" alt="{{ t.sp_figueira }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_figueira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -189,8 +189,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_producao }}</span>
                 <div class="planta-nome">{{ t.sp_oliveira }}</div>
                 <div class="planta-funcao">{{ t.fn_oliveira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/oliveira_zambujeiro.jpeg'], 0, '{{ t.sp_oliveira }}')">
-                    <img src="img/oliveira_zambujeiro.jpeg" alt="{{ t.sp_oliveira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/oliveira_zambujeiro.jpeg'], 0, '{{ t.sp_oliveira }}')">
+                    <img src="/img/oliveira_zambujeiro.jpeg" alt="{{ t.sp_oliveira }}">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_oliveira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -200,8 +200,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_producao }}</span>
                 <div class="planta-nome">{{ t.sp_amendoeira }}</div>
                 <div class="planta-funcao">{{ t.fn_amendoeira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/amendoeira.jpeg'], 0, '{{ t.sp_amendoeira }}')">
-                    <img src="img/amendoeira.jpeg" alt="{{ t.sp_amendoeira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/amendoeira.jpeg'], 0, '{{ t.sp_amendoeira }}')">
+                    <img src="/img/amendoeira.jpeg" alt="{{ t.sp_amendoeira }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_amendoeira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -211,8 +211,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_producao }}</span>
                 <div class="planta-nome">{{ t.sp_nespereira }}</div>
                 <div class="planta-funcao">{{ t.fn_nespereira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/nespereira.jpeg'], 0, '{{ t.sp_nespereira }}')">
-                    <img src="img/nespereira.jpeg" alt="{{ t.sp_nespereira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/nespereira.jpeg'], 0, '{{ t.sp_nespereira }}')">
+                    <img src="/img/nespereira.jpeg" alt="{{ t.sp_nespereira }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_nespereira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -222,8 +222,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_producao }}</span>
                 <div class="planta-nome">{{ t.sp_amoreira }}</div>
                 <div class="planta-funcao">{{ t.fn_amoreira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/amoreirabranca.jpeg'], 0, '{{ t.sp_amoreira }}')">
-                    <img src="img/amoreirabranca.jpeg" alt="{{ t.sp_amoreira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/amoreirabranca.jpeg'], 0, '{{ t.sp_amoreira }}')">
+                    <img src="/img/amoreirabranca.jpeg" alt="{{ t.sp_amoreira }}">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_amoreira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -234,8 +234,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_arbustivo }}</span>
                 <div class="planta-nome">{{ t.sp_romanzeira }}</div>
                 <div class="planta-funcao">{{ t.fn_romanzeira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/romanzeira.jpeg'], 0, '{{ t.sp_romanzeira }}')">
-                    <img src="img/romanzeira.jpeg" alt="{{ t.sp_romanzeira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/romanzeira.jpeg'], 0, '{{ t.sp_romanzeira }}')">
+                    <img src="/img/romanzeira.jpeg" alt="{{ t.sp_romanzeira }}">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_romanzeira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -245,8 +245,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_arbustivo }}</span>
                 <div class="planta-nome">{{ t.sp_murta }}</div>
                 <div class="planta-funcao">{{ t.fn_murta }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Murta.jpeg'], 0, '{{ t.sp_murta }}')">
-                    <img src="img/Murta.jpeg" alt="{{ t.sp_murta }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/Murta.jpeg'], 0, '{{ t.sp_murta }}')">
+                    <img src="/img/Murta.jpeg" alt="{{ t.sp_murta }}">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_murta }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -256,8 +256,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_arbustivo }}</span>
                 <div class="planta-nome">{{ t.sp_aroeira }}</div>
                 <div class="planta-funcao">{{ t.fn_aroeira }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/aroeira.jpeg'], 0, '{{ t.sp_aroeira }}')">
-                    <img src="img/aroeira.jpeg" alt="{{ t.sp_aroeira }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/aroeira.jpeg'], 0, '{{ t.sp_aroeira }}')">
+                    <img src="/img/aroeira.jpeg" alt="{{ t.sp_aroeira }}">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_aroeira }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -267,8 +267,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_arbustivo }}</span>
                 <div class="planta-nome">{{ t.sp_medronheiro }}</div>
                 <div class="planta-funcao">{{ t.fn_medronheiro }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/Medronheiro1.jpg'], 0, '{{ t.sp_medronheiro }}')">
-                    <img src="img/Medronheiro1.jpg" alt="{{ t.sp_medronheiro }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/Medronheiro1.jpg'], 0, '{{ t.sp_medronheiro }}')">
+                    <img src="/img/Medronheiro1.jpg" alt="{{ t.sp_medronheiro }}">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_medronheiro }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -278,8 +278,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_arbustivo }}</span>
                 <div class="planta-nome">{{ t.sp_goji }}</div>
                 <div class="planta-funcao">{{ t.fn_goji }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/goji.jpeg'], 0, '{{ t.sp_goji }}')">
-                    <img src="img/goji.jpeg" alt="{{ t.sp_goji }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/goji.jpeg'], 0, '{{ t.sp_goji }}')">
+                    <img src="/img/goji.jpeg" alt="{{ t.sp_goji }}">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_goji }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -290,8 +290,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_aromatico }}</span>
                 <div class="planta-nome">{{ t.sp_lavanda }}</div>
                 <div class="planta-funcao">{{ t.fn_lavanda }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/lavanda.jpeg'], 0, '{{ t.sp_lavanda }}')">
-                    <img src="img/lavanda.jpeg" alt="{{ t.sp_lavanda }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/lavanda.jpeg'], 0, '{{ t.sp_lavanda }}')">
+                    <img src="/img/lavanda.jpeg" alt="{{ t.sp_lavanda }}">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_lavanda }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -301,8 +301,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_aromatico }}</span>
                 <div class="planta-nome">{{ t.sp_rosmaninho }}</div>
                 <div class="planta-funcao">{{ t.fn_rosmaninho }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/rosmaninho.jpeg'], 0, '{{ t.sp_rosmaninho }}')">
-                    <img src="img/rosmaninho.jpeg" alt="{{ t.sp_rosmaninho }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/rosmaninho.jpeg'], 0, '{{ t.sp_rosmaninho }}')">
+                    <img src="/img/rosmaninho.jpeg" alt="{{ t.sp_rosmaninho }}">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_rosmaninho }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -312,8 +312,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_aromatico }}</span>
                 <div class="planta-nome">{{ t.sp_alecrim }}</div>
                 <div class="planta-funcao">{{ t.fn_alecrim }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/alecrim.jpeg'], 0, '{{ t.sp_alecrim }}')">
-                    <img src="img/alecrim.jpeg" alt="{{ t.sp_alecrim }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/alecrim.jpeg'], 0, '{{ t.sp_alecrim }}')">
+                    <img src="/img/alecrim.jpeg" alt="{{ t.sp_alecrim }}">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_alecrim }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -324,8 +324,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_gramineas }}</span>
                 <div class="planta-nome">{{ t.sp_vetiver }}</div>
                 <div class="planta-funcao">{{ t.fn_vetiver }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/vetiver.jpeg'], 0, '{{ t.sp_vetiver }}')">
-                    <img src="img/vetiver.jpeg" alt="{{ t.sp_vetiver }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/vetiver.jpeg'], 0, '{{ t.sp_vetiver }}')">
+                    <img src="/img/vetiver.jpeg" alt="{{ t.sp_vetiver }}">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_vetiver }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -335,8 +335,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_gramineas }}</span>
                 <div class="planta-nome">{{ t.sp_ervaprincipe }}</div>
                 <div class="planta-funcao">{{ t.fn_ervaprincipe }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/ervaprincipe.jpeg'], 0, '{{ t.sp_ervaprincipe }}')">
-                    <img src="img/ervaprincipe.jpeg" alt="{{ t.sp_ervaprincipe }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/ervaprincipe.jpeg'], 0, '{{ t.sp_ervaprincipe }}')">
+                    <img src="/img/ervaprincipe.jpeg" alt="{{ t.sp_ervaprincipe }}">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_ervaprincipe }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -346,8 +346,8 @@ lang: pt
                 <span class="spec-label">{{ t.estrato_cobertura }}</span>
                 <div class="planta-nome">{{ t.sp_trevo }}</div>
                 <div class="planta-funcao">{{ t.fn_trevo }}</div>
-                <div class="planta-img-wrap" onclick="openLightbox(['img/trevo_subterranea.jpeg'], 0, '{{ t.sp_trevo }}')">
-                    <img src="img/trevo_subterranea.jpeg" alt="{{ t.sp_trevo }}">
+                <div class="planta-img-wrap" onclick="openLightbox(['/img/trevo_subterranea.jpeg'], 0, '{{ t.sp_trevo }}')">
+                    <img src="/img/trevo_subterranea.jpeg" alt="{{ t.sp_trevo }}">
                 </div>
                 <div class="preco-box">1€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="mailto:info@wildalentejo.pt?subject=Adoção: {{ t.sp_trevo }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -369,7 +369,7 @@ lang: pt
 
     <footer>
         <div class="container">
-            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <img src="/img/logo.png" alt="Wild Alentejo" class="footer-logo">
             <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
             <div class="footer-bottom">
                 <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
@@ -443,8 +443,8 @@ lang: pt
             if (e.key === 'ArrowLeft') navegarLightbox(-1);
         });
     </script>
-    <script src="js/menu.js"></script>
-    <script src="js/fadein.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/fadein.js"></script>
 
 </body>
 </html>
