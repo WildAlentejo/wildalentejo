@@ -39,6 +39,24 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
     <meta name="twitter:title" content="{{ t.titulo }}">
     <meta name="twitter:description" content="{{ t.seo_desc }}">
     <meta name="twitter:image" content="https://www.wildalentejo.pt/img/og-image.jpg">
+
+    <!-- SCHEMA JSON-LD (novo) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Project",
+      "name": "Wild Alentejo",
+      "description": "Laboratório vivo de regeneração semiárida off-grid em Mértola com agrofloresta sintrópica e monitorização IoT em tempo real",
+      "url": "https://www.wildalentejo.pt",
+      "location": {
+        "@type": "Place",
+        "name": "Mértola, Portugal",
+        "address": "Mértola, Alentejo, Portugal"
+      },
+      "image": "https://www.wildalentejo.pt/img/og-image.jpg"
+    }
+    </script>
+
     <style>
         .status-bar {
             background: var(--card-bg);
@@ -108,20 +126,20 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             color: var(--text-muted);
             font-weight: 700;
         }
-        .sensor-sub.verde   { color: #27ae60; }
-        .sensor-sub.azul    { color: #3498db; }
+        .sensor-sub.verde { color: #27ae60; }
+        .sensor-sub.azul { color: #3498db; }
         .sensor-sub.laranja { color: var(--accent); }
         @media (max-width: 1100px) {
             .sensor-grid { grid-template-columns: repeat(3, 1fr); }
             .sensor-card { padding: 18px 10px; }
-            .sensor-val  { font-size: 1.8rem; }
+            .sensor-val { font-size: 1.8rem; }
         }
         @media (max-width: 600px) {
             .sensor-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
             .sensor-card { padding: 12px 6px; }
             .sensor-card h3 { font-size: 0.55rem; letter-spacing: 0; }
-            .sensor-val  { font-size: 1.3rem; margin: 6px 0 3px; }
-            .sensor-sub  { font-size: 0.7rem; }
+            .sensor-val { font-size: 1.3rem; margin: 6px 0 3px; }
+            .sensor-sub { font-size: 0.7rem; }
         }
         @media (max-width: 380px) {
             .sensor-grid { grid-template-columns: repeat(2, 1fr); }
@@ -306,10 +324,18 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             margin-left: 10px;
         }
         .lang-switch:hover { background: rgba(255,255,255,0.3); }
+
+        /* NOVA REGRA: HEADER STICKY */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #2D4C2F;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
-
     <header>
         <div class="container">
             <div class="logo">
@@ -328,18 +354,14 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             </nav>
         </div>
     </header>
-
     <div class="status-bar">
         <div class="container status-bar-inner">
             <span><strong>Wild Alentejo</strong> — {{ t.status_tagline }}</span>
             <span>{{ t.status_local }}</span>
         </div>
     </div>
-
     <main class="container">
-
         <div class="section-label">{{ t.secao_estado }}</div>
-
         <div class="sensor-grid">
             <div class="sensor-card">
                 <h3>{{ t.card_energia }}</h3>
@@ -373,21 +395,21 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             </div>
         </div>
 
-        <div class="carrosel-wrap" id="carrosel">
-            <div class="carrosel-track" id="carrosel-track">
-                <img src="img/terreno.jpg" alt="Wild Alentejo — Vista Aérea">
-                <img src="img/terreno_rega.jpg" alt="Wild Alentejo — Sistema de Rega">
-                <img src="img/agrofloresta-hero1.jpg" alt="Wild Alentejo — Agrofloresta">
-                <img src="img/aridez_monocultura.jpeg" alt="Wild Alentejo — Sintropia">
-                <img src="img/estufa-inverno.jpg" alt="Wild Alentejo — Energia Solar">
+        <!-- CARROSSEL COM ACESSIBILIDADE -->
+        <div class="carrosel-wrap" id="carrosel" role="region" aria-label="Carrossel de imagens do projeto Wild Alentejo – regeneração semiárida em Mértola">
+            <div class="carrosel-track" id="carrosel-track" aria-live="polite">
+                <img src="img/terreno.jpg" alt="Vista aérea da agrofloresta sintrópica Wild Alentejo em Mértola - regeneração semiárida 2026">
+                <img src="img/terreno_rega.jpg" alt="Sistema de rega e monitorização IoT na agrofloresta off-grid Wild Alentejo">
+                <img src="img/agrofloresta-hero1.jpg" alt="Agrofloresta sintrópica em crescimento - Wild Alentejo Mértola">
+                <img src="img/aridez_monocultura.jpeg" alt="Comparação aridez vs sintropia - projeto regeneração semiárida Wild Alentejo">
+                <img src="img/estufa-inverno.jpg" alt="Estufa e energia solar no inverno - sistema off-grid Wild Alentejo">
             </div>
-            <button class="carrosel-btn prev" onclick="moverCarrosel(-1)">&#8592;</button>
-            <button class="carrosel-btn next" onclick="moverCarrosel(1)">&#8594;</button>
+            <button class="carrosel-btn prev" onclick="moverCarrosel(-1)" aria-label="Imagem anterior">&#8592;</button>
+            <button class="carrosel-btn next" onclick="moverCarrosel(1)" aria-label="Próxima imagem">&#8594;</button>
             <div class="carrosel-dots" id="carrosel-dots"></div>
         </div>
 
         <div class="section-label">{{ t.secao_projeto }}</div>
-
         <div class="info-grid">
             <div class="info-card">
                 <div class="info-card-header">{{ t.info1_titulo }}</div>
@@ -406,9 +428,7 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
                 </ul>
             </div>
         </div>
-
         <div class="section-label">{{ t.secao_explorar }}</div>
-
         <div class="links-grid">
             <a href="/sistemas2.html" class="link-card">
                 <span class="link-card-tag">{{ t.link1_tag }}</span>
@@ -441,9 +461,7 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
                 <span class="link-card-desc">{{ t.link6_desc }}</span>
             </a>
         </div>
-
     </main>
-
     <footer>
         <div class="container">
             <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
@@ -457,7 +475,6 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             </div>
         </div>
     </footer>
-
     <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
         <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
         <div style="display:flex; gap:10px; flex-shrink:0;">
@@ -465,13 +482,11 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_recusar }}</button>
         </div>
     </div>
-
     <script>
         const banner = document.getElementById('cookie-banner');
         if (!localStorage.getItem('cookies')) { banner.style.display = 'flex'; }
         function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); banner.style.display = 'none'; }
         function recusarCookies() { localStorage.setItem('cookies', 'recusado'); banner.style.display = 'none'; }
-
         const track = document.getElementById('carrosel-track');
         const dotsEl = document.getElementById('carrosel-dots');
         const slides = track.querySelectorAll('img');
@@ -501,14 +516,13 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             if (Math.abs(diff) > 40) moverCarrosel(diff > 0 ? 1 : -1);
         });
         reiniciarTimer();
-
         async function carregarChuva() {
             try {
                 const hoje = new Date();
-                const ano  = hoje.getFullYear();
-                const mes  = String(hoje.getMonth() + 1).padStart(2, '0');
-                const dia  = String(hoje.getDate()).padStart(2, '0');
-                const url  = `https://api.open-meteo.com/v1/forecast?latitude=37.64&longitude=-7.66&daily=precipitation_sum&start_date=${ano}-${mes}-01&end_date=${ano}-${mes}-${dia}&timezone=Europe%2FLisbon`;
+                const ano = hoje.getFullYear();
+                const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+                const dia = String(hoje.getDate()).padStart(2, '0');
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=37.64&longitude=-7.66&daily=precipitation_sum&start_date=${ano}-${mes}-01&end_date=${ano}-${mes}-${dia}&timezone=Europe%2FLisbon`;
                 const resp = await fetch(url);
                 const data = await resp.json();
                 if (data.daily && data.daily.precipitation_sum) {
@@ -533,6 +547,5 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
     <script src="js/menu.js"></script>
     <script src="js/fadein.js"></script>
     <script src="js/whatsapp-widget.js"></script>
-
 </body>
 </html>
