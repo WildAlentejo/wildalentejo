@@ -1,117 +1,257 @@
 ---
-layout: default
-title: Logbook
+lang: pt
+layout: null
+title: "Logbook — Wild Alentejo"
+description: "Registo cronológico de intervenções, aprendizes e dados do projeto de regeneração ecológica off-grid em Mértola, Alentejo."
 ---
-<style>
-    .section-label {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--accent);
-        font-weight: 800;
-        margin: 50px 0 30px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    .section-label::after {
-        content: "";
-        height: 1px;
-        background: var(--border);
-        flex-grow: 1;
-    }
-    .logbook-list { list-style: none; padding: 0; margin: 0 0 60px; }
-    .logbook-entry {
-        border-left: 3px solid var(--primary);
-        padding: 0 0 40px 30px;
-        position: relative;
-    }
-    .logbook-entry:last-child { border-left: 3px solid transparent; }
-    .logbook-entry::before {
-        content: '';
-        position: absolute;
-        left: -10px; top: 4px;
-        width: 17px; height: 17px;
-        background: var(--secondary);
-        border: 3px solid var(--primary);
-        border-radius: 50%;
-        transition: background 0.2s;
-    }
-    .logbook-entry:hover::before { background: var(--primary); }
-    .entry-date {
-        font-weight: 800;
-        color: var(--accent);
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        display: block;
-        margin-bottom: 6px;
-    }
-    .entry-title {
-        font-size: 1.6rem;
-        font-weight: 900;
-        color: var(--primary);
-        letter-spacing: -0.5px;
-        text-decoration: none;
-        display: block;
-        margin-bottom: 10px;
-        transition: color 0.2s;
-        line-height: 1.2;
-    }
-    .entry-title:hover { color: var(--accent); }
-    .entry-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-    .tag {
-        font-size: 0.6rem;
-        background: #f0f0f0;
-        padding: 3px 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-        border: 1px solid #ddd;
-    }
-    .entry-excerpt {
-        font-size: 0.88rem;
-        color: #666;
-        line-height: 1.6;
-        max-width: 680px;
-        margin-bottom: 14px;
-    }
-    .entry-link {
-        font-size: 0.7rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--primary);
-        text-decoration: none;
-        opacity: 0.6;
-        transition: opacity 0.2s;
-    }
-    .entry-link:hover { opacity: 1; }
-</style>
+{% assign t = site.data.translations[page.lang] %}
+<!DOCTYPE html>
+<html lang="{{ t.html_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Básico -->
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+    <link rel="canonical" href="https://wildalentejo.pt/logbook.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Wild Alentejo">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:url" content="https://wildalentejo.pt/logbook.html">
+    <meta property="og:image" content="https://wildalentejo.pt/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pt_PT">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.description }}">
+    <meta name="twitter:image" content="https://wildalentejo.pt/img/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Estilos específicos da página -->
+    <style>
+        .logbook-header { padding: 60px 0 30px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .logbook-header h2 { font-size: 2.2rem; color: var(--primary); margin-bottom: 15px; }
+        .logbook-header p { font-size: 1rem; color: var(--text-muted); line-height: 1.6; }
+        .logbook-filtros { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 30px 0 40px; }
+        .logbook-filtro { background: var(--card-bg); border: 1px solid var(--border); padding: 8px 16px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; color: #666; transition: all 0.2s; }
+        .logbook-filtro:hover { border-color: var(--primary); color: var(--primary); }
+        .logbook-filtro.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .logbook-grid { display: grid; gap: 30px; margin-bottom: 60px; }
+        .logbook-entry { background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 25px; transition: transform 0.2s, box-shadow 0.2s; }
+        .logbook-entry:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .logbook-date { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .logbook-date::before { content: "📅"; }
+        .logbook-title { font-size: 1.3rem; font-weight: 900; color: var(--primary); margin-bottom: 12px; line-height: 1.3; }
+        .logbook-excerpt { font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 15px; }
+        .logbook-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+        .logbook-tag { font-size: 0.65rem; background: #f0ede6; color: #666; padding: 4px 10px; border-radius: 3px; font-weight: 600; }
+        .logbook-readmore { display: inline-block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); text-decoration: none; transition: color 0.2s; }
+        .logbook-readmore:hover { color: var(--secondary); }
+        .logbook-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+        .lang-switch { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #fff; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 3px; text-decoration: none; transition: background 0.2s; margin-left: 10px; }
+        .lang-switch:hover { background: rgba(255,255,255,0.3); }
+        @media (max-width: 600px) { .logbook-header h2 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
 
-<div class="section-label">Logbook do Sistema</div>
-
-<ul class="logbook-list">
-{% for post in site.posts %}
-    <li class="logbook-entry">
-        <span class="entry-date">
-            {{ post.date | date: "%-d" }}
-            {% assign m = post.date | date: "%-m" | to_integer %}
-            {% case m %}
-              {% when 1 %}Janeiro{% when 2 %}Fevereiro{% when 3 %}Março
-              {% when 4 %}Abril{% when 5 %}Maio{% when 6 %}Junho
-              {% when 7 %}Julho{% when 8 %}Agosto{% when 9 %}Setembro
-              {% when 10 %}Outubro{% when 11 %}Novembro{% when 12 %}Dezembro
-            {% endcase %}
-            {{ post.date | date: "%Y" }}
-        </span>
-        <a href="{{ post.url }}" class="entry-title">{{ post.title }}</a>
-        {% if post.tags %}
-        <div class="entry-tags">
-            {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/index.html"><img src="/img/logo.png" alt="Wild Alentejo — Projeto de regeneração semiárida em Mértola"></a>
+            </div>
+            <nav>
+                <a href="/index.html">{{ t.nav_inicio }}</a>
+                <a href="/sistemas2.html">{{ t.nav_sistema }}</a>
+                <a href="/logbook.html" class="active">{{ t.nav_logbook }}</a>
+                <a href="/adote.html">{{ t.nav_adote }}</a>
+                <a href="/agrofloresta.html">{{ t.nav_agro }}</a>
+                <a href="/produtos.html">{{ t.nav_producao }}</a>
+                <a href="/galeria.html">{{ t.nav_galeria }}</a>
+                <a href="/sobre.html">{{ t.nav_contacto }}</a>
+                <a href="{{ t.nav_lang_url }}logbook.html" class="lang-switch">{{ t.nav_lang }}</a>
+            </nav>
         </div>
-        {% endif %}
-        <p class="entry-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
-        <a href="{{ post.url }}" class="entry-link">Ler mais →</a>
-    </li>
-{% endfor %}
-</ul>
-<script src="/js/whatsapp-widget.js"></script>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        
+        <div class="logbook-header">
+            <h2>📓 Logbook de Campo</h2>
+            <p>Registo cronológico de intervenções, observações e dados do projeto Wild Alentejo em Mértola. Transparência total sobre o processo de regeneração semiárida.</p>
+        </div>
+
+        <div class="logbook-filtros">
+            <button class="logbook-filtro active" onclick="filtrarLogbook('todos', this)">Todos</button>
+            <button class="logbook-filtro" onclick="filtrarLogbook('agrofloresta', this)">Agrofloresta</button>
+            <button class="logbook-filtro" onclick="filtrarLogbook('energia', this)">Energia</button>
+            <button class="logbook-filtro" onclick="filtrarLogbook('agua', this)">Água</button>
+            <button class="logbook-filtro" onclick="filtrarLogbook('monitorizacao', this)">Monitorização</button>
+            <button class="logbook-filtro" onclick="filtrarLogbook('aprendizagem', this)">Aprendizagem</button>
+        </div>
+
+        <div class="logbook-grid">
+
+            <!-- Entrada 1: Mais recente -->
+            <article class="logbook-entry" data-categoria="agrofloresta">
+                <div class="logbook-date">15 Mar 2026</div>
+                <h3 class="logbook-title">Primeira poda de estratificação no estrato emergente</h3>
+                <p class="logbook-excerpt">Intervenção técnica para acelerar a sucessão natural: poda seletiva de Melia e Choupo para produzir biomassa fresca e cobrir o solo. Temperatura do solo reduziu 6°C nas 48h seguintes.</p>
+                <div class="logbook-tags">
+                    <span class="logbook-tag">Poda</span>
+                    <span class="logbook-tag">Biomassa</span>
+                    <span class="logbook-tag">Sintropia</span>
+                </div>
+                <a href="#" class="logbook-readmore">Ler registo completo →</a>
+            </article>
+
+            <!-- Entrada 2 -->
+            <article class="logbook-entry" data-categoria="monitorizacao">
+                <div class="logbook-date">08 Mar 2026</div>
+                <h3 class="logbook-title">Atualização do dashboard IoT: novo sensor de humidade do solo</h3>
+                <p class="logbook-excerpt">Instalação de sensor capacitivo a 30cm de profundidade para monitorizar retenção hídrica pós-chuva. Dados disponíveis em tempo real via Home Assistant.</p>
+                <div class="logbook-tags">
+                    <span class="logbook-tag">IoT</span>
+                    <span class="logbook-tag">Sensores</span>
+                    <span class="logbook-tag">Dados</span>
+                </div>
+                <a href="#" class="logbook-readmore">Ler registo completo →</a>
+            </article>
+
+            <!-- Entrada 3 -->
+            <article class="logbook-entry" data-categoria="agua">
+                <div class="logbook-date">28 Fev 2026</div>
+                <h3 class="logbook-title">Teste de eficiência do sistema de rega por gotejamento solar</h3>
+                <p class="logbook-excerpt">Validação do consumo hídrico vs. cobertura de biomassa: com mulch de lã de ovelha, a retenção de humidade aumentou 40% comparado com solo descoberto.</p>
+                <div class="logbook-tags">
+                    <span class="logbook-tag">Rega</span>
+                    <span class="logbook-tag">Mulch</span>
+                    <span class="logbook-tag">Eficiência</span>
+                </div>
+                <a href="#" class="logbook-readmore">Ler registo completo →</a>
+            </article>
+
+            <!-- Entrada 4 -->
+            <article class="logbook-entry" data-categoria="energia">
+                <div class="logbook-date">14 Fev 2026</div>
+                <h3 class="logbook-title">Manutenção do banco de baterias: equilíbrio de células</h3>
+                <p class="logbook-excerpt">Procedimento trimestral de equalização para maximizar vida útil das 3x 180Ah. Sistema operou 100% off-grid durante o processo, sem recurso à rede.</p>
+                <div class="logbook-tags">
+                    <span class="logbook-tag">Baterias</span>
+                    <span class="logbook-tag">Manutenção</span>
+                    <span class="logbook-tag">Off-grid</span>
+                </div>
+                <a href="#" class="logbook-readmore">Ler registo completo →</a>
+            </article>
+
+            <!-- Entrada 5 -->
+            <article class="logbook-entry" data-categoria="aprendizagem">
+                <div class="logbook-date">03 Fev 2026</div>
+                <h3 class="logbook-title">Visita técnica: partilha de métodos com projeto vizinho</h3>
+                <p class="logbook-excerpt">Encontro com produtores locais para troca de experiências sobre gestão de biomassa em clima semiárido. Registo fotográfico e notas disponíveis na galeria.</p>
+                <div class="logbook-tags">
+                    <span class="logbook-tag">Partilha</span>
+                    <span class="logbook-tag">Comunidade</span>
+                    <span class="logbook-tag">Mértola</span>
+                </div>
+                <a href="#" class="logbook-readmore">Ler registo completo →</a>
+            </article>
+
+            <!-- Entrada 6 -->
+            <article class="logbook-entry" data-categoria="agrofloresta">
+                <div class="logbook-date">20 Jan 2026</div>
+                <h3 class="logbook-title">Plantio de inverno: 12 novas espécies de estrato arbustivo</h3>
+                <p class="logbook-excerpt">Introdução de Romanzeira, Murta e Aroeira para aumentar biodiversidade e criar microclimas. Todas as mudas protegidas com mulch e rega inicial de 5L/planta.</p>
+                <div class="logbook-tags">
+                    <span class="logbook-tag">Plantio</span>
+                    <span class="logbook-tag">Biodiversidade</span>
+                    <span class="logbook-tag">Inverno</span>
+                </div>
+                <a href="#" class="logbook-readmore">Ler registo completo →</a>
+            </article>
+
+        </div>
+
+        <!-- Estado vazio (oculto por padrão) -->
+        <div class="logbook-empty" id="logbook-vazio" style="display:none;">
+            <p>🌱 Sem registos nesta categoria ainda.<br><small>Novas intervenções serão documentadas aqui em tempo real.</small></p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <img src="/img/logo.png" alt="Wild Alentejo — Projeto de regeneração semiárida em Mértola" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank" rel="noopener">Home Assistant</a>.</p>
+                <a href="/sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
+                &nbsp;·&nbsp;
+                <a href="/privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
+        <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_aceitar }}</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_recusar }}</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Cookie banner
+        const cb = document.getElementById('cookie-banner');
+        if (!localStorage.getItem('cookies')) { cb.style.display = 'flex'; }
+        function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); cb.style.display = 'none'; }
+        function recusarCookies() { localStorage.setItem('cookies', 'recusado'); cb.style.display = 'none'; }
+
+        // Filtros do logbook
+        function filtrarLogbook(categoria, btn) {
+            // Atualiza botões
+            document.querySelectorAll('.logbook-filtro').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Filtra entradas
+            const entradas = document.querySelectorAll('.logbook-entry');
+            let visiveis = 0;
+            
+            entradas.forEach(entry => {
+                if (categoria === 'todos' || entry.dataset.categoria === categoria) {
+                    entry.style.display = 'block';
+                    visiveis++;
+                } else {
+                    entry.style.display = 'none';
+                }
+            });
+            
+            // Mostra mensagem se vazio
+            const vazio = document.getElementById('logbook-vazio');
+            vazio.style.display = visiveis === 0 ? 'block' : 'none';
+        }
+    </script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/fadein.js"></script>
+    <script src="/js/whatsapp-widget.js"></script>
+
+</body>
+</html>
