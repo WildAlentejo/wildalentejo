@@ -41,6 +41,16 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
     
     <!-- Estilos específicos da página -->
     <style>
+        /* H1 para SEO - visually hidden mas acessível */
+        h1.page-title {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        
         .intro-adote { padding: 60px 0 40px; text-align: center; max-width: 800px; margin: 0 auto; }
         .intro-adote h2 { font-size: 2.5rem; color: var(--primary); }
         .filtros-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
@@ -76,6 +86,9 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
 </head>
 <body>
 
+    <!-- H1 para SEO (visually hidden mas acessível a leitores de ecrã e Google) -->
+    <h1 class="page-title">Adote uma Espécie — Wild Alentejo</h1>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -98,7 +111,9 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
 
     <!-- Conteúdo Principal -->
     <main class="container">
+        
         <div class="intro-adote">
+            <!-- H2: Título principal da página -->
             <h2>{{ t.adote_h2 }}</h2>
             <p>{{ t.adote_intro }}</p>
         </div>
@@ -111,6 +126,9 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
             <button class="filtro-btn" onclick="filtrar('aromatico', this)">{{ t.adote_filtro_aromatico }}</button>
             <button class="filtro-btn" onclick="filtrar('gramineas', this)">{{ t.adote_filtro_gramineas }}</button>
         </div>
+
+        <!-- H2: Lista de espécies -->
+        <h2 style="position:absolute; left:-9999px;">Espécies Disponíveis para Adoção</h2>
 
         <div class="grid-adocao">
 
@@ -385,16 +403,15 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
 
         </div>
 
-        <section class="seccao-tecnica-box">
-            <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">{{ t.adote_sec_titulo }}</h3>
-            <ul style="line-height: 2; color: #444; list-style: none; padding: 0;">
-                <li>✔ {{ t.adote_inc1 }}</li>
-                <li>✔ {{ t.adote_inc2 }}</li>
-                <li>✔ {{ t.adote_inc3 }}</li>
-                <li>✔ {{ t.adote_inc4 }}</li>
-            </ul>
-            <div class="nota-privacidade">{{ t.adote_privacidade }}</div>
-        </section>
+        <!-- H2: Secção técnica -->
+        <h2 class="seccao-tecnica-box" style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; font-size:1.3rem;">{{ t.adote_sec_titulo }}</h2>
+        <ul style="line-height: 2; color: #444; list-style: none; padding: 0;">
+            <li>✔ {{ t.adote_inc1 }}</li>
+            <li>✔ {{ t.adote_inc2 }}</li>
+            <li>✔ {{ t.adote_inc3 }}</li>
+            <li>✔ {{ t.adote_inc4 }}</li>
+        </ul>
+        <div class="nota-privacidade">{{ t.adote_privacidade }}</div>
     </main>
 
     <!-- Footer -->
