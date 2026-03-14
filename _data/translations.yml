@@ -173,6 +173,7 @@ pt:
   adote_privacidade: "<strong>🔒 Segurança e Privacidade:</strong><br>O Wild Alentejo é uma unidade de investigação off-grid. <strong>Não são permitidas visitas presenciais.</strong>"
 
   agro_titulo: "Agrofloresta Sintrópica | Wild Alentejo"
+  agro_seo_desc: "900 m² de agrofloresta sintrópica em clima semiárido. Estratificação vertical, cobertura do solo e integração animal em Mértola, Portugal."
   agro_hero_h1: "Agrofloresta Sintrópica"
   agro_hero_p: "900 m² de regeneração ativa em clima semiárido — Mértola, Portugal"
   agro_card1_h: "Área Total"
@@ -477,6 +478,7 @@ en:
 
 
   agro_titulo: "Syntropic Agroforestry | Wild Alentejo"
+  agro_seo_desc: "900 m² of syntropic agroforestry in semi-arid climate. Vertical stratification, soil cover and animal integration in Mértola, Portugal."
   agro_hero_h1: "Syntropic Agroforestry"
   agro_hero_p: "900 m² of active regeneration in semi-arid climate — Mértola, Portugal"
   agro_card1_h: "Total Area"
