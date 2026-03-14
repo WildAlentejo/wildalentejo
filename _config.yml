@@ -1,6 +1,6 @@
 title: Wild Alentejo
 description: Vida off-grid no semiárido — Mértola, Portugal
-url: "https://wildalentejo.pt"
+url: "https://wildalentejo.pt"  
 markdown: kramdown
 
 defaults:
@@ -10,3 +10,8 @@ defaults:
     values:
       layout: "post"
       permalink: /logbook/:year/:month/:day/:title/
+
+plugins:
+  - jekyll-sitemap  
+  - jekyll-seo-tag          
+  - jekyll-redirect-from   
