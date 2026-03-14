@@ -234,12 +234,18 @@ h3 {
         top: 0; right: 0;
         width: 260px;
         height: 100vh;
-        background: var(--primary);
+        background: url('../img/pattern-alentejo.png'), rgba(45, 76, 47, 0.94);
+        background-repeat: repeat;
+        background-size: 320px;
+        background-blend-mode: overlay;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         flex-direction: column;
         gap: 0;
         padding: 90px 0 40px;
         z-index: 1100;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        box-shadow: -4px 0 30px rgba(0,0,0,0.4);
+        border-left: 1px solid rgba(255,255,255,0.12);
         overflow-y: auto;
     }
 
