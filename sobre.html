@@ -1,5 +1,5 @@
 ---
-lang: pt
+lang: en
 ---
 {% assign t = site.data.translations[page.lang] %}
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ lang: pt
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ t.sobre_titulo }}</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/png" href="img/logo.png">
     <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/sobre.html">
     <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/sobre.html">
@@ -125,7 +125,7 @@ lang: pt
     <header>
         <div class="container">
             <div class="logo">
-                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+                <a href="index.html"><img src="/img/logo.png" alt="Wild Alentejo"></a>
             </div>
             <nav>
                 <a href="index.html">{{ t.nav_inicio }}</a>
@@ -204,7 +204,7 @@ lang: pt
 
     <footer>
         <div class="container">
-            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <img src="/img/logo.png" alt="Wild Alentejo" class="footer-logo">
             <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
             <div class="footer-bottom">
                 <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
@@ -238,8 +238,8 @@ lang: pt
             document.getElementById('cookie-banner').style.display = 'none';
         }
     </script>
-    <script src="js/menu.js"></script>
-    <script src="js/fadein.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/fadein.js"></script>
 
 </body>
 </html>
