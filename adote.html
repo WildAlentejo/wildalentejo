@@ -10,30 +10,36 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ t.adote_titulo }}</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
-    <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/adote.html">
-    <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/adote.html">
-    <!-- SEO -->
-    <meta name="description" content="{{ t.adote_seo_desc }}">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/adote.html{% else %}https://www.wildalentejo.pt/adote.html{% endif %}">
+    
+    <!-- SEO Básico -->
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+    <link rel="canonical" href="https://wildalentejo.pt/adote.html">
+    
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Wild Alentejo">
-    <meta property="og:title" content="{{ t.adote_titulo }}">
-    <meta property="og:description" content="{{ t.adote_seo_desc }}">
-    <meta property="og:url" content="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/adote.html{% else %}https://www.wildalentejo.pt/adote.html{% endif %}">
-    <meta property="og:image" content="https://www.wildalentejo.pt/img/og-image.jpg">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:url" content="https://wildalentejo.pt/adote.html">
+    <meta property="og:image" content="https://wildalentejo.pt/img/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="{% if page.lang == 'en' %}en_GB{% else %}pt_PT{% endif %}">
+    <meta property="og:locale" content="pt_PT">
+    
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ t.adote_titulo }}">
-    <meta name="twitter:description" content="{{ t.adote_seo_desc }}">
-    <meta name="twitter:image" content="https://www.wildalentejo.pt/img/og-image.jpg">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.description }}">
+    <meta name="twitter:image" content="https://wildalentejo.pt/img/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Estilos específicos da página -->
     <style>
         .intro-adote { padding: 60px 0 40px; text-align: center; max-width: 800px; margin: 0 auto; }
         .intro-adote h2 { font-size: 2.5rem; color: var(--primary); }
@@ -70,10 +76,11 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
 </head>
 <body>
 
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
-                <a href="/index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+                <a href="/index.html"><img src="/img/logo.png" alt="Wild Alentejo — Projeto de regeneração semiárida em Mértola"></a>
             </div>
             <nav>
                 <a href="/index.html">{{ t.nav_inicio }}</a>
@@ -89,6 +96,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
         </div>
     </header>
 
+    <!-- Conteúdo Principal -->
     <main class="container">
         <div class="intro-adote">
             <h2>{{ t.adote_h2 }}</h2>
@@ -112,7 +120,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_sobreiro }}</div>
                 <div class="planta-funcao">{{ t.fn_sobreiro }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/sobreiro.jpeg'], 0, '{{ t.sp_sobreiro }}')">
-                    <img src="img/sobreiro.jpeg" alt="{{ t.sp_sobreiro }}">
+                    <img src="img/sobreiro.jpeg" alt="Sobreiro (Quercus suber) na agrofloresta sintrópica Wild Alentejo, Mértola — árvore estrutural para regeneração de solos semiáridos">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_sobreiro | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -123,7 +131,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_azinheira }}</div>
                 <div class="planta-funcao">{{ t.fn_azinheira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/Azinheira.jpg'], 0, '{{ t.sp_azinheira }}')">
-                    <img src="img/Azinheira.jpg" alt="{{ t.sp_azinheira }}">
+                    <img src="img/Azinheira.jpg" alt="Azinheira (Quercus rotundifolia) no sistema de agrofloresta regenerativa Wild Alentejo — espécie nativa do Alentejo para estabilidade ecológica">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_azinheira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -134,7 +142,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_eucalipto }}</div>
                 <div class="planta-funcao">{{ t.fn_eucalipto }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/eucalipto.jpeg'], 0, '{{ t.sp_eucalipto }}')">
-                    <img src="img/eucalipto.jpeg" alt="{{ t.sp_eucalipto }}">
+                    <img src="img/eucalipto.jpeg" alt="Eucalipto como espécie pioneira na agrofloresta Wild Alentejo — biomassa rápida para cobertura do solo em clima semiárido">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_eucalipto | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -145,7 +153,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_choupo }}</div>
                 <div class="planta-funcao">{{ t.fn_choupo }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/Choupo1.jpg'], 0, '{{ t.sp_choupo }}')">
-                    <img src="img/Choupo1.jpg" alt="{{ t.sp_choupo }}">
+                    <img src="img/Choupo1.jpg" alt="Choupo branco (Populus alba) na gestão hídrica da agrofloresta Wild Alentejo — árvore para retenção de humidade em Mértola">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_choupo | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -156,7 +164,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_salgueiro }}</div>
                 <div class="planta-funcao">{{ t.fn_salgueiro }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/salgueiro.jpeg'], 0, '{{ t.sp_salgueiro }}')">
-                    <img src="img/salgueiro.jpeg" alt="{{ t.sp_salgueiro }}">
+                    <img src="img/salgueiro.jpeg" alt="Salgueiro no sistema de rega natural Wild Alentejo — espécie para controlo hídrico e biomassa em agrofloresta semiárida">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_salgueiro | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -167,7 +175,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_lodao }}</div>
                 <div class="planta-funcao">{{ t.fn_lodao }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/lodaobastardo.jpeg'], 0, '{{ t.sp_lodao }}')">
-                    <img src="img/lodaobastardo.jpeg" alt="{{ t.sp_lodao }}">
+                    <img src="img/lodaobastardo.jpeg" alt="Lódão-bastardo (Celtis australis) na regeneração natural Wild Alentejo — árvore mediterrânica para biodiversidade e alimento de fauna">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_lodao | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -178,7 +186,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_melia }}</div>
                 <div class="planta-funcao">{{ t.fn_melia }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/Melia1.jpg'], 0, '{{ t.sp_melia }}')">
-                    <img src="img/Melia1.jpg" alt="{{ t.sp_melia }}">
+                    <img src="img/Melia1.jpg" alt="Melia (Melia azedarach) como pioneira de crescimento rápido na agrofloresta Wild Alentejo — sombra e biomassa para sucessão ecológica">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_melia | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -190,7 +198,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_alfarrobeira }}</div>
                 <div class="planta-funcao">{{ t.fn_alfarrobeira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/alfarrobeira.jpg'], 0, '{{ t.sp_alfarrobeira }}')">
-                    <img src="img/alfarrobeira.jpg" alt="{{ t.sp_alfarrobeira }}">
+                    <img src="img/alfarrobeira.jpg" alt="Alfarrobeira (Ceratonia siliqua) na agrofloresta produtiva Wild Alentejo — espécie de clímax resistente à seca em Mértola">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_alfarrobeira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -201,7 +209,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_figueira }}</div>
                 <div class="planta-funcao">{{ t.fn_figueira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/Figueira.jpg'], 0, '{{ t.sp_figueira }}')">
-                    <img src="img/Figueira.jpg" alt="{{ t.sp_figueira }}">
+                    <img src="img/Figueira.jpg" alt="Figueira (Ficus carica) no sistema agroflorestal Wild Alentejo — fruta abundante para alimentação humana e fauna local">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_figueira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -212,7 +220,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_oliveira }}</div>
                 <div class="planta-funcao">{{ t.fn_oliveira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/oliveira_zambujeiro.jpeg'], 0, '{{ t.sp_oliveira }}')">
-                    <img src="img/oliveira_zambujeiro.jpeg" alt="{{ t.sp_oliveira }}">
+                    <img src="img/oliveira_zambujeiro.jpeg" alt="Oliveira/zambujeiro na agrofloresta regenerativa Wild Alentejo — espécie de longevidade para azeite e estabilidade ecológica">
                 </div>
                 <div class="preco-box">12€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_oliveira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -223,7 +231,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_amendoeira }}</div>
                 <div class="planta-funcao">{{ t.fn_amendoeira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/amendoeira.jpeg'], 0, '{{ t.sp_amendoeira }}')">
-                    <img src="img/amendoeira.jpeg" alt="{{ t.sp_amendoeira }}">
+                    <img src="img/amendoeira.jpeg" alt="Amendoeira (Prunus dulcis) na agrofloresta Wild Alentejo — florada precoce para polinizadores e fruto seco em clima semiárido">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_amendoeira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -234,7 +242,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_nespereira }}</div>
                 <div class="planta-funcao">{{ t.fn_nespereira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/nespereira.jpeg'], 0, '{{ t.sp_nespereira }}')">
-                    <img src="img/nespereira.jpeg" alt="{{ t.sp_nespereira }}">
+                    <img src="img/nespereira.jpeg" alt="Nespereira (Eriobotrya japonica) no sistema Wild Alentejo — fruta de inverno/primavera para produção alimentar off-grid">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_nespereira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -245,7 +253,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_amoreira }}</div>
                 <div class="planta-funcao">{{ t.fn_amoreira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/amoreirabranca.jpeg'], 0, '{{ t.sp_amoreira }}')">
-                    <img src="img/amoreirabranca.jpeg" alt="{{ t.sp_amoreira }}">
+                    <img src="img/amoreirabranca.jpeg" alt="Amoreira branca (Morus alba) na agrofloresta Wild Alentejo — fruto e biomassa rápida para cobertura do solo">
                 </div>
                 <div class="preco-box">10€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_amoreira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -257,7 +265,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_romanzeira }}</div>
                 <div class="planta-funcao">{{ t.fn_romanzeira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/romanzeira.jpeg'], 0, '{{ t.sp_romanzeira }}')">
-                    <img src="img/romanzeira.jpeg" alt="{{ t.sp_romanzeira }}">
+                    <img src="img/romanzeira.jpeg" alt="Romanzeira (Punica granatum) na agrofloresta Wild Alentejo — arbusto frutífero para polinizadores e produção em semiárido">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_romanzeira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -268,7 +276,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_murta }}</div>
                 <div class="planta-funcao">{{ t.fn_murta }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/Murta.jpeg'], 0, '{{ t.sp_murta }}')">
-                    <img src="img/Murta.jpeg" alt="{{ t.sp_murta }}">
+                    <img src="img/Murta.jpeg" alt="Murta (Myrtus communis) no sistema regenerativo Wild Alentejo — arbusto mediterrânico para abrigo de fauna e uso medicinal">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_murta | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -279,7 +287,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_aroeira }}</div>
                 <div class="planta-funcao">{{ t.fn_aroeira }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/aroeira.jpeg'], 0, '{{ t.sp_aroeira }}')">
-                    <img src="img/aroeira.jpeg" alt="{{ t.sp_aroeira }}">
+                    <img src="img/aroeira.jpeg" alt="Aroeira (Pistacia lentiscus) na agrofloresta Wild Alentejo — arbusto resistente à seca para biodiversidade em Mértola">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_aroeira | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -290,7 +298,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_medronheiro }}</div>
                 <div class="planta-funcao">{{ t.fn_medronheiro }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/Medronheiro1.jpg'], 0, '{{ t.sp_medronheiro }}')">
-                    <img src="img/Medronheiro1.jpg" alt="{{ t.sp_medronheiro }}">
+                    <img src="img/Medronheiro1.jpg" alt="Medronheiro (Arbutus unedo) na agrofloresta sintrópica Wild Alentejo — fruto rico em vitamina C e atração de polinizadores em clima semiárido">
                 </div>
                 <div class="preco-box">8€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_medronheiro | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -301,7 +309,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_goji }}</div>
                 <div class="planta-funcao">{{ t.fn_goji }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/goji.jpeg'], 0, '{{ t.sp_goji }}')">
-                    <img src="img/goji.jpeg" alt="{{ t.sp_goji }}">
+                    <img src="img/goji.jpeg" alt="Goji (Lycium barbarum) no sistema Wild Alentejo — fruto antioxidante de alto valor nutricional para produção regenerativa">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_goji | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -313,7 +321,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_lavanda }}</div>
                 <div class="planta-funcao">{{ t.fn_lavanda }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/lavanda.jpeg'], 0, '{{ t.sp_lavanda }}')">
-                    <img src="img/lavanda.jpeg" alt="{{ t.sp_lavanda }}">
+                    <img src="img/lavanda.jpeg" alt="Lavanda (Lavandula spp.) na agrofloresta Wild Alentejo — planta aromática para polinizadores e repelente natural de insetos">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_lavanda | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -324,7 +332,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_rosmaninho }}</div>
                 <div class="planta-funcao">{{ t.fn_rosmaninho }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/rosmaninho.jpeg'], 0, '{{ t.sp_rosmaninho }}')">
-                    <img src="img/rosmaninho.jpeg" alt="{{ t.sp_rosmaninho }}">
+                    <img src="img/rosmaninho.jpeg" alt="Rosmaninho (Lavandula viridis) no sistema Wild Alentejo — aromática nativa para cobertura do solo e atração de polinizadores">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_rosmaninho | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -335,7 +343,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_alecrim }}</div>
                 <div class="planta-funcao">{{ t.fn_alecrim }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/alecrim.jpeg'], 0, '{{ t.sp_alecrim }}')">
-                    <img src="img/alecrim.jpeg" alt="{{ t.sp_alecrim }}">
+                    <img src="img/alecrim.jpeg" alt="Alecrim (Salvia rosmarinus) na agrofloresta Wild Alentejo — aromática mediterrânica para polinizadores e uso culinário/medicinal">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_alecrim | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -347,7 +355,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_vetiver }}</div>
                 <div class="planta-funcao">{{ t.fn_vetiver }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/vetiver.jpeg'], 0, '{{ t.sp_vetiver }}')">
-                    <img src="img/vetiver.jpeg" alt="{{ t.sp_vetiver }}">
+                    <img src="img/vetiver.jpeg" alt="Vetiver (Chrysopogon zizanioides) no sistema Wild Alentejo — gramínea para controlo de erosão e infiltração de água em solos semiáridos">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_vetiver | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -358,7 +366,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_ervaprincipe }}</div>
                 <div class="planta-funcao">{{ t.fn_ervaprincipe }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/ervaprincipe.jpeg'], 0, '{{ t.sp_ervaprincipe }}')">
-                    <img src="img/ervaprincipe.jpeg" alt="{{ t.sp_ervaprincipe }}">
+                    <img src="img/ervaprincipe.jpeg" alt="Erva-príncipe (Cymbopogon citratus) na agrofloresta Wild Alentejo — biomassa aromática para repelente de insetos e cobertura do solo">
                 </div>
                 <div class="preco-box">5€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_ervaprincipe | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -369,7 +377,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
                 <div class="planta-nome">{{ t.sp_trevo }}</div>
                 <div class="planta-funcao">{{ t.fn_trevo }}</div>
                 <div class="planta-img-wrap" onclick="openLightbox(['img/trevo_subterranea.jpeg'], 0, '{{ t.sp_trevo }}')">
-                    <img src="img/trevo_subterranea.jpeg" alt="{{ t.sp_trevo }}">
+                    <img src="img/trevo_subterranea.jpeg" alt="Trevo subterrâneo (Trifolium subterraneum) no sistema Wild Alentejo — leguminosa para fixação de azoto e fertilização natural do solo">
                 </div>
                 <div class="preco-box">1€ <small style="font-size:0.7rem;font-weight:400;opacity:0.6;">{{ t.adote_ano }}</small></div>
                 <a href="https://wa.me/351937573973?text={{ 'Quero adoptar: ' | append: t.sp_trevo | append: ' — Wild Alentejo' | url_encode }}" class="btn-adote">{{ t.adote_btn }}</a>
@@ -389,13 +397,14 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <img src="/img/logo.png" alt="Wild Alentejo — Projeto de regeneração semiárida em Mértola" class="footer-logo">
             <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
             <div class="footer-bottom">
                 <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
-                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank" rel="noopener">Home Assistant</a>.</p>
                 <a href="/sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
                 &nbsp;·&nbsp;
                 <a href="/privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
@@ -403,6 +412,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
         </div>
     </footer>
 
+    <!-- Lightbox -->
     <div id="lightbox-overlay" onclick="closeLightbox()">
         <button class="lb-nav" id="lightbox-prev" onclick="event.stopPropagation(); navegarLightbox(-1)">&#8592;</button>
         <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
@@ -413,6 +423,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
         </div>
     </div>
 
+    <!-- Cookie Banner -->
     <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
         <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
         <div style="display:flex; gap:10px; flex-shrink:0;">
@@ -421,12 +432,15 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
+        // Cookie banner
         const cb = document.getElementById('cookie-banner');
         if (!localStorage.getItem('cookies')) { cb.style.display = 'flex'; }
         function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); cb.style.display = 'none'; }
         function recusarCookies() { localStorage.setItem('cookies', 'recusado'); cb.style.display = 'none'; }
 
+        // Filtros
         function filtrar(estrato, btn) {
             document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -435,6 +449,7 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
             });
         }
 
+        // Lightbox
         let lbImagens = [], lbIndex = 0;
         function openLightbox(imagens, index, caption) {
             lbImagens = imagens; lbIndex = index;
@@ -465,9 +480,9 @@ description: "Adote uma árvore num sistema de agrofloresta regenerativa no Alen
             if (e.key === 'ArrowLeft') navegarLightbox(-1);
         });
     </script>
-    <script src="js/menu.js"></script>
-    <script src="js/fadein.js"></script>
-    <script src="js/whatsapp-widget.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/fadein.js"></script>
+    <script src="/js/whatsapp-widget.js"></script>
 
 </body>
 </html>
