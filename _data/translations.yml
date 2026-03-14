@@ -169,7 +169,7 @@ pt:
   adote_inc2: "<strong>Geolocalização:</strong> Coordenadas exatas para verificação via satélite."
   adote_inc3: "<strong>Relatório Semestral:</strong> Métricas de crescimento e fotos."
   adote_inc4: "<strong>Transparência:</strong> Registo no Logbook do sistema."
-  adote_privacidade: "<strong>🔒 Segurança e Privacidade:</strong><br>O Wild Alentejo é uma unidade de investigação off-grid. <strong>Não são permitidas visitas presenciais.</strong>"
+  adote_privacidade: "<strong>🔒 Segurança e Privacidade:</strong><br>O Wild Alentejo é uma unidade privada de investigação off-grid focada na sustentabilidade e recuperação de sistemas de degradados no semiárido, não são permitidas visitas sem contacto prévio<strong></strong>"
 
   agro_titulo: "Agrofloresta Sintrópica | Wild Alentejo"
   agro_hero_h1: "Agrofloresta Sintrópica"
@@ -471,7 +471,7 @@ en:
   adote_inc2: "<strong>Geolocation:</strong> Exact coordinates for satellite verification."
   adote_inc3: "<strong>Biannual Report:</strong> Growth metrics and photos."
   adote_inc4: "<strong>Transparency:</strong> Registered in the system Logbook."
-  adote_privacidade: "<strong>🔒 Security & Privacy:</strong><br>Wild Alentejo is an off-grid research unit. <strong>No in-person visits are permitted.</strong>"
+  adote_privacidade: "<strong>🔒 Security & Privacy:</strong><br>Wild Alentejo is an off-grid private research unit.</strong>"
 
 
   agro_titulo: "Syntropic Agroforestry | Wild Alentejo"
