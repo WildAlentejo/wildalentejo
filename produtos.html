@@ -1,11 +1,44 @@
+---
+lang: pt
+title: "Produtos Locais — Wild Alentejo"
+description: "Em breve: mel cru, óleos essenciais e produtos de produtores locais da região de Mértola."
+---
+{% assign t = site.data.translations[page.lang] %}
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="{{ t.html_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produção | Wild Alentejo</title>
+    
+    <!-- SEO Básico -->
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+    <link rel="canonical" href="https://wildalentejo.pt/produtos.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Wild Alentejo">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:url" content="https://wildalentejo.pt/produtos.html">
+    <meta property="og:image" content="https://wildalentejo.pt/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pt_PT">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.description }}">
+    <meta name="twitter:image" content="https://wildalentejo.pt/img/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
+    
+    <!-- Estilos específicos da página -->
     <style>
         .construcao-wrap {
             min-height: 60vh;
@@ -15,30 +48,25 @@
             text-align: center;
             padding: 80px 20px;
         }
-
         .construcao-inner {
             max-width: 500px;
         }
-
         .construcao-icon {
             font-size: 3.5rem;
             margin-bottom: 25px;
             display: block;
         }
-
         .construcao-inner h2 {
             font-size: 1.8rem;
             color: var(--primary);
             margin-bottom: 15px;
         }
-
         .construcao-inner p {
             font-size: 0.95rem;
             color: var(--text-muted);
             line-height: 1.7;
             margin-bottom: 30px;
         }
-
         .construcao-label {
             display: inline-block;
             font-size: 0.65rem;
@@ -50,7 +78,6 @@
             padding: 6px 14px;
             margin-bottom: 25px;
         }
-
         .btn-voltar {
             display: inline-block;
             background: var(--primary);
@@ -63,31 +90,32 @@
             letter-spacing: 1px;
             transition: background 0.25s;
         }
-
         .btn-voltar:hover { background: var(--secondary); color: white; }
     </style>
 </head>
 <body>
 
+    <!-- Header com navegação traduzida -->
     <header>
         <div class="container">
             <div class="logo">
-                <a href="index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+                <a href="/index.html"><img src="/img/logo.png" alt="Wild Alentejo"></a>
             </div>
             <nav>
-                <a href="index.html">Início</a>
-                <a href="sistemas2.html">O Sistema</a>
-                <a href="logbook.html">Logbook</a>
-                <a href="adote.html">Adote-me</a>
-                <a href="agrofloresta.html">Agrofloresta</a>
-                <a href="produtos.html" class="active">Produção</a>
-                <a href="galeria.html">Galeria</a>
-                
-                <a href="sobre.html">Contacto</a>
+                <a href="/index.html">{{ t.nav_inicio }}</a>
+                <a href="/sistemas2.html">{{ t.nav_sistema }}</a>
+                <a href="/logbook.html">{{ t.nav_logbook }}</a>
+                <a href="/adote.html">{{ t.nav_adote }}</a>
+                <a href="/agrofloresta.html">{{ t.nav_agro }}</a>
+                <a href="/produtos.html" class="active">{{ t.nav_producao }}</a>
+                <a href="/galeria.html">{{ t.nav_galeria }}</a>
+                <a href="/sobre.html">{{ t.nav_contacto }}</a>
+                <a href="{{ t.nav_lang_url }}produtos.html" class="lang-switch">{{ t.nav_lang }}</a>
             </nav>
         </div>
     </header>
 
+    <!-- Conteúdo Principal -->
     <main class="container">
         <div class="construcao-wrap">
             <div class="construcao-inner">
@@ -95,50 +123,53 @@
                 <div class="construcao-label">Em Construção</div>
                 <h2>Página em Desenvolvimento</h2>
                 <p>Estamos a preparar esta secção. Em breve poderás encontrar aqui os produtos de produtores locais da região de Mértola.</p>
-                <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
+                <a href="/index.html" class="btn-voltar">← {{ t.nav_inicio }}</a>
             </div>
         </div>
     </main>
 
+    <!-- Footer com traduções -->
     <footer>
         <div class="container">
-            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
-            <p><strong>Wild Alentejo</strong> | Engenharia de Regeneração Semiárida</p>
+            <img src="/img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
             <div class="footer-bottom">
-                <p>&copy; 2026 Wild Alentejo | Mértola, Portugal.<br>
-                Monitorização em tempo real via <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
-                <a href="sitemap.html" style="opacity:0.6; font-weight:400;">Mapa do Site</a>
+                <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank" rel="noopener">Home Assistant</a>.</p>
+                <a href="/sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
                 &nbsp;·&nbsp;
-                <a href="privacidade.html" style="opacity:0.6; font-weight:400;">Política de Privacidade</a>
+                <a href="/privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
             </div>
         </div>
     </footer>
-<!-- BANNER COOKIES -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">   
-    <span>🍪 Este site usa cookies funcionais (YouTube). Ao continuar, aceitas a nossa <a href="privacidade.html" style="color:#8DAF57;">Política de Privacidade</a>.</span>
-    <div style="display:flex; gap:10px; flex-shrink:0;">
-        <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Aceitar</button>
-        <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">Recusar</button>
-    </div>
-</div>
 
-<script>
-    // Mostrar banner se ainda não decidiu
-    if (!localStorage.getItem('cookies')) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function aceitarCookies() {
-        localStorage.setItem('cookies', 'aceite');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-    function recusarCookies() {
-        localStorage.setItem('cookies', 'recusado');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-</script>
-<script src="js/menu.js"></script>
-<script src="js/fadein.js"></script>
-<script src="js/whatsapp-widget.js"></script>
+    <!-- Cookie Banner com traduções -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">   
+        <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
+        <div style="display:flex; gap:10px; flex-shrink:0;">
+            <button onclick="aceitarCookies()" style="background:#2D4C2F; color:white; border:none; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_aceitar }}</button>
+            <button onclick="recusarCookies()" style="background:transparent; color:#888; border:1px solid #444; padding:9px 18px; font-weight:800; font-size:0.72rem; text-transform:uppercase; cursor:pointer; letter-spacing:0.5px;">{{ t.cookie_recusar }}</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Cookie banner logic
+        if (!localStorage.getItem('cookies')) {
+            document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function aceitarCookies() {
+            localStorage.setItem('cookies', 'aceite');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        function recusarCookies() {
+            localStorage.setItem('cookies', 'recusado');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+    </script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/fadein.js"></script>
+    <script src="/js/whatsapp-widget.js"></script>
     
 </body>
 </html>
