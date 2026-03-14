@@ -17,6 +17,25 @@ lang: pt
     <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/">
     <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/">
     {% endif %}
+    <!-- SEO -->
+    <meta name="description" content="{{ t.seo_desc }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/{% else %}https://www.wildalentejo.pt/{% endif %}">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Wild Alentejo">
+    <meta property="og:title" content="{{ t.titulo }}">
+    <meta property="og:description" content="{{ t.seo_desc }}">
+    <meta property="og:url" content="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/{% else %}https://www.wildalentejo.pt/{% endif %}">
+    <meta property="og:image" content="https://www.wildalentejo.pt/img/agrofloresta-hero1.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="{% if page.lang == 'en' %}en_GB{% else %}pt_PT{% endif %}">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ t.titulo }}">
+    <meta name="twitter:description" content="{{ t.seo_desc }}">
+    <meta name="twitter:image" content="https://www.wildalentejo.pt/img/agrofloresta-hero1.jpg">
     <style>
         .status-bar {
             background: var(--card-bg);
