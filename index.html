@@ -4,43 +4,71 @@ layout: null
 title: "Wild Alentejo — Regeneração Semiárida Off-Grid"
 description: "Projeto de agricultura sintrópica e autonomia energética em Mértola. Dados IoT em tempo real, agrofloresta regenerativa."
 ---
-
 {% assign t = site.data.translations[page.lang] %}
 <!DOCTYPE html>
 <html lang="{{ t.html_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ t.titulo }}</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
-    {% if page.lang == 'en' %}
-    <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/">
-    <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/">
-    {% else %}
-    <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/">
-    <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/">
-    {% endif %}
-    <!-- SEO -->
-    <meta name="description" content="{{ t.seo_desc }}">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/{% else %}https://www.wildalentejo.pt/{% endif %}">
+    
+    <!-- SEO Básico -->
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+    <link rel="canonical" href="https://wildalentejo.pt/">
+    
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Wild Alentejo">
-    <meta property="og:title" content="{{ t.titulo }}">
-    <meta property="og:description" content="{{ t.seo_desc }}">
-    <meta property="og:url" content="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/{% else %}https://www.wildalentejo.pt/{% endif %}">
-    <meta property="og:image" content="https://www.wildalentejo.pt/img/agrofloresta-hero1.jpg">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:url" content="https://wildalentejo.pt/">
+    <meta property="og:image" content="https://wildalentejo.pt/img/agrofloresta-hero1.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="{% if page.lang == 'en' %}en_GB{% else %}pt_PT{% endif %}">
+    <meta property="og:locale" content="pt_PT">
+    
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ t.titulo }}">
-    <meta name="twitter:description" content="{{ t.seo_desc }}">
-    <meta name="twitter:image" content="https://www.wildalentejo.pt/img/agrofloresta-hero1.jpg">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.description }}">
+    <meta name="twitter:image" content="https://wildalentejo.pt/img/agrofloresta-hero1.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Estilos específicos da página -->
     <style>
+        /* Intro pessoal */
+        .hero-intro {
+            max-width: 750px;
+            margin: 0 auto 35px;
+            padding: 0 15px;
+            text-align: center;
+        }
+        .hero-intro p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        .hero-intro strong {
+            color: var(--primary);
+            font-weight: 800;
+        }
+        
+        /* H1 visualmente integrado, mas semanticamente correto */
+        h1.page-title {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        
+        /* Status bar */
         .status-bar {
             background: var(--card-bg);
             border-bottom: 1px solid var(--border);
@@ -53,6 +81,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             justify-content: space-between;
             padding: 10px 0;
         }
+        
+        /* Section labels como H2 para SEO */
         .section-label {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -63,6 +93,9 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             display: flex;
             align-items: center;
             gap: 15px;
+            border: none;
+            padding: 0;
+            background: none;
         }
         .section-label::after {
             content: "";
@@ -70,6 +103,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             background: var(--border);
             flex-grow: 1;
         }
+        
+        /* Sensor grid */
         .sensor-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -112,6 +147,7 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
         .sensor-sub.verde   { color: #27ae60; }
         .sensor-sub.azul    { color: #3498db; }
         .sensor-sub.laranja { color: var(--accent); }
+        
         @media (max-width: 1100px) {
             .sensor-grid { grid-template-columns: repeat(3, 1fr); }
             .sensor-card { padding: 18px 10px; }
@@ -123,10 +159,13 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             .sensor-card h3 { font-size: 0.55rem; letter-spacing: 0; }
             .sensor-val  { font-size: 1.3rem; margin: 6px 0 3px; }
             .sensor-sub  { font-size: 0.7rem; }
+            .hero-intro p { font-size: 1rem; }
         }
         @media (max-width: 380px) {
             .sensor-grid { grid-template-columns: repeat(2, 1fr); }
         }
+        
+        /* Info grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -157,6 +196,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             margin-bottom: 14px;
         }
         .info-card p:last-child { margin-bottom: 0; }
+        
+        /* Princípios lista */
         .principios-lista {
             list-style: none;
             padding: 0;
@@ -177,6 +218,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             font-weight: 900;
             flex-shrink: 0;
         }
+        
+        /* Links grid */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -226,6 +269,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
         @media (max-width: 500px) {
             .links-grid { grid-template-columns: repeat(2, 1fr); }
         }
+        
+        /* Carrossel */
         .carrosel-wrap {
             width: 100%;
             margin-bottom: 50px;
@@ -293,6 +338,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             .info-grid { grid-template-columns: 1fr; }
             .carrosel-track img { height: 230px; }
         }
+        
+        /* Lang switch */
         .lang-switch {
             font-size: 0.65rem;
             font-weight: 800;
@@ -311,10 +358,14 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
 </head>
 <body>
 
+    <!-- H1 para SEO (visually hidden but accessible) -->
+    <h1 class="page-title">Wild Alentejo — Regeneração Semiárida Off-Grid em Mértola</h1>
+
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
-                <a href="/index.html"><img src="img/logo.png" alt="Wild Alentejo"></a>
+                <a href="/index.html"><img src="img/logo.png" alt="Wild Alentejo — Projeto de regeneração semiárida em Mértola"></a>
             </div>
             <nav>
                 <a href="/index.html" class="active">{{ t.nav_inicio }}</a>
@@ -330,6 +381,7 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
         </div>
     </header>
 
+    <!-- Status bar -->
     <div class="status-bar">
         <div class="container status-bar-inner">
             <span><strong>Wild Alentejo</strong> — {{ t.status_tagline }}</span>
@@ -339,7 +391,18 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
 
     <main class="container">
 
-        <div class="section-label">{{ t.secao_estado }}</div>
+        <!-- ✨ INTRO PESSOAL (nova) ✨ -->
+        <div class="hero-intro">
+            <p>
+                Olá, sou o <strong>Vítor</strong>. Tudo o que vês neste projeto foi feito por mim, sozinho, 
+                na bela zona semiárida de <strong>Mértola</strong>. Da plantação de árvores à energia solar, 
+                da monitorização IoT ao cuidado diário com o solo e as espécies, este é um registo real 
+                da minha vida <strong>off-grid</strong> e da regeneração agrícola em ação.
+            </p>
+        </div>
+
+        <!-- Estado do Sistema (H2 para SEO) -->
+        <h2 class="section-label">{{ t.secao_estado }}</h2>
 
         <div class="sensor-grid">
             <div class="sensor-card">
@@ -374,20 +437,22 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             </div>
         </div>
 
+        <!-- Carrossel -->
         <div class="carrosel-wrap" id="carrosel">
             <div class="carrosel-track" id="carrosel-track">
-                <img src="img/terreno.jpg" alt="Wild Alentejo — Vista Aérea">
-                <img src="img/terreno_rega.jpg" alt="Wild Alentejo — Sistema de Rega">
-                <img src="img/agrofloresta-hero1.jpg" alt="Wild Alentejo — Agrofloresta">
-                <img src="img/aridez_monocultura.jpeg" alt="Wild Alentejo — Sintropia">
-                <img src="img/estufa-inverno.jpg" alt="Wild Alentejo — Energia Solar">
+                <img src="img/terreno.jpg" alt="Vista aérea da agrofloresta sintrópica Wild Alentejo em Mértola">
+                <img src="img/terreno_rega.jpg" alt="Sistema de rega e monitorização IoT na agrofloresta off-grid">
+                <img src="img/agrofloresta-hero1.jpg" alt="Agrofloresta sintrópica em crescimento — Wild Alentejo">
+                <img src="img/aridez_monocultura.jpeg" alt="Comparação: aridez vs sintropia no projeto Wild Alentejo">
+                <img src="img/estufa-inverno.jpg" alt="Estufa e energia solar no inverno — sistema off-grid">
             </div>
-            <button class="carrosel-btn prev" onclick="moverCarrosel(-1)">&#8592;</button>
-            <button class="carrosel-btn next" onclick="moverCarrosel(1)">&#8594;</button>
+            <button class="carrosel-btn prev" onclick="moverCarrosel(-1)" aria-label="Imagem anterior">&#8592;</button>
+            <button class="carrosel-btn next" onclick="moverCarrosel(1)" aria-label="Próxima imagem">&#8594;</button>
             <div class="carrosel-dots" id="carrosel-dots"></div>
         </div>
 
-        <div class="section-label">{{ t.secao_projeto }}</div>
+        <!-- O Projeto (H2 para SEO) -->
+        <h2 class="section-label">{{ t.secao_projeto }}</h2>
 
         <div class="info-grid">
             <div class="info-card">
@@ -408,7 +473,8 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
             </div>
         </div>
 
-        <div class="section-label">{{ t.secao_explorar }}</div>
+        <!-- Explorar (H2 para SEO) -->
+        <h2 class="section-label">{{ t.secao_explorar }}</h2>
 
         <div class="links-grid">
             <a href="/sistemas2.html" class="link-card">
@@ -445,13 +511,14 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
 
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <img src="img/logo.png" alt="Wild Alentejo" class="footer-logo">
+            <img src="img/logo.png" alt="Wild Alentejo — Projeto de regeneração semiárida em Mértola" class="footer-logo">
             <p><strong>Wild Alentejo</strong> | {{ t.footer_tagline }}</p>
             <div class="footer-bottom">
                 <p>&copy; 2026 Wild Alentejo | {{ t.footer_copy }}<br>
-                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank">Home Assistant</a>.</p>
+                {{ t.footer_monitoring }} <a href="https://www.home-assistant.io/" target="_blank" rel="noopener">Home Assistant</a>.</p>
                 <a href="/sitemap.html" style="opacity:0.6; font-weight:400;">{{ t.footer_sitemap }}</a>
                 &nbsp;·&nbsp;
                 <a href="/privacidade.html" style="opacity:0.6; font-weight:400;">{{ t.footer_privacidade }}</a>
@@ -459,6 +526,7 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
         </div>
     </footer>
 
+    <!-- Cookie Banner -->
     <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; color:#ccc; font-family:'Inter',sans-serif; font-size:0.78rem; padding:16px 24px; align-items:center; justify-content:space-between; gap:20px; z-index:99999; flex-wrap:wrap;">
         <span>{{ t.cookie_texto }} <a href="/privacidade.html" style="color:#8DAF57;">{{ t.cookie_politica }}</a>.</span>
         <div style="display:flex; gap:10px; flex-shrink:0;">
@@ -467,12 +535,15 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
+        // Cookie banner
         const banner = document.getElementById('cookie-banner');
         if (!localStorage.getItem('cookies')) { banner.style.display = 'flex'; }
         function aceitarCookies() { localStorage.setItem('cookies', 'aceite'); banner.style.display = 'none'; }
         function recusarCookies() { localStorage.setItem('cookies', 'recusado'); banner.style.display = 'none'; }
 
+        // Carrossel
         const track = document.getElementById('carrosel-track');
         const dotsEl = document.getElementById('carrosel-dots');
         const slides = track.querySelectorAll('img');
@@ -503,13 +574,14 @@ description: "Projeto de agricultura sintrópica e autonomia energética em Mér
         });
         reiniciarTimer();
 
+        // Chuva API
         async function carregarChuva() {
             try {
                 const hoje = new Date();
-                const ano  = hoje.getFullYear();
-                const mes  = String(hoje.getMonth() + 1).padStart(2, '0');
-                const dia  = String(hoje.getDate()).padStart(2, '0');
-                const url  = `https://api.open-meteo.com/v1/forecast?latitude=37.64&longitude=-7.66&daily=precipitation_sum&start_date=${ano}-${mes}-01&end_date=${ano}-${mes}-${dia}&timezone=Europe%2FLisbon`;
+                const ano = hoje.getFullYear();
+                const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+                const dia = String(hoje.getDate()).padStart(2, '0');
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=37.64&longitude=-7.66&daily=precipitation_sum&start_date=${ano}-${mes}-01&end_date=${ano}-${mes}-${dia}&timezone=Europe%2FLisbon`;
                 const resp = await fetch(url);
                 const data = await resp.json();
                 if (data.daily && data.daily.precipitation_sum) {
