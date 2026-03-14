@@ -1,0 +1,3 @@
+echo "User-agent: *
+Allow: /
+Sitemap: https://www.wildalentejo.pt/sitemap.xml" > robots.txt
