@@ -3,15 +3,44 @@ description: Vida off-grid no semiárido — Mértola, Portugal
 url: "https://wildalentejo.pt"  
 markdown: kramdown
 
+
 defaults:
   - scope:
-      path: "_posts"
-      type: "posts"
+      path: ""
+      type: pages
     values:
-      layout: "post"
-      permalink: /logbook/:year/:month/:day/:title/
+      layout: default
+      image: /img/og-image.jpg
+      twitter:
+        card: summary_large_image
+      robots: index, follow
 
+  # 🇬🇧 Páginas em inglês (pasta /en/)
+  - scope:
+      path: "en"
+    values:
+      lang: en
+      locale: en_GB
+
+  # 🇵🇹 Páginas em português (default)
+  - scope:
+      path: ""
+    values:
+      lang: pt
+      locale: pt_PT
+
+  # 📝 Posts do logbook 
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: post
+      permalink: /logbook/:year/:month/:day/:title/
+      robots: index, follow
+      image: /img/og-image.jpg
+
+# ✅ Plugins SEO
 plugins:
-  - jekyll-sitemap  
-  - jekyll-seo-tag          
-  - jekyll-redirect-from   
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-redirect-from
