@@ -12,6 +12,25 @@ lang: en
     <link rel="icon" type="image/png" href="/img/logo.png">
     <link rel="alternate" hreflang="pt" href="https://wildalentejo.pt/agrofloresta.html">
     <link rel="alternate" hreflang="en" href="https://wildalentejo.pt/en/agrofloresta.html">
+<!-- SEO -->
+    <meta name="description" content="{{ t.agro_seo_desc }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/agrofloresta.html{% else %}https://www.wildalentejo.pt/agrofloresta.html{% endif %}">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Wild Alentejo">
+    <meta property="og:title" content="{{ t.agro_titulo }}">
+    <meta property="og:description" content="{{ t.agro_seo_desc }}">
+    <meta property="og:url" content="{% if page.lang == 'en' %}https://www.wildalentejo.pt/en/agrofloresta.html{% else %}https://www.wildalentejo.pt/agrofloresta.html{% endif %}">
+    <meta property="og:image" content="https://www.wildalentejo.pt/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="{% if page.lang == 'en' %}en_GB{% else %}pt_PT{% endif %}">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ t.agro_titulo }}">
+    <meta name="twitter:description" content="{{ t.agro_seo_desc }}">
+    <meta name="twitter:image" content="https://www.wildalentejo.pt/img/og-image.jpg">
     <style>
         .hero-agro {
             position: relative;
@@ -800,6 +819,5 @@ lang: en
     <script src="/js/counters.js"></script>
     <script src="/js/fadein.js"></script>
     <script src="/js/menu.js"></script>
-    <script src="/js/whatsapp-widget.js"></script>
 </body>
 </html>
