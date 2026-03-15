@@ -39,8 +39,13 @@ defaults:
       robots: index, follow
       image: /img/og-image.jpg
 
+  - name: Image Actions
+    uses: calibreapp/image-actions@1.4.1
+
 # ✅ Plugins SEO
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-redirect-from
+
+
